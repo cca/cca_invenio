@@ -5,7 +5,7 @@ services:
       context: ./
       args:
         - ENVIRONMENT=DEV
-    image: invenio-vault
+    image: invenio
     restart: "unless-stopped"
     environment:
       - "INVENIO_ACCOUNTS_SESSION_REDIS_URL=redis://cache:6379/1"
@@ -16,12 +16,12 @@ services:
       - "INVENIO_CELERY_RESULT_BACKEND=redis://cache:6379/2"
       - "INVENIO_SEARCH_HOSTS=['search:9200']"
       - "INVENIO_SECRET_KEY=CHANGE_ME"
-      - "INVENIO_SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://invenio-vault:invenio-vault@db/invenio-vault"
+      - "INVENIO_SQLALCHEMY_DATABASE_URI=postgresql+psycopg2://invenio:invenio@db/invenio"
       - "INVENIO_WSGI_PROXIES=2"
       - "INVENIO_RATELIMIT_STORAGE_URL=redis://cache:6379/3"
   frontend:
     build: ./docker/nginx/
-    image: invenio-vault-frontend
+    image: invenio-frontend
     restart: "unless-stopped"
     ports:
       - "80"
@@ -36,20 +36,20 @@ services:
     image: postgres:12.4
     restart: "unless-stopped"
     environment:
-      - "POSTGRES_USER=invenio-vault"
-      - "POSTGRES_PASSWORD=invenio-vault"
-      - "POSTGRES_DB=invenio-vault"
+      - "POSTGRES_USER=invenio"
+      - "POSTGRES_PASSWORD=invenio"
+      - "POSTGRES_DB=invenio"
     ports:
       - "5432:5432"
   pgadmin:
-    image: dpage/pgadmin4:5.2
+    image: dpage/pgadmin4:6
     restart: "unless-stopped"
     ports:
       - "5050:80"
       - "5051:443"
     environment:
       PGADMIN_DEFAULT_EMAIL: "ephetteplace@cca.edu"
-      PGADMIN_DEFAULT_PASSWORD: "invenio-vault"
+      PGADMIN_DEFAULT_PASSWORD: "invenio"
     volumes:
       - ./docker/pgadmin/servers.json:/pgadmin4/servers.json
   mq:

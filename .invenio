@@ -5,6 +5,7 @@ logfile = /logs/invenio-cli.log
 [cookiecutter]
 project_name = CCA InvenioRDM
 project_shortname = invenio
+package_name = cca_inveniordm
 project_site = archive.cca.edu
 github_repo = cca/cca_invenio
 description = CCA InvenioRDM Instance
@@ -17,6 +18,7 @@ search = opensearch2
 file_storage = local
 development_tools = yes
 site_code = yes
+use_reduced_vocabs = no
 _template = https://github.com/inveniosoftware/cookiecutter-invenio-rdm.git
 
 [files]

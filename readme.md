@@ -16,6 +16,8 @@ invenio-cli services setup --no-demo-data # sets up db, cache, search, task queu
 invenio-cli run # runs the application
 ```
 
+The services setup actually enqueues a many tasks rather than completing them synchronously, so the first time you `run` the app it will take a while before setup is complete.
+
 See our "notes" folder for further documentation.
 
 ## Overview
