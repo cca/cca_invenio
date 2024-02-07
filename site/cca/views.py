@@ -4,13 +4,12 @@ from flask import Blueprint
 
 from .vocablist.vocablist import VocabListView
 
-#
+
 # Registration
-#
 def create_blueprint(app):
     """Register blueprint routes on app."""
     blueprint = Blueprint(
-        "vault",
+        "cca",
         __name__,
         template_folder="./templates",
     )

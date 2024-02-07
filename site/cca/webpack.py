@@ -1,4 +1,4 @@
-"""JS/CSS Webpack bundles for VAULT."""
+"""JS/CSS Webpack bundles for CCA."""
 
 from invenio_assets.webpack import WebpackThemeBundle
 
@@ -8,7 +8,7 @@ theme = WebpackThemeBundle(
     default="semantic-ui",
     themes={
         "semantic-ui": dict(
-            entry={"vault-test": "./js/vault/test.js"},
+            entry={"cca-test": "./js/cca/test.js"},
         ),
     },
 )
