@@ -3,14 +3,14 @@ flavour = RDM
 logfile = /logs/invenio-cli.log
 
 [cookiecutter]
-project_name = VAULT
+project_name = CCA InvenioRDM
 project_shortname = invenio
-project_site = vault.cca.edu
-github_repo = cca/vault_invenio
-description = VAULT InvenioRDM Instance
+project_site = archive.cca.edu
+github_repo = cca/cca_invenio
+description = CCA InvenioRDM Instance
 author_name = Eric Phetteplace (@phette23)
 author_email = ephetteplace@cca.edu
-year = 2022
+year = 2024
 python_version = 3.9
 database = postgresql
 search = opensearch2

@@ -5,7 +5,7 @@
 # and includes Pip, Pipenv, Node.js, NPM and some few standard libraries
 # Invenio usually needs.
 #
-# @TODO https://vsupalov.com/buildkit-cache-mount-dockerfile/
+# TODO https://vsupalov.com/buildkit-cache-mount-dockerfile/
 
 FROM registry.cern.ch/inveniosoftware/almalinux:1
 

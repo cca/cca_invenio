@@ -26,7 +26,7 @@ Invenio initializes fixtures (basically, the static app_data files) asynchronous
 
 Once running, visit https://127.0.0.1:5000 in a web browser. **Note**: The server is using a self-signed SSL certificate, so your browser will issue a warning that you have to by-pass.
 
-The super admin is vault@cca.edu with password "password", this comes from app_data/users.yaml. You may need to `invenio users activate vault@cca.edu` the admin account.
+The super admin is archive@cca.edu with password "password", this comes from app_data/users.yaml. You may need to `invenio users activate archive@cca.edu` the admin account.
 
 ## Theme & Templates
 
@@ -60,8 +60,8 @@ There is a custom view at `/vocablist` which lists all vocabs and links to their
 
 To add custom JS to a template, you'll need to override the template, add a webpack entrypoint, and reference the script in the template. At a high level:
 
-- create the script in site/vault/assets/semanti-ui/js/vault
-- add its entry to site/vault/webpack.py like `'test': './js/vault/test.js'`
+- create the script in site/cca/assets/semanti-ui/js/cca
+- add its entry to site/cca/webpack.py like `'test': './js/cca/test.js'`
 - use the alias we defined above when inserting it into a template
 
 ```html
@@ -89,10 +89,10 @@ Then to run tests, ensure Docker is running, and `./run-tests.sh`.
 
 ## GitHub _and_ GitLab?!?
 
-I want the project features of GitHub as well as the ability to easily write Markdown links to the various Invenio software projects, but we use GitLab for our CI/CD. I originally tried mirroring the GH repo in GL, but that proved too slow. Instead, we can just use a remote with multiple push URLs:
+I want the project features of GitHub as well as the ability to easily write Markdown links to the various Invenio software projects, but we use GitLab for our CI/CD. I originally tried mirroring the GH repo in GL, but that proved too slow. Instead, we can use a remote with multiple push URLs:
 
 ```sh
-git remote set-url --push --add origin git@github.com:cca/vault_invenio.git
+git remote set-url --push --add origin git@github.com:cca/cca_invenio.git
 git remote set-url --push --add origin git@gitlab.com:california-college-of-the-arts/invenio.git
 ```
 

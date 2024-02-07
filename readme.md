@@ -1,4 +1,4 @@
-# VAULT InvenioRDM
+# CCA InvenioRDM
 
 CCA InvenioRDM instance. This is mostly a cookiecutter Invenio project with additional documentation for us.
 

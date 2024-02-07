@@ -2,11 +2,12 @@
 # admin@inveniosoftware.org account, it still tries to create that account which
 # causes a username collision if you create a username: admin account
 # it also creates a "user" account as part of demo fixtures
-- email: vault@cca.edu
-  username: vadmin
-  full_name: VAULT Administrator
+- email: archive@cca.edu
+  username: aadmin
+  full_name: Archive Administrator
   active: True
-  # a null value for affiliations causes an error but that is also a user field
+  # a null value for affiliations causes an error, must leave entirely absent if not known
+  affiliations: California College of the Arts
   confirmed: True
   # TODO this is obviously not production-safe ;)
   password: password
