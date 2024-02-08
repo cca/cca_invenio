@@ -5,7 +5,7 @@
 # props vocabularies #
 ######################
 
-# CSL https://github.com/citation-style-language/schema/blob/master/schemas/styles/csl-types.rnc
+# CSL https://docs.citationstyles.org/en/stable/specification.html#appendix-iii-types
 # see their github org https://github.com/citation-style-language
 
 # datacite https://support.datacite.org/docs/datacite-metadata-schema-44
@@ -23,6 +23,25 @@
 # eurepo: https://wiki.surfnet.nl/display/standards/info-eu-repo/#infoeurepo-Publicationtypes
 
 # schema.org: https://schema.org/
+
+# course work (custom type)
+- id: course-work
+  icon: graduation cap
+  props:
+    csl: graphic
+    datacite_general: Image
+    datacite_type: ""
+    openaire_resourceType: "0020"
+    openaire_type: image
+    eurepo: info:eu-repo/semantics/other
+    schema.org: https://schema.org/CreativeWork
+    subtype: ""
+    type: course-work
+  title:
+    en: Course Work
+  tags:
+    - depositable
+    - linkable
 
 # documents
 - id: publication
@@ -55,7 +74,7 @@
     subtype: publication-article
     type: publication
   title:
-    en: Journal article
+    en: Article
   tags:
     - depositable
     - linkable
@@ -92,7 +111,7 @@
     type: thesis
   title:
     en: Thesis
-  # ? remove tags prop, hopefully this mean it's not an option on upload form?
+  # no tags -> not an option on upload form
 - id: bachelors-thesis
   icon: file alternate
   props:
@@ -131,11 +150,11 @@
 - id: image
   icon: chart bar outline
   props:
-    csl: figure # "graphic" is another option but there's no "image"
+    csl: graphic # "figure" is another option, no "image", see CSL link
     datacite_general: Image
     datacite_type: ""
     openaire_resourceType: "0025"
-    openaire_type: dataset
+    openaire_type: image
     eurepo: info:eu-repo/semantics/other
     schema.org: https://schema.org/ImageObject
     subtype: ""
@@ -186,7 +205,7 @@
 - id: other
   icon: asterisk
   props:
-    csl: article
+    csl: document
     datacite_general: Other
     datacite_type: ""
     openaire_resourceType: "0020"
