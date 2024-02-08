@@ -2,6 +2,23 @@
 
 ## Getting started
 
+### Languages and Tools
+
+There is an [asdf](https://asdf-vm.com/) ".tool-versions" file in the root of the project. Invenio supports Python 3.9 at the latest (as of 03/2023) and only Node 16. Follow the asdf setup instructions and add the python and nodejs plugins, then install the appropriate versions. Note that asdf can conflict with other version managers like pyenv and nvm, so you may need to uninstall those or make sure asdf takes priority in your `PATH`.
+
+```sh
+brew install asdf
+# add asdf to your shell profile
+# see https://asdf-vm.com/guide/getting-started.html
+asdf plugin add python
+asdf plugin add nodejs
+asdf install
+```
+
+Installing `invenio-saml` requires an outdated version of `xmlsec1` (see [#17](https://github.com/cca/cca_invenio/issues/17))which isn't in Homebrew. Eric made a local tap for the requisite version. First, download install Xcode and open it to accept the license agreement. Then `brew tap phette23/local` and `brew install xmlsec1@1.2.37`.
+
+### Invenio Installation
+
 See [Installation docs](https://inveniordm.docs.cern.ch/install/). We recommend the "local" or "services" setup which runs the main Invenio Flask application on your host machine using the code in this repository, while the database, search engine, task queue, and redis cache are run as Docker containers. These steps only need to be run once.
 
 ```sh
@@ -79,7 +96,7 @@ Then rebuild the JS assets & restart the app: `invenio-cli assets build && inven
 See, for instance, [invenio-rdm-records](https://github.com/inveniosoftware/invenio-rdm-records) where it says how to install dependencies and run tests. These steps won't be enough, however, they don't include two necessary modules. It's also not clear to me why we're installing things one-by-one, doing as much typing as possible.
 
 ```sh
-pipenv --python 3.9 # create the venv, 3.9 is latest version Invenio supports as of 6/2023
+pipenv --python 3.9
 pipenv shell
 pip install -e .[all]
 pip install invenio-search[opensearch2] invenio-db[postgresql] docker-services-cli check_manifest sphinx
