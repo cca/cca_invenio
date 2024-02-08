@@ -4,13 +4,13 @@
 
 | Site | URL | Repos | Notes |
 |------|-----|-------|-------|
-| CalTech | https://data.caltech.edu/ | https://github.com/caltechlibrary/caltechdata | see their CLI commands
-| TU Wien | https://researchdata.tuwien.ac.at/ | https://gitlab.tuwien.ac.at/fairdata/invenio-theme-tuw |
-| TU Graz | https://repository.tugraz.at/ | https://github.com/tu-graz-library/invenio-theme-tugraz |
-| ITAM | https://invenio.itam.cas.cz/ |
-| CERN Document Server | not live yet | https://github.com/CERNDocumentServer/cds-rdm | bleeding edge v12
-| Zenodo | not live yet? | https://github.com/zenodo/zenodo-rdm | bleeding edge v12, useful [cli commands](https://github.com/zenodo/zenodo-rdm/blob/master/site/zenodo_rdm/cli.py)
-| Northwestern Medicine | https://prism.northwestern.edu/ | no github repo?
+| CalTech | https://data.caltech.edu/ | https://github.com/caltechlibrary/caltechdata | see their [scripts](https://github.com/caltechlibrary/caltechdata/tree/main/scripts) |
+| TU Wien | https://researchdata.tuwien.ac.at/ | https://gitlab.tuwien.ac.at/fairdata/invenio-theme-tuw | |
+| TU Graz | https://repository.tugraz.at/ | https://github.com/tu-graz-library/invenio-theme-tugraz | |
+| ITAM | https://invenio.itam.cas.cz/ | | |
+| CERN Document Server | not live yet | https://github.com/CERNDocumentServer/cds-rdm | bleeding edge v12 |
+| Zenodo | not live yet? | https://github.com/zenodo/zenodo-rdm | bleeding edge v12, useful [cli commands](https://github.com/zenodo/zenodo-rdm/blob/master/site/zenodo_rdm/cli.py) |
+| Northwestern Medicine | https://prism.northwestern.edu/ | no github repo? | |
 
 ## [Documentation](https://inveniordm.docs.cern.ch/)
 
