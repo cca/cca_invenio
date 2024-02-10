@@ -4,7 +4,7 @@
 
 | Site | URL | Repos | Notes |
 |------|-----|-------|-------|
-| CalTech | https://data.caltech.edu/ | https://github.com/caltechlibrary/caltechdata | see their [scripts](https://github.com/caltechlibrary/caltechdata/tree/main/scripts) |
+| CalTech | https://data.caltech.edu/ | https://github.com/caltechlibrary/caltechdata | see their [scripts](https://github.com/caltechlibrary/caltechdata/tree/main/scripts) & [api](https://github.com/caltechlibrary/caltechdata_api/) |
 | TU Wien | https://researchdata.tuwien.ac.at/ | https://gitlab.tuwien.ac.at/fairdata/invenio-theme-tuw | |
 | TU Graz | https://repository.tugraz.at/ | https://github.com/tu-graz-library/invenio-theme-tugraz | |
 | ITAM | https://invenio.itam.cas.cz/ | | |
