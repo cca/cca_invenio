@@ -14,7 +14,7 @@ invenio-cli = "==1.1.0"
 invenio-app-rdm = {version = "==11.0.4", extras = ["opensearch2", "postgresql"]}
 # name below should match what's in /site/setup.cfg
 cca = {editable="True", path="./site"}
-repository-cli = "==0.10.0"
+greenlet = "==3.0.3"
 
 [requires]
 python_version = "3.9"
