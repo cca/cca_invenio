@@ -8,7 +8,9 @@
 # Note: It is important to keep the commands in this file in sync with your
 # bootstrap script located in ./scripts/bootstrap.
 
-FROM registry.cern.ch/inveniosoftware/almalinux:1
+# https://github.com/inveniosoftware/docker-invenio
+# https://registry.cern.ch/harbor/projects/1825/repositories/almalinux/artifacts-tab?publicAndNotLogged=yes
+FROM registry.cern.ch/inveniosoftware/almalinux:latest
 
 COPY site ./site
 COPY Pipfile Pipfile.lock ./
