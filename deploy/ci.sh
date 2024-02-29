@@ -85,7 +85,7 @@ release() {
     git tag "${NEW_TAG}"
     git push origin "${NEW_TAG}"
     sleep 3
-    glab ci status -l
+    glab ci status --repo california-college-of-the-arts/invenio --live
 }
 
 usage() {
