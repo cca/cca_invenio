@@ -98,6 +98,7 @@ usage() {
 # Constants
 APP_NAME="invenio"
 GAR_HOSTNAME="us-west2-docker.pkg.dev"
+# TODO pushing dev and staging to the same image might be ruining the cache
 GAR_REPO="docker-web"
 GCP_ZONE="us-west1-b"
 
