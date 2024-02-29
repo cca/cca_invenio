@@ -2,7 +2,7 @@
 # admin@inveniosoftware.org account, it still tries to create that account which
 # causes a username collision if you create a username: admin account
 # it also creates a "user" account as part of demo fixtures
-- email: archive@cca.edu
+- email: archives@cca.edu
   username: aadmin
   full_name: Archive Administrator
   active: True

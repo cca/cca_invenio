@@ -25,7 +25,7 @@ For [Names](https://inveniordm.docs.cern.ch/customize/vocabularies/names/), new 
 
 ## Security, Users
 
-Users are created by app_data/[users.yaml](https://inveniordm.docs.cern.ch/customize/vocabularies/users/). We create a default "archive@cca.edu" superadmin with password "password". Passwords can also be defined in invenio.cfg by `RDM_RECORDS_USER_FIXTURE_PASSWORDS`. Passwords in the setting override passwords in users.yaml.
+Users are created by app_data/[users.yaml](https://inveniordm.docs.cern.ch/customize/vocabularies/users/). We create a default "archives@cca.edu" superadmin with password "password". Passwords can also be defined in invenio.cfg by `RDM_RECORDS_USER_FIXTURE_PASSWORDS`. Passwords in the setting override passwords in users.yaml.
 
 There are many invenio.cfg boolean settings we'll need to flip when we switch to SSO.
 
