@@ -80,8 +80,6 @@ variables:
     <<: *staging_vars
   services:
     - docker:dind
-  before_script:
-    - *setup
   script:
     - bash ./deploy/ci.sh build
 
@@ -98,8 +96,6 @@ variables:
   services:
     # ? does deploy need docker?
     - docker:dind
-  before_script:
-    - *setup
   script:
     - bash ./deploy/ci.sh deploy
 
