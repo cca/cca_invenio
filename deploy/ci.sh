@@ -6,14 +6,22 @@ IFS=$'\n\t'
 
 ACTION=${1}
 
-if [[ -z "${ENVIRONMENT}" ]]; then
-    (>&2 echo "You must set the ENVIRONMENT env var")
-    exit 1
-fi
-
 # Functions
+deploy() {
+    # TODO not used right now
+    gcloud_auth
+    gcloud_kubernetes_auth
+    envsubst < deploy/values.yaml | helm upgrade --install --namespace "${APP_NAME}-${ENVIRONMENT}" --create-namespace --values -
+}
+
 docker_build_and_push() {
     header "Building and pushing Docker image"
+
+    # CI push so we have to auth
+    if [[ "${ENVIRONMENT}" != "dev" ]]; then
+        gcloud_auth
+    fi
+
     # Use Gitlab CI_COMMIT_SHORT_SHA if available, otherwise use current commit
     COMMIT_SHA=${CI_COMMIT_SHORT_SHA:-$(git rev-parse --short=8 HEAD)}
     DOCKER_IMAGE="${GAR_HOSTNAME}/${GCP_PROJECT}/${GAR_REPO}/${APP_NAME}"
@@ -31,11 +39,6 @@ gcloud_auth() {
 
     # Do not print $GCLOUD_KEY
     set +x
-
-    if [[ -z "${GCLOUD_KEY}" ]]; then
-        echo "You must set the GCLOUD_KEY env var"
-        exit 1
-    fi
 
     # Install our service account credentials.
     echo "$GCLOUD_KEY" > /tmp/gcloud.json
@@ -56,6 +59,35 @@ header() {
     echo "========================================================================"
 }
 
+# automatically increment staging or release tag then push to git and watch glab ci status -l
+release() {
+    header "Git tagging for ${ENVIRONMENT} release"
+
+    # get the latest tag
+    LATEST_TAG=$(git describe --tags --match "${GIT_TAG_PATTERN}*" --abbrev=0)
+    if [[ -z "$LATEST_TAG" ]]; then
+        echo "No previous tag found, starting from 0"
+        LATEST_TAG_NUMBER="0"
+    else
+        # get the latest tag number
+        LATEST_TAG_NUMBER=$(echo ${LATEST_TAG} | sed -e "s/${GIT_TAG_PATTERN}-//")
+    fi
+
+    if [[ -z "${LATEST_TAG_NUMBER}" || ! $LATEST_TAG_NUMBER =~ ^[0-9]+$ ]]; then
+        echo "Error: cannot parse number from tag ${LATEST_TAG}" >&2
+        exit 1
+    fi
+
+    # increment the tag number
+    NEW_TAG_NUMBER=$((LATEST_TAG_NUMBER + 1))
+    NEW_TAG="${GIT_TAG_PATTERN}-${NEW_TAG_NUMBER}"
+    echo "Creating new tag: ${NEW_TAG}"
+    git tag "${NEW_TAG}"
+    git push origin "${NEW_TAG}"
+    sleep 3
+    glab ci status -l
+}
+
 usage() {
     set +x
     echo "Usage: $0 [build|deploy]"
@@ -70,20 +102,21 @@ GCP_ZONE="us-west1-b"
 
 # Environment-dependent variables
 case $ENVIRONMENT in
-    "dev" | "local")
+    "dev")
         GCP_PROJECT="cca-web-staging"
         GAR_IMAGE_TAG="dev"
+        GIT_TAG_PATTERN="stg-full" # default to staging releases
         # No need to authenticate with GCP
         ;;
     "staging")
         GCP_PROJECT="cca-web-staging"
         GAR_IMAGE_TAG="staging"
-        gcloud_auth
+        GIT_TAG_PATTERN="stg-full" # TODO stg-fast
         ;;
-    "prod")
+    "production")
         GCP_PROJECT="cca-web-0"
         GAR_IMAGE_TAG="prod"
-        gcloud_auth
+        GIT_TAG_PATTERN="release"
         ;;
     *)
         (>&2 echo "Invalid environment: ${ENVIRONMENT}")
@@ -103,6 +136,10 @@ case $ACTION in
         # helm nonsense
         # cat deploy/values.yaml | envsubst | helm upgrade --install --namespace ${APP_NAME}-${ENVIRONMENT} --create-namespace --values -
         echo "Deploying to kubernetes not implemented yet"
+        ;;
+    "release")
+        # automatically increment staging or release tag then push to git and watch glab ci status -l
+        release
         ;;
     *)
         echo "Invalid action: ${ACTION}" >&2
