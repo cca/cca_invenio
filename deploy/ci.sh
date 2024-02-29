@@ -83,6 +83,7 @@ release() {
     NEW_TAG="${GIT_TAG_PATTERN}-${NEW_TAG_NUMBER}"
     echo "Creating new tag: ${NEW_TAG}"
     git tag "${NEW_TAG}"
+    git push
     git push origin "${NEW_TAG}"
     sleep 3
     glab ci status --repo california-college-of-the-arts/invenio --live
