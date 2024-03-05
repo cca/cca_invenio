@@ -85,7 +85,7 @@ nginx:
   denied_uas: ""
 
 web:
-  image: "ghcr.io/inveniosoftware/demo-inveniordm/demo-inveniordm:latest"
+  image: "us-west2-docker.pkg.dev/cca-web-staging/docker-web/invenio:latest"
   imagePullSecret: ""
   replicas: 1
   terminationGracePeriodSeconds: 60
@@ -123,7 +123,7 @@ web:
 
 worker:
   enabled: true
-  image: "ghcr.io/inveniosoftware/demo-inveniordm/demo-inveniordm:latest"
+  image: "us-west2-docker.pkg.dev/cca-web-staging/docker-web/invenio:latest"
   imagePullSecret: ""
   app: invenio_app.celery
   concurrency: 2
