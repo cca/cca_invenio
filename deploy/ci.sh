@@ -92,7 +92,7 @@ release() {
 usage() {
     set +x
     echo "Usage: $0 [build|deploy]"
-    echo "Requires at least an ENVIRONMENT environment variable to be set to one of [dev/local, staging, prod]."
+    echo "Requires at least an ENVIRONMENT environment variable to be set to one of [dev, staging, prod]."
 }
 
 # Constants
@@ -108,7 +108,6 @@ case $ENVIRONMENT in
         GCP_PROJECT="cca-web-staging"
         GAR_IMAGE_TAG="dev"
         GIT_TAG_PATTERN="stg-full" # default to staging releases
-        # No need to authenticate with GCP
         ;;
     "staging")
         GCP_PROJECT="cca-web-staging"
