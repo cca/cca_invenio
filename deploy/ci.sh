@@ -8,10 +8,21 @@ ACTION=${1}
 
 # Functions
 deploy() {
-    # TODO not used right now
-    gcloud_auth
-    gcloud_kubernetes_auth
-    envsubst < deploy/values.yaml | helm upgrade --install --namespace "${APP_NAME}-${ENVIRONMENT}" --create-namespace --values -
+    if [[ "${ENVIRONMENT}" != "dev" ]]; then
+        echo "Deploying to kubernetes not implemented yet"
+        exit
+
+        # TODO staging and prod deployments
+        gcloud_auth
+        gcloud_kubernetes_auth
+        # helm chart cannot be installed so we clone it. Repo also has no tags so we checkout a commit
+        git clone --shallow-since="2024-02-14" --quiet https://github.com/inveniosoftware/helm-invenio /tmp/helm-invenio
+        git -C /tmp/helm-invenio checkout f507397fbb75e3d95d8338959e61542c1c97e633
+        INVENIO_HELM_CHART="/tmp/helm-invenio"
+    fi
+
+    envsubst < deploy/values.yaml \
+        | helm upgrade --install --namespace "${APP_NAME}-${ENVIRONMENT}" --create-namespace --values - "${APP_NAME}" "${INVENIO_HELM_CHART}"
 }
 
 docker_build_and_push() {
@@ -134,9 +145,7 @@ case $ACTION in
         docker_build_and_push
         ;;
     "deploy")
-        # helm nonsense
-        # cat deploy/values.yaml | envsubst | helm upgrade --install --namespace ${APP_NAME}-${ENVIRONMENT} --create-namespace --values -
-        echo "Deploying to kubernetes not implemented yet"
+        deploy
         ;;
     "release")
         # automatically increment staging or release tag then push to git and watch glab ci status -l
