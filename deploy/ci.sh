@@ -70,7 +70,7 @@ release() {
         LATEST_TAG_NUMBER="0"
     else
         # get the latest tag number
-        LATEST_TAG_NUMBER=$(echo ${LATEST_TAG} | sed -e "s/${GIT_TAG_PATTERN}-//")
+        LATEST_TAG_NUMBER="${LATEST_TAG//$GIT_TAG_PATTERN-/}"
     fi
 
     if [[ -z "${LATEST_TAG_NUMBER}" || ! $LATEST_TAG_NUMBER =~ ^[0-9]+$ ]]; then
