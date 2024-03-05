@@ -1,6 +1,14 @@
 # Ignore local virtualenv (if present)
-.venv/
-deploy/
-notes/
+__pycache__
+.env
+.git
 .gitlab-ci.yml
+.tool-versions
+.venv/
+*.pyc
+*.pyo
+deploy/
+example.env
+notes/
+npm-debug.log
 readme.md
