@@ -15,8 +15,6 @@ asdf plugin add nodejs
 asdf install
 ```
 
-Installing `invenio-saml` requires an outdated version of `xmlsec1` (see [#17](https://github.com/cca/cca_invenio/issues/17))which isn't in Homebrew. Eric made a local tap for the requisite version. First, download install Xcode and open it to accept the license agreement. Then `brew tap phette23/local` and `brew install xmlsec1@1.2.37`.
-
 ### Invenio Installation
 
 See [Installation docs](https://inveniordm.docs.cern.ch/install/). We recommend the "local" or "services" setup which runs the main Invenio Flask application on your host machine using the code in this repository, while the database, search engine, task queue, and redis cache are run as Docker containers. These steps only need to be run once.
