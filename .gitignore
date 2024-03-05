@@ -60,6 +60,7 @@ test.db
 
 # Environments
 .venv/
+.env
 
 # Logs
 logs/
