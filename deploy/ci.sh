@@ -13,6 +13,7 @@ deploy() {
         exit
 
         # TODO staging and prod deployments
+        # TODO is auth needed with imagePullSecrets?
         gcloud_auth
         gcloud_kubernetes_auth
         # helm chart cannot be installed so we clone it. Repo also has no tags so we checkout a commit
