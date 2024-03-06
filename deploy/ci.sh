@@ -7,6 +7,18 @@ IFS=$'\n\t'
 ACTION=${1}
 
 # Functions
+delete() {
+    if [[ "${ENVIRONMENT}" = "dev" ]]; then
+        header "Deleting local kubernetes deployment"
+        helm delete --ignore-not-found --namespace "${APP_NAME}-${ENVIRONMENT}" "${APP_NAME}"
+        # helm refuses to delete this pvc & `helm install/upgrade` fail if it exists
+        kubectl delete --namespace "${APP_NAME}-${ENVIRONMENT}" pvc shared-volume
+    else
+        echo "Deleting to ${ENVIRONMENT} kubernetes cluster not implemented"
+        exit
+    fi
+}
+
 deploy() {
     if [[ "${ENVIRONMENT}" != "dev" ]]; then
         echo "Deploying to kubernetes not implemented yet"
@@ -41,6 +53,7 @@ docker_build_and_push() {
     # Pull the latest Docker image
     docker pull --quiet "${DOCKER_IMAGE}:latest" || true
     # Build the Docker image
+    # TODO might need --platform linux/arm64 --build-arg BUILDARCH=linux/arm64 to work with minikube
     docker build --build-arg BUILDKIT_INLINE_CACHE=1 --cache-from "${DOCKER_IMAGE}:latest" -t "${DOCKER_IMAGE_TAG}" .
     docker tag  "${DOCKER_IMAGE_TAG}" "${DOCKER_IMAGE}:latest"
     docker push --all-tags ${DOCKER_IMAGE}
@@ -144,6 +157,9 @@ case $ACTION in
         ;;
     "build")
         docker_build_and_push
+        ;;
+    "delete")
+        delete
         ;;
     "deploy")
         deploy
