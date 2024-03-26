@@ -5,17 +5,20 @@
 # props vocabularies #
 ######################
 
+# Icons are from React Semantic UI
+# https://react.semantic-ui.com/elements/icon/
+
 # CSL https://docs.citationstyles.org/en/stable/specification.html#appendix-iii-types
 # see their github org https://github.com/citation-style-language
 
-# datacite https://support.datacite.org/docs/datacite-metadata-schema-44
+# datacite https://support.datacite.org/docs/datacite-metadata-schema
 # datacite_general: https://support.datacite.org/docs/datacite-metadata-schema-v44-mandatory-properties#10a-resourcetypegeneral
-# datacite_type: open-ended OR from "CASRAI Publications resource type list" but that list seems to have disappeared
-# from the internet
+# datacite_type: open-ended, meant to pair with datacite_general such that "GENERAL/TYPE" makes sense like "Dataset/Census Data"
+# Potential type values can come from:
 # COAR resource types: https://vocabularies.coar-repositories.org/resource_types/
 # euroCRIS output types vocab: https://cerif.eurocris.org/vocab/html/OutputTypes.html
 
-# my assumption is datacite general/type are identical with openaire resourcetype/type
+# My assumption is datacite general/type are identical with openaire resourcetype/type
 # openaire resourcetype https://guidelines.openaire.eu/en/latest/data/field_resourcetype.html
 # based on CASRAI list above that I can't find
 # openaire type seems to be a text version of resourceType ID
@@ -43,7 +46,7 @@
     - depositable
     - linkable
 
-# documents
+# documents/publications
 - id: publication
   icon: file alternate
   props:
@@ -62,7 +65,7 @@
     - depositable
     - linkable
 - id: publication-article
-  icon: file alternate
+  icon: file alternate outline
   props:
     csl: article-journal
     datacite_general: JournalArticle
@@ -79,7 +82,7 @@
     - depositable
     - linkable
 - id: publication-book
-  icon: file alternate
+  icon: book
   props:
     csl: book
     datacite_general: Book
@@ -95,10 +98,27 @@
   tags:
     - depositable
     - linkable
+- id: publication-syllabus
+  icon: file alternate outline
+  props:
+    csl: article
+    datacite_general: Text
+    datacite_type: Syllabus
+    openaire_resourceType: "0020"
+    openaire_type: publication
+    eurepo: info:eu-repo/semantics/other
+    schema.org: https://schema.org/Syllabus
+    subtype: publication-syllabus
+    type: publication
+  title:
+    en: Syllabus
+  tags:
+    - depositable
+    - linkable
 
 # theses
 - id: thesis
-  icon: file alternate
+  icon: graduation cap
   props:
     csl: thesis
     datacite_general: Text
@@ -113,7 +133,7 @@
     en: Thesis
   # no tags -> not an option on upload form
 - id: bachelors-thesis
-  icon: file alternate
+  icon: graduation cap
   props:
     csl: thesis
     datacite_general: Text
@@ -125,12 +145,12 @@
     subtype: bachelors-thesis
     type: thesis
   title:
-    en: Bachelor's Thesis
+    en: Bachelor's Thesis or Senior Project
   tags:
     - depositable
     - linkable
 - id: masters-thesis
-  icon: file alternate
+  icon: graduation cap
   props:
     csl: thesis
     datacite_general: Text
@@ -147,8 +167,9 @@
     - depositable
     - linkable
 
+# Image types
 - id: image
-  icon: chart bar outline
+  icon: file image outline
   props:
     csl: graphic # "figure" is another option, no "image", see CSL link
     datacite_general: Image
@@ -161,6 +182,71 @@
     type: image
   title:
     en: Image
+- id: image-map
+  icon: map marker alternate
+  props:
+    csl: map
+    datacite_general: Image
+    datacite_type: Map
+    openaire_resourceType: "0020"
+    openaire_type: image
+    eurepo: info:eu-repo/semantics/other
+    schema.org: https://schema.org/Map
+    subtype: image-map
+    type: image
+  title:
+    en: Map
+  tags:
+    - depositable
+    - linkable
+- id: image-painting-drawing
+  icon: paint brush
+  props:
+    csl: graphic
+    datacite_general: Image
+    datacite_type: Drawing
+    openaire_resourceType: "0020"
+    openaire_type: image
+    eurepo: info:eu-repo/semantics/other
+    schema.org: https://schema.org/ImageObject
+    subtype: image-painting-drawing
+    type: image
+  title:
+    en: Painting/Drawing
+  tags:
+    - depositable
+    - linkable
+- id: image-photo
+  icon: photo
+  props:
+    csl: graphic
+    datacite_general: Image
+    datacite_type: Photo
+    openaire_resourceType: "0020"
+    openaire_type: image
+    eurepo: info:eu-repo/semantics/other
+    schema.org: https://schema.org/Photograph
+    subtype: image-photo
+    type: image
+  title:
+    en: Photo
+  tags:
+    - depositable
+    - linkable
+- id: image-plans
+  icon: map outline
+  props:
+    csl: figure
+    datacite_general: Image
+    datacite_type: Plans
+    openaire_resourceType: "0020"
+    openaire_type: image
+    eurepo: info:eu-repo/semantics/other
+    schema.org: https://schema.org/ImageObject
+    subtype: image-plans
+    type: image
+  title:
+    en: Plans
   tags:
     - depositable
     - linkable
