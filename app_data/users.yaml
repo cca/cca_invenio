@@ -10,7 +10,8 @@
   affiliations: California College of the Arts
   confirmed: True
   # TODO this is obviously not production-safe ;)
-  password: password
+  # can't use "password" or Chrome complains it's been it a leak
+  password: ab7CjyK4
   roles:
     - admin
   allow:
