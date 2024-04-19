@@ -20,7 +20,7 @@ subjects:
     #   data-file: vocabularies/subjects_oecd_fos.yaml
       # id is stupidly used in the "suggest from" dropdown menu on the upload form
       # so this needs to be something human readable
-    - id: CCAAP
+    - id: CCA
       data-file: vocabularies/cca_libraries_academic_programs.yaml
       name: CCA Academic Programs
       uri: https://portal.cca.edu/learning/academic-programs/
@@ -28,6 +28,10 @@ subjects:
       name: Art & Architecture Thesaurus
       uri: https://www.getty.edu/research/tools/vocabularies/aat/
       data-file: vocabularies/aat.yaml
+    - id: TIME
+      data-file: vocabularies/temporal.yaml
+      name: Temporal
+      uri: https://www.loc.gov/standards/datetime/
 # only contains CCA right now
 affiliations:
   pid-type: aff
