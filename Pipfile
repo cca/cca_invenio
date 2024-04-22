@@ -8,10 +8,10 @@ check-manifest = ">=0.25"
 flask-debugtoolbar = "==0.14.1"
 
 [packages]
-uwsgi = "==2.0.22"
-uwsgitop = "==0.11"
+uwsgi = "==2.0.25.1"
+uwsgitop = "==0.12"
 uwsgi-tools = "==1.1.1"
-invenio-cli = "==1.1.0"
+invenio-cli = "==1.2.0"
 invenio-app-rdm = {version = "==11.0.4", extras = ["opensearch2", "postgresql"]}
 # name below should match what's in /site/setup.cfg
 cca = {editable="True", path="./site"}
