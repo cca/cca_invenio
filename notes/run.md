@@ -6,12 +6,12 @@ This document is about managing a running Invenio instance. See **Getting Starte
 
 | Service | URL | Notes |
 |---------|-----|-------|
-| RabbitMQ admin interface | http://localhost:15672 | credentials "guest/guest"
-| Elasticsearch | http://localhost:9200/_cat/indices?v |
-| Postgres db | localhost:5432 | username, password, & db name are all "invenio-vault", run `./notes/code-samples/dbconnect`
-| pgAdmin (db) | http://127.0.0.1:5050/login | credentials "ephetteplace@cca.edu/invenio-vault" or look in docker-services.yml
-| Minio | http://localhost:9001/browser | credentials "CHANGE_ME/CHANGE_ME"
-| API | https://127.0.0.1:5000/api/records | same port as app if running locally
+| RabbitMQ admin interface | http://localhost:15672 | credentials "guest/guest" |
+| Elasticsearch | http://localhost:9200/_cat/indices?v | |
+| Postgres db | localhost:5432 | username, password, & db name are all "invenio-vault", run `./notes/code-samples/dbconnect` |
+| pgAdmin (db) | http://127.0.0.1:5050/login | credentials "ephetteplace@cca.edu/invenio-vault" or look in docker-services.yml |
+| Minio | http://localhost:9001/browser | credentials "CHANGE_ME/CHANGE_ME" |
+| API | https://127.0.0.1:5000/api/records | same port as app if running locally |
 
 The Postgres database is another service but is not exposed, use pgAdmin to interact with it.
 
