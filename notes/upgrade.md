@@ -8,7 +8,7 @@ High-level Invenio upgrade:
 - run upgrade script (e.g. "upgrade_scripts/migrate_10_0_to_11_0.py")
 - rebuild static assets? see `invenio assets` (not included below but must be necessary)
 
-The v10 and v11 upgrades below were performed with the "containerized" setup so they're not fully representative of an upgrade using the local/services setup. @TODO practice an upgrade (11 -> 12?) with services setup
+The v10 and v11 upgrades below were performed with the "containerized" setup so they're not fully representative of an upgrade using the local/services setup. **TODO** practice an upgrade (11 -> 12?) with services setup
 
 ## 11.0.0 upgrade
 

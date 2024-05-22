@@ -12,10 +12,10 @@ If a fixture in app_data changes, then the whole app needs to be rebuilt. Run `.
 
 ## [Vocabularies](https://inveniordm.docs.cern.ch/customize/vocabularies/)
 
-- AAT subjects
-- Custom CCA subjects? With academic programs included?
-- LCSH subset? Just terms we've used? Combine with above?
-- Temporarl (list of decades)
+- ~~AAT subjects~~ not enough to justify
+- Custom local/CCA subjects for terms not found in LC (e.g. specific CCA properties)
+- LC vocabs (LCSH, LCNAF, LCGFT) terms we've used before
+- Temporal (list of decades)
 - Names (from Libraries subject names taxo)
 - Users (from our integrations JSON)
 

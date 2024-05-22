@@ -19,37 +19,31 @@ The OpenSearch Dashboard is disabled in the docker-services.yml but could be add
 
 You may need to set the postgres host to "host.docker.internal" e.g. in docker/pgadmin/servers.json.
 
-If you're running the app locally the main URLs (for website and REST API) are localhost:5000 while if you run the fully containerized app then you do not need the port and the website, background worker, and API are all on different containers. Each of these three has the application code, but there are no static files for the worker & API.
+If you're running the app locally, the main URLs (for website and REST API) are localhost:5000 while if you run the fully containerized app then you do not need the port and the website, background worker, and API are all on different containers. Each of these three has the application code, but there are no static files for the worker & API.
 
 ## CLI Usage
 
 The `invenio` command has numerous commands for interacting with different parts of the app. **@TODO list common tasks here**
 
-We also install Graz U Library's [repository-cli](https://github.com/tu-graz-library/repository-cli/). It adds these extra commands:
+We could also install Graz U Library's [repository-cli](https://github.com/tu-graz-library/repository-cli/). It adds these extra commands:
 
 ```sh
 invenio repository users list # list all users
 invenio repository records --help # many commands for manipulating records!
 ```
 
-## OpenSearch vs. Elasticsearch
-
-The project is transitioning from Elasticsearch to OpenSearch (AWS fork of ES with more permissive licensing). ES will not be supported in a future version of InvenioRDM.
-
-I've been able to ignore the extra setup instructions on configuring Docker to work with ES, which were outdated and did not work anyways.
-
 ## Setup Troubles
 
 The API uses the search indices. If you go to visit every page (e.g. search, dashboard, etc.) but see errors and 500 HTTP responses from the API, then the search indices probably have not been created. `invenio index init` lets you visit various pages, but there will be no contents, because the indices are empty.
 
-If the `invenio-cli services setup` command fails, we can sort of see what the cli should have done in the `_setup()` function: https://github.com/inveniosoftware/invenio-cli/blob/master/invenio_cli/commands/containers.py#:~:text=def%20_setup
+If the `invenio-cli services setup` command fails, we can sort of see what the cli should have done in [the `_setup()` function](https://github.com/inveniosoftware/invenio-cli/blob/master/invenio_cli/commands/containers.py#:~:text=def%20_setup). The [demo site's wipe_recreate.sh](https://github.com/inveniosoftware/demo-inveniordm/blob/master/demo-inveniordm/wipe_recreate.sh) script is also a good list of commands to create an instance.
 
 ```sh
 invenio db init create
 # on a local instance the INVENIO_INSTANCE_PATH is the venv + var/instance/data so
 # (pipenv --venv)/var/instance/data
 invenio files location create --default default-location ${INVENIO_INSTANCE_PATH}/data
-# @TODO are these needed here? I think rdm-records fixtures creates them
+# TODO are these needed here? I think rdm-records fixtures creates them
 invenio roles create admin
 invenio access allow superuser-access role admin
 invenio index init

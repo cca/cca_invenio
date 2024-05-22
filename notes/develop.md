@@ -17,7 +17,7 @@ asdf install
 
 ### Invenio Installation
 
-See [Installation docs](https://inveniordm.docs.cern.ch/install/). We recommend the "local" or "services" setup which runs the main Invenio Flask application on your host machine using the code in this repository, while the database, search engine, task queue, and redis cache are run as Docker containers. These steps only need to be run once.
+See [Installation docs](https://inveniordm.docs.cern.ch/install/). We recommend the "local" or "services" setup which runs the main Invenio Flask application on your host machine using the code in this repository, while the database, search engine, task queue, and redis cache are run as Docker containers. These steps only need to be run once. The [demo site's wipe_recreate.sh](https://github.com/inveniosoftware/demo-inveniordm/blob/master/demo-inveniordm/wipe_recreate.sh) script is a good reference for the exact steps needed to setup a fresh instance.
 
 ```sh
 # to build fresh, answering configuration questions
@@ -35,11 +35,9 @@ invenio-cli run
 
 If rebuilding a local instance, use `invenio-cli install -d` to recreate the virtualenv. A mere `pipenv install` won't copy over the configuration and static files to a location inside the venv and the app breaks.
 
-The build process is slow the first time as docker images are downloaded.
-
 Invenio initializes fixtures (basically, the static app_data files) asynchronously by sending them to its task queue. So the initial startup, even after services are running, is further delayed as these tasks finish. View the task queue in the RabbitMQ dashboard and the size of the search indices to get a sense of how much processing is left. See the **Services** table in [run.md](run.md). The **Setup Troubles**  section may also be useful.
 
-Once running, visit https://127.0.0.1:5000 in a web browser. **Note**: The server is using a self-signed SSL certificate, so your browser will issue a warning that you have to by-pass.
+Once running, visit https://127.0.0.1:5000 in a web browser. **Note**: The server is using a self-signed SSL certificate, so your browser issues a warning that you have to by-pass.
 
 The super admin is archives@cca.edu with password "password", this comes from app_data/users.yaml. You may need to `invenio users activate archives@cca.edu` the admin account.
 

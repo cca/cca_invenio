@@ -125,7 +125,7 @@
   title:
     en: Other
     de: Andere
-# CCA roles from MARC relator  term
+# CCA roles from MARC relator term
 - id: architect
   title:
     en: Architect
