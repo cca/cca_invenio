@@ -13,21 +13,17 @@ resourcetypes:
 subjects:
   pid-type: sub
   schemes:
-    # FOS comes by default but we don't use it
-    # - id: FOS
-    #   name: Fields of Science and Technology
-    #   uri: "http://www.oecd.org/science/inno/38235147.pdf"
-    #   data-file: vocabularies/subjects_oecd_fos.yaml
-      # id is stupidly used in the "suggest from" dropdown menu on the upload form
-      # so this needs to be something human readable
+    # https://github.com/inveniosoftware/invenio-app-rdm/issues/2660
+    # id is used in the "suggest from" dropdown menu on the upload form it must be human readable
     - id: CCA
-      data-file: vocabularies/cca_libraries_academic_programs.yaml
-      name: CCA Academic Programs
-      uri: https://portal.cca.edu/learning/academic-programs/
-    - id: AAT
-      name: Art & Architecture Thesaurus
-      uri: https://www.getty.edu/research/tools/vocabularies/aat/
-      data-file: vocabularies/aat.yaml
+      data-file: vocabularies/cca_local.yaml
+      name: CCA Local Authority
+      # TODO CCA local vocab github repo
+      uri: https://www.cca.edu
+    - id: LC
+      data-file: vocabularies/lc.yaml
+      name: Library of Congress Authorities
+      uri: https://id.loc.gov/authorities/
     - id: TIME
       data-file: vocabularies/temporal.yaml
       name: Temporal

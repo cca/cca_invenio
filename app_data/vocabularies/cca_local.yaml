@@ -1,0 +1,8 @@
+# Local CCA subject terms
+# These are either missing from LC vocabularies ("Body Positivity") or are specific to CCA ("Animation Program").
+- id: a76d09b8-9550-4dd1-ad1b-86c01aec11d6
+  scheme: cca_local
+  subject: Body Positivity
+- id: 8dff2e0d-939d-4f40-9403-5dc973c0b972
+  scheme: cca_local
+  subject: Animation Program
