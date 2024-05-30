@@ -16,6 +16,8 @@ invenio-cli run # runs the application
 
 The services setup enqueues many tasks rather than completing them synchronously, so the first time you `run` the app it will take a while before setup is complete.
 
+I've run into `invenio-cli install` build errors related to the cairo package, the errors say something like "no library called "cairo" was found" and "cannot load library 'libcairo.2.dylib'". I had cairo installed via homebrew, but the library wasn't in any of the directories that the build process was looking in. I fixed this with `cp /opt/homebrew/Cellar/cairo/1.18.0/lib/libcairo.2.dylib /usr/local/lib/` (the path to the cairo library may be different on your system).
+
 See our "notes" folder for further documentation.
 
 ## Overview
