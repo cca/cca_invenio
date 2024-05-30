@@ -21,6 +21,10 @@ You may need to set the postgres host to "host.docker.internal" e.g. in docker/p
 
 If you're running the app locally, the main URLs (for website and REST API) are localhost:5000 while if you run the fully containerized app then you do not need the port and the website, background worker, and API are all on different containers. Each of these three has the application code, but there are no static files for the worker & API.
 
+## Local Rebuild
+
+To reset the local instance, run `invenio-cli services destroy`, then redo the setup steps in [the readme](../readme.md). If you do not destroy the services, the next time you go to set them up you'll get an error.
+
 ## CLI Usage
 
 The `invenio` command has numerous commands for interacting with different parts of the app. **@TODO list common tasks here**
