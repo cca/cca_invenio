@@ -1,8 +1,177 @@
-# Local CCA subject terms
-# These are either missing from LC vocabularies ("Body Positivity") or are specific to CCA ("Animation Program").
-- id: a76d09b8-9550-4dd1-ad1b-86c01aec11d6
+- id: 8507d30d-12c0-50db-9231-782a1c64dede
   scheme: cca_local
   subject: Body Positivity
-- id: 8dff2e0d-939d-4f40-9403-5dc973c0b972
+- id: f1bba5b3-af8b-591b-bd3a-bdab5631f78e
   scheme: cca_local
-  subject: Animation Program
+  subject: External Review
+- id: ab2775ee-89b3-534f-be22-b6d8380060cb
+  scheme: cca_local
+  subject: 1111 8th St., San Francisco, CA
+- id: da71e67e-c227-5113-ac9c-947e7fba86cc
+  scheme: cca_local
+  subject: 1700 17th St., San Francisco, CA
+- id: 9eee6b8b-d761-593a-80e9-4c66cc1fb1e9
+  scheme: cca_local
+  subject: 188 Hooper St., San Francisco, CA
+- id: ad5b41ff-7f80-56ad-b4ec-27192b4ef4c2
+  scheme: cca_local
+  subject: 2119 Allston Way, Berkeley, CA
+- id: d58383dd-f787-5aa8-995f-ef5d202fc3a3
+  scheme: cca_local
+  subject: 350 Kansas St, San Francisco, CA
+- id: 04821db0-8dc1-5c2c-893f-8654f35351c9
+  scheme: cca_local
+  subject: 80 Carolina St., San Francisco, CA
+- id: a686035a-90c1-5fef-a246-c12e1e14a6f6
+  scheme: cca_local
+  subject: A2 Cafe
+- id: d746a035-b32c-5f3d-b46c-5c9fb957559d
+  scheme: cca_local
+  subject: Amici Cafe
+- id: bfba1747-b75d-5a3f-976f-5a5dbc40f81f
+  scheme: cca_local
+  subject: B Building
+- id: f02729cc-f12d-5ca1-a890-1a6f1875a723
+  scheme: cca_local
+  subject: Barclay Simpson Sculpture Studio
+- id: 3d3351a1-2892-5b04-9215-9da0ef5188b0
+  scheme: cca_local
+  subject: Emerson Elementary School (Berkeley, Calif.)
+- id: 7ef5f22f-9b4a-5008-9ea5-9f0d6b7426cf
+  scheme: cca_local
+  subject: Blattner Print Studio
+- id: f57e58dc-dbb6-5de0-b27a-b9ac7d7ca0a2
+  scheme: cca_local
+  subject: C.C.A.C. Gallery 5283 Broadway, San Francisco, CA
+- id: bbc0e72a-dba4-5dd0-a34e-3637b01a8ba3
+  scheme: cca_local
+  subject: Carriage House
+- id: 929251c7-add7-5d66-b038-ef4a3d44216c
+  scheme: cca_local
+  subject: CCA Hubbell Street Galleries
+- id: ea5bfcd3-16af-5d06-861b-b6dc514fcc02
+  scheme: cca_local
+  subject: CCA/C Archives
+- id: 0ed24508-0439-530b-a564-6c7804caf62a
+  scheme: cca_local
+  subject: CCA/C Annex
+- id: 320c1504-b0bd-5d96-ad50-20a4ca758f93
+  scheme: cca_local
+  subject: Founders Hall
+- id: 571dd5fc-70b7-5082-b12c-f5f2eea42138
+  scheme: cca_local
+  subject: Guild Hall (Oakland, Calif.)
+- id: 2bfe9554-1b38-5566-bb7b-95ceb63e2141
+  scheme: cca_local
+  subject: Irwin Student Center
+- id: 80e66052-324f-52c6-a5f7-ad929bd31c09
+  scheme: cca_local
+  subject: Isabelle Percy West Gallery
+- id: 7f2a9f36-7ce8-5f0e-b587-b3578726719f
+  scheme: cca_local
+  subject: Jack London Square
+- id: e4d41c75-9d62-5605-b083-95cb8f20dd7e
+  scheme: cca_local
+  subject: Macky Hall
+- id: ed21fd45-b297-5fcd-9c74-51a7ce6486e2
+  scheme: cca_local
+  subject: Martinez Annex
+- id: f216b860-fd23-593a-8700-05bafc3c9640
+  scheme: cca_local
+  subject: Martinez Hall
+- id: ef4a04c3-05ca-5ec6-abf5-2fd0dae0a8f8
+  scheme: cca_local
+  subject: Martinez Hall Mural Wall
+- id: bf6f8774-db8a-5520-a601-53c908dd1d8a
+  scheme: cca_local
+  subject: Materials Library (San Francisco, Calif.)
+- id: e8b43238-883c-5ed0-b282-c3eff40f0b14
+  scheme: cca_local
+  subject: Meyer Library
+- id: 205d9c1a-1fe8-5822-a24d-c577359df16d
+  scheme: cca_local
+  subject: Nahl Hall
+- id: 51c24db8-fa2b-5307-9eb7-52b23119e117
+  scheme: cca_local
+  subject: Oliver Art Center
+- id: e23ab105-d80d-5a24-a5e2-3ff308516965
+  scheme: cca_local
+  subject: Raleigh And Claire Shaklee Building
+- id: b36a081f-ecbe-5734-bd60-dfb3ab952f6e
+  scheme: cca_local
+  subject: Ralls Painting Studio
+- id: 6a7098da-3235-5e36-8bb5-175e6f83226c
+  scheme: cca_local
+  subject: Simpson Library
+- id: abe15835-a4f8-572d-86f2-cc39d2c70d58
+  scheme: cca_local
+  subject: Sundial (Oakland, Calif.)
+- id: 936d484f-db4e-523c-93ea-5d08603deb53
+  scheme: cca_local
+  subject: Tecoah Bruce Gallery
+- id: 806e71c5-3955-5efb-8eb6-79b2bc142caf
+  scheme: cca_local
+  subject: Treadwell Mansion
+- id: 8beb0ccf-5ae8-5537-a3e7-73c890323194
+  scheme: cca_local
+  subject: Woodworking Shop (Oakland, Calif.)
+- id: 24051b13-99f1-555b-a6d3-7eda5e161fa2
+  scheme: cca_local
+  subject: California College of Arts and Crafts
+- id: 33e9ce1f-4697-574e-bef3-59bdc8c08feb
+  scheme: cca_local
+  subject: California School of Arts and Crafts
+- id: e5b9029e-9b0e-552d-adb3-5967c3a4d066
+  scheme: cca_local
+  subject: Campus Unification
+- id: d704af27-0a41-56e8-bc54-447464efa311
+  scheme: cca_local
+  subject: Ceramics Program
+- id: 22677782-5197-5e59-97c1-59b67e449a4b
+  scheme: cca_local
+  subject: Critical Ethnic Studies Program
+- id: fe80f2ad-13bd-5977-bc1a-aa678bf1ae4d
+  scheme: cca_local
+  subject: Diversity Studies Program
+- id: 5c9144ab-1795-535a-a6a6-9680de6d407d
+  scheme: cca_local
+  subject: Ethnic Studies Department
+- id: 6ff06d46-7c92-5a19-85c6-f54071312e5a
+  scheme: cca_local
+  subject: Executive Committee (EC)
+- id: a42c9f54-3882-536b-a0d5-5da7f628dd33
+  scheme: cca_local
+  subject: Faculty Senate
+- id: 30647078-ef37-56a1-843b-33d528e35a72
+  scheme: cca_local
+  subject: Faculty Work
+- id: 56f76a13-1929-5a80-ad88-135c101b5f9d
+  scheme: cca_local
+  subject: Glass Program
+- id: e8fb071e-3d5e-56c5-8e88-87984e9149d3
+  scheme: cca_local
+  subject: Jewelry / Metal Arts Program
+- id: 8ac7939d-ffd9-518c-a790-3b1388a6928a
+  scheme: cca_local
+  subject: Oakland Campus Legacy
+- id: 4c201782-c6fe-5235-8f44-ee063a8e96e0
+  scheme: cca_local
+  subject: Painting/Drawing Program
+- id: 262ba808-0fd6-5e11-8319-ea4ac30e2556
+  scheme: cca_local
+  subject: Printmedia Program
+- id: b4b6eecd-b335-5f43-bf89-294504ed7b24
+  scheme: cca_local
+  subject: Sculpture Program
+- id: eb7e26fb-0177-5c90-8c5c-95a124793f2d
+  scheme: cca_local
+  subject: SEIU Local 1021
+- id: 9b2cca17-27e6-51d5-badb-356aa980bd4b
+  scheme: cca_local
+  subject: Student Work
+- id: 8568865b-8ebb-52d7-8098-c10991b45347
+  scheme: cca_local
+  subject: Studio Building (Berkeley, Calif.)
+- id: 25dabd1d-c52b-59b0-b6e3-07222cb25436
+  scheme: cca_local
+  subject: Textile Program

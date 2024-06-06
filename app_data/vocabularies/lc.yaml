@@ -1,4 +1,315 @@
-# All of the Library of Congress (LCSH, LCNAF, LCGFT) authorities we use are in the same file
+- id: http://id.loc.gov/authorities/subjects/sh2007100538
+  scheme: lc
+  subject: Art -- Study And Teaching -- United States
+- id: https://id.loc.gov/authorities/names/no89009894.html
+  scheme: lc
+  subject: Assessment Report
+- id: http://id.loc.gov/authorities/genreForms/gf2014026229
+  scheme: lc
+  subject: Autobiographical comics
+- id: https://id.loc.gov/authorities/names/n79007233-781
+  scheme: lc
+  subject: Canada
+- id: https://id.loc.gov/authorities/subjects/sh85028110.html
+  scheme: lc
+  subject: Collective Labor Agreements
+- id: https://id.loc.gov/authorities/subjects/sh85028845.html
+  scheme: lc
+  subject: Comedy
+- id: http://id.loc.gov/authorities/genreForms/gf2014026229
+  scheme: lc
+  subject: Autobiographical comics
+- id: http://id.loc.gov/authorities/genreForms/gf2014026266
+  scheme: lc
+  subject: Comics
+- id: http://id.loc.gov/authorities/subjects/sh85031300
+  scheme: lc
+  subject: Conspiracy
+- id: http://id.loc.gov/authorities/genreForms/gf2011026168
+  scheme: lc
+  subject: Contracts
+- id: http://id.loc.gov/authorities/genreForms/gf2014026074
+  scheme: lc
+  subject: Creative Non-Fiction
+- id: http://id.loc.gov/authorities/subjects/sh85034895
+  scheme: lc
+  subject: Curriculum planning
+- id: http://id.loc.gov/authorities/genreForms/gf2014026275
+  scheme: lc
+  subject: Cyberpunk fiction
+- id: https://id.loc.gov/authorities/genreForms/gf2014026085.html
+  scheme: lc
+  subject: Diaries
+- id: https://id.loc.gov/authorities/genreForms/gf2014026297.html
+  scheme: lc
+  subject: Drama
+- id: https://id.loc.gov/authorities/genreForms/gf2014026302.html
+  scheme: lc
+  subject: Dystopian fiction
+- id: https://id.loc.gov/authorities/genreForms/gf2014026339.html
+  scheme: lc
+  subject: Fiction
+- id: https://id.loc.gov/authorities/subjects/sh85089419.html
+  scheme: lc
+  subject: Mythology, Philippine
+- id: http://id.loc.gov/authorities/genreForms/gf2014026229
+  scheme: lc
+  subject: Autobiographical comics
+- id: https://id.loc.gov/authorities/genreForms/gf2014026362.html
+  scheme: lc
+  subject: Graphic novels
+- id: https://id.loc.gov/authorities/genreForms/gf2014026370.html
+  scheme: lc
+  subject: Historical Fiction
+- id: https://id.loc.gov/authorities/genreForms/gf2017027251.html
+  scheme: lc
+  subject: Pictures
+- id: https://id.loc.gov/authorities/subjects/sh85070736.html
+  scheme: lc
+  subject: Journalism
+- id: http://id.loc.gov/authorities/subjects/sh85023418
+  scheme: lc
+  subject: Children
+- id: http://id.loc.gov/authorities/genreForms/gf2014026415
+  scheme: lc
+  subject: Literature
+- id: http://id.loc.gov/authorities/subjects/sh85079627
+  scheme: lc
+  subject: Magical Realism
+- id: http://id.loc.gov/authorities/genreForms/gf2022026036
+  scheme: lc
+  subject: Manga
+- id: http://id.loc.gov/authorities/genreForms/gf2014026047
+  scheme: lc
+  subject: Autobiographies
+- id: http://id.loc.gov/authorities/subjects/sh2011001529
+  scheme: lc
+  subject: Mixed media (Art)
+- id: http://id.loc.gov/authorities/genreForms/gf2011026406
+  scheme: lc
+  subject: Motion pictures
+- id: http://id.loc.gov/authorities/subjects/sh85089341
+  scheme: lc
+  subject: Mystery
+- id: http://id.loc.gov/authorities/subjects/sh85089371
+  scheme: lc
+  subject: Mythology
+- id: http://id.loc.gov/authorities/childrensSubjects/sj2021050452
+  scheme: lc
+  subject: Young adult literature
+- id: http://id.loc.gov/authorities/subjects/sh85096675
+  scheme: lc
+  subject: Painting -- Technique
+- id: http://id.loc.gov/authorities/subjects/sh85097292
+  scheme: lc
+  subject: Pamphlets
+- id: http://id.loc.gov/authorities/subjects/sh85098254
+  scheme: lc
+  subject: Parody
+- id: http://id.loc.gov/authorities/genreForms/gf2014026516
+  scheme: lc
+  subject: Romance fiction
+- id: http://id.loc.gov/authorities/subjects/sh85117645
+  scheme: lc
+  subject: Satire
+- id: http://id.loc.gov/authorities/genreForms/gf2014026529
+  scheme: lc
+  subject: Science Fiction
+- id: http://id.loc.gov/authorities/genreForms/gf2022026062
+  scheme: lc
+  subject: Slice-of-life comics
+- id: http://id.loc.gov/authorities/subjects/sh85126887
+  scheme: lc
+  subject: Sports
+- id: http://id.loc.gov/authorities/genreForms/gf2018026073
+  scheme: lc
+  subject: Superhero Fiction
+- id: http://id.loc.gov/authorities/subjects/sh85145114
+  scheme: lc
+  subject: War
+- id: http://id.loc.gov/authorities/subjects/sh85006913
+  scheme: lc
+  subject: Archives
+- id: http://id.loc.gov/authorities/names/n79046046
+  scheme: lc
+  subject: Berkeley (Calif.)
 - id: https://id.loc.gov/authorities/names/n81081214.html
-  scheme: LC
-  subject: "Emeryville (Calif.)"
+  scheme: lc
+  subject: Emeryville (Calif.)
+- id: http://id.loc.gov/authorities/names/n93066442
+  scheme: lc
+  subject: "Erongar\xEDcuaro (Mexico)"
+- id: http://id.loc.gov/authorities/subjects/sh85053101
+  scheme: lc
+  subject: Gardens
+- id: http://id.loc.gov/authorities/names/n79118971
+  scheme: lc
+  subject: Oakland (Calif.)
+- id: http://id.loc.gov/authorities/names/no99046405
+  scheme: lc
+  subject: Oakland Public Library (Calif.)
+- id: http://id.loc.gov/authorities/subjects/sh85097860
+  scheme: lc
+  subject: Paramount Theatre (Oakland, Calif.)
+- id: http://id.loc.gov/authorities/names/n80161536
+  scheme: lc
+  subject: "P\xE1tzcuaro (Mexico)"
+- id: http://id.loc.gov/authorities/names/n79118972
+  scheme: lc
+  subject: Piedmont (Calif.)
+- id: http://id.loc.gov/authorities/names/n79018452
+  scheme: lc
+  subject: San Francisco (Calif.)
+- id: http://id.loc.gov/authorities/subjects/sh2020008759
+  scheme: lc
+  subject: 2019-20 Coronavirus Pandemic
+- id: http://id.loc.gov/authorities/subjects/sh85001992
+  scheme: lc
+  subject: African Americans -- Study And Teaching
+- id: http://id.loc.gov/authorities/subjects/sh85006611
+  scheme: lc
+  subject: Architecture
+- id: http://id.loc.gov/authorities/names/n91129452
+  scheme: lc
+  subject: Batey & Mack
+- id: http://id.loc.gov/authorities/subjects/sh2016001442
+  scheme: lc
+  subject: Black Lives Matter Movement.
+- id: http://id.loc.gov/authorities/names/n80095585
+  scheme: lc
+  subject: Black Panther Party
+- id: http://id.loc.gov/authorities/subjects/sh85076505
+  scheme: lc
+  subject: Branch Libraries
+- id: http://id.loc.gov/authorities/names/n85823132
+  scheme: lc
+  subject: Braunstein Gallery (San Francisco, Calif.)
+- id: https://id.loc.gov/authorities/names/nr2004003293.html
+  scheme: lc
+  subject: California College of the Arts
+- id: http://id.loc.gov/authorities/subjects/sh85019262
+  scheme: lc
+  subject: Campus Planning
+- id: http://id.loc.gov/authorities/names/n90610457
+  scheme: lc
+  subject: Capp Street Project (San Francisco, Calif.)
+- id: http://id.loc.gov/authorities/subjects/sh85028577
+  scheme: lc
+  subject: Color
+- id: http://id.loc.gov/authorities/subjects/sh00009998
+  scheme: lc
+  subject: Commencement ceremonies
+- id: http://id.loc.gov/authorities/subjects/sh85032446
+  scheme: lc
+  subject: Copyright
+- id: http://id.loc.gov/authorities/subjects/sh2020008759
+  scheme: lc
+  subject: Covid-19 Pandemic, 2020-
+- id: http://id.loc.gov/authorities/subjects/sh2009008117
+  scheme: lc
+  subject: Creative Nonfiction
+- id: http://id.loc.gov/authorities/subjects/sh85046354
+  scheme: lc
+  subject: Exhibitions
+- id: http://id.loc.gov/authorities/subjects/sh85047741
+  scheme: lc
+  subject: Feminism
+- id: http://id.loc.gov/authorities/subjects/sh85052522
+  scheme: lc
+  subject: Furniture
+- id: http://id.loc.gov/authorities/subjects/sh2006020042
+  scheme: lc
+  subject: Gay Pride Parades
+- id: http://id.loc.gov/authorities/names/nr93049830
+  scheme: lc
+  subject: "Hasegawa, Sabur\u014D, 1906-1957"
+- id: http://id.loc.gov/authorities/subjects/sh85062845
+  scheme: lc
+  subject: Human Resources
+- id: http://id.loc.gov/authorities/subjects/sh85136516
+  scheme: lc
+  subject: Labor Unions
+- id: http://id.loc.gov/authorities/genreForms/gf2014026122
+  scheme: lc
+  subject: Lectures
+- id: http://id.loc.gov/authorities/subjects/sh85076502
+  scheme: lc
+  subject: Libraries
+- id: http://id.loc.gov/authorities/subjects/sh85076668
+  scheme: lc
+  subject: Library Catalogs
+- id: http://id.loc.gov/authorities/subjects/sh85076705
+  scheme: lc
+  subject: Library Moving
+- id: http://id.loc.gov/authorities/names/n50044095
+  scheme: lc
+  subject: Long Beach Museum Of Art
+- id: http://id.loc.gov/authorities/subjects/sh85084093
+  scheme: lc
+  subject: Metal-work
+- id: http://id.loc.gov/authorities/names/n83314894
+  scheme: lc
+  subject: Mills College. Art Gallery
+- id: http://id.loc.gov/authorities/names/n82088191
+  scheme: lc
+  subject: National Council On Education For The Ceramic Arts (U.S.)
+- id: http://id.loc.gov/authorities/names/n83312732
+  scheme: lc
+  subject: Osaka University Of Arts
+- id: http://id.loc.gov/authorities/subjects/sh85099809
+  scheme: lc
+  subject: Performance
+- id: http://id.loc.gov/authorities/genreForms/gf2014026481
+  scheme: lc
+  subject: Poetry
+- id: http://id.loc.gov/authorities/names/no97061218
+  scheme: lc
+  subject: Rice, William S. (William Seltzer), 1873-1963
+- id: http://id.loc.gov/authorities/names/n86850915
+  scheme: lc
+  subject: Richmond Art Center (Calif.)
+- id: http://id.loc.gov/authorities/names/n79139490
+  scheme: lc
+  subject: San Francisco Museum Of Modern Art
+- id: http://id.loc.gov/authorities/subjects/sh85117914
+  scheme: lc
+  subject: Scales (Weighing Instruments)
+- id: http://id.loc.gov/authorities/genreForms/gf2014026541
+  scheme: lc
+  subject: Shadow Plays
+- id: http://id.loc.gov/authorities/genreForms/gf2014026542
+  scheme: lc
+  subject: Short Stories
+- id: http://id.loc.gov/authorities/subjects/sh2010015283
+  scheme: lc
+  subject: Speculative Fiction
+- id: http://id.loc.gov/authorities/subjects/sh85028356
+  scheme: lc
+  subject: College students
+- id: http://id.loc.gov/authorities/subjects/sh85133052
+  scheme: lc
+  subject: Teaching
+- id: http://id.loc.gov/authorities/subjects/sh85133053
+  scheme: lc
+  subject: Teaching--Aids And Devices
+- id: http://id.loc.gov/authorities/subjects/sh2007008289
+  scheme: lc
+  subject: Transgender College Students.
+- id: https://id.loc.gov/authorities/subjects/sh85137241.html
+  scheme: lc
+  subject: Trees
+- id: http://id.loc.gov/authorities/names/n83148049
+  scheme: lc
+  subject: University of Illinois at Chicago
+- id: http://id.loc.gov/authorities/subjects/sh85143277
+  scheme: lc
+  subject: Vietnam War, 1961-1975
+- id: http://id.loc.gov/authorities/subjects/sh85143288
+  scheme: lc
+  subject: Vietnam War, 1961-1975--Protest Movements
+- id: http://id.loc.gov/authorities/names/no2004050648
+  scheme: lc
+  subject: Wattis Institute For Contemporary Art
+- id: https://id.loc.gov/authorities/names/no2008072801.html
+  scheme: lc
+  subject: Wikipedia
