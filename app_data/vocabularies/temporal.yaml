@@ -1,19 +1,19 @@
 # Temporal subjects from VAULT (list of decades)
-- id: 1900-1909
+- id: 1870-1899
   scheme: TIME
-  subject: 1900-1909
-- id: 1910-1919
+  subject: 1870-1899
+- id: 1900-1905
   scheme: TIME
-  subject: 1910-1919
-- id: 1920-1929
+  subject: 1900-1905
+- id: 1906-1921
   scheme: TIME
-  subject: 1920-1929
-- id: 1930-1939
+  subject: 1906-1921
+- id: 1922-1935
   scheme: TIME
-  subject: 1930-1939
-- id: 1940-1949
+  subject: 1922-1935
+- id: 1936-1949
   scheme: TIME
-  subject: 1940-1949
+  subject: 1936-1949
 - id: 1950-1959
   scheme: TIME
   subject: 1950-1959
