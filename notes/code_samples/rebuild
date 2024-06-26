@@ -1,4 +1,5 @@
 #!/usr/bin/env fish
+# TODO flag to recreate the venv too?
 echo "Rebuilding the Invenio application, this will DESTROY ALL DATA in the database and search engine and load fresh fixtures from the all_data directory"
 invenio-cli services destroy
 invenio-cli services setup
