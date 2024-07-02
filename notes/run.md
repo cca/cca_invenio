@@ -69,3 +69,18 @@ invenio queues declare
 The instructions for setting up with services do not work because the CLI never recognizes that the opensearch container has started. But if you run `invencio-cli services start` first, wait for it to end even if it says search never came online, check the search container and URL (port 9200), then you can run `invenio-cli services setup` to initialize everything and load the demo data.
 
 There was an npm error when running `invenio-cli assets build`, I fixed it by _downgrading_ npm to v6. `invenio-cli check-requirements --development` complains if you have npm > 7.
+
+## Reset User Password
+
+See [Invenio's instructions](https://inveniordm.docs.cern.ch/customize/vocabularies/users/#change-password). Enter an `invenio shell` and then run:
+
+```py
+from flask_security.utils import hash_password
+from invenio_accounts.proxies import current_datastore
+from invenio_db import db
+
+user = current_datastore.get_user("admin@inveniosoftware.org")
+user.password = hash_password("password")
+current_datastore.activate_user(user)
+db.session.commit()
+```
