@@ -39,6 +39,9 @@ affiliations:
       name: Research Organization Registry
       uri: "https://ror.org/"
       data-file: vocabularies/affiliations.yaml
+names:
+  pid-type: names
+  data-file: vocabularies/names.yaml
 programs:
   pid-type: sub
   data-file: vocabularies/programs.yaml

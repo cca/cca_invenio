@@ -6,8 +6,20 @@ CCA InvenioRDM instance. This is mostly a cookiecutter Invenio project with addi
 
 Requires Docker, python 3.9, pipenv, node 16, and npm 7. `invenio-cli check-requirements --development` will check if you have these. To install on an M2 Mac, additional packages are needed: `brew install cairo libffi pkg-config`. Finally, the invenio-saml module also requires `brew install libxmlsec1`.
 
+Some fixtures are not checked into this repository. Build them with the tools in the cca/vault_migration repository and copy them here.
+
 ```sh
-git clone https://gitlab.com/california-college-of-the-arts/invenio && cd invenio
+# in vault_migration
+gsutil cp gs://BUCKET/employee_data.json employee_data.json
+gsutil cp gs://BUCKET/student_data.json student_data.json
+pipenv run python taxos/users.py employee_data.json student_data.json
+cp vocab/names.yaml $CCA_INVENIO_PATH/app_data/vocabularies/names.yaml
+cp vocab/users.yaml $CCA_INVENIO_PATH/app_data/users.yaml
+```
+
+Then run the commands below from the root of this project to install the app:
+
+```sh
 pip install invenio-cli # install invenio-cli globally
 invenio-cli install --dev # creates the virtualenv, install dependencies, & some other setup
 invenio-cli services setup --no-demo-data # sets up db, cache, search, task queue

@@ -1,3 +1,7 @@
+# Vocabularies created by migration project
+app_data/vocabularies/names.yaml
+app_data/users.yaml
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
