@@ -16,6 +16,7 @@ invenio-app-rdm = {version = "==11.0.4", extras = ["opensearch2", "postgresql"]}
 # name below should match what's in /site/setup.cfg
 cca = {editable = true, path="./site"}
 greenlet = "==3.0.3"
+python-dotenv = "*"
 
 [requires]
 python_version = "3.9"
