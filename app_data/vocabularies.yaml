@@ -42,6 +42,3 @@ affiliations:
 names:
   pid-type: names
   data-file: vocabularies/names.yaml
-programs:
-  pid-type: sub
-  data-file: vocabularies/programs.yaml
