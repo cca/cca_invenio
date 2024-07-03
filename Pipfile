@@ -8,18 +8,21 @@ check-manifest = ">=0.25"
 flask-debugtoolbar = "==0.14.1"
 
 [packages]
-uwsgi = "==2.0.25.1"
-uwsgitop = "==0.12"
-uwsgi-tools = "==1.1.1"
-invenio-cli = "==1.2.0"
-invenio-app-rdm = {version = "==11.0.4", extras = ["opensearch2", "postgresql"]}
 # name below should match what's in /site/setup.cfg
 cca = {editable = true, path="./site"}
 greenlet = "==3.0.3"
-python-dotenv = "*"
+invenio-app-rdm = {version = "==11.0.6", extras = ["opensearch2", "postgresql"]}
+invenio-cli = "==1.2.0"
+python-dotenv = "==1.0.1"
+uwsgi = "==2.0.25.1"
+uwsgi-tools = "==1.1.1"
+uwsgitop = "==0.12"
+
+[pipenv]
+allow_prereleases = false
 
 [requires]
 python_version = "3.9"
 
-[pipenv]
-allow_prereleases = false
+[scripts]
+instancepath = "bash -c 'echo $(pipenv --venv 2>/dev/null)/var/instance'"
