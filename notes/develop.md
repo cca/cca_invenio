@@ -2,28 +2,19 @@
 
 ## Getting started
 
-### Languages and Tools
+### Language Versions
 
-There is an [asdf](https://asdf-vm.com/) ".tool-versions" file in the root of the project. Invenio supports Python 3.9 at the latest (as of 03/2023) and only Node 16. Follow the asdf setup instructions and add the python and nodejs plugins, then install the appropriate versions. Note that asdf can conflict with other version managers like pyenv and nvm, so you may need to uninstall those or make sure asdf takes priority in your `PATH`.
-
-```sh
-brew install asdf
-# add asdf to your shell profile
-# see https://asdf-vm.com/guide/getting-started.html
-asdf plugin add python
-asdf plugin add nodejs
-asdf install
-```
+There is a ".tool-versions" file in the root of the project for the Python and Node versions which asdf or mise can use to set up those interpreters. Invenio supports Python 3.9 at the latest (as of 03/2023) and only Node 16. Python 3.12 and Node 20 support are on the way.
 
 ### Invenio Installation
 
-See [Installation docs](https://inveniordm.docs.cern.ch/install/). We recommend the "local" or "services" setup which runs the main Invenio Flask application on your host machine using the code in this repository, while the database, search engine, task queue, and redis cache are run as Docker containers. These steps only need to be run once. The [demo site's wipe_recreate.sh](https://github.com/inveniosoftware/demo-inveniordm/blob/master/demo-inveniordm/wipe_recreate.sh) script is a good reference for the exact steps needed to setup a fresh instance.
+See [Installation docs](https://inveniordm.docs.cern.ch/install/). We recommend the "local" or "services" setup which runs the main Invenio Flask application on our host machine using the code in this repository, while the database, search engine, task queue, and Redis cache are run as Docker containers. These steps only need to be run once. The [demo site's wipe_recreate.sh](https://github.com/inveniosoftware/demo-inveniordm/blob/master/demo-inveniordm/wipe_recreate.sh) script is a good reference for the exact steps needed to setup a fresh instance.
 
 ```sh
 # to build fresh, answering configuration questions
 invenio-cli init rdm -c 11.0
-invenio-cli install
-invenio-cli services setup
+invenio-cli install --dev
+invenio-cli services setup --no-demo-data
 ```
 
 To start the app, ensure Docker is running, spin up the services, and `run` the app.
@@ -33,15 +24,15 @@ invenio-cli services start
 invenio-cli run
 ```
 
-If rebuilding a local instance, use `invenio-cli install -d` to recreate the virtualenv. A mere `pipenv install` won't copy over the configuration and static files to a location inside the venv and the app breaks.
+If rebuilding a local instance, use `invenio-cli install --dev` to recreate the virtualenv. A mere `pipenv install` won't copy over the configuration and static files to a location inside the venv and the app breaks.
 
-Invenio initializes fixtures (basically, the static app_data files) asynchronously by sending them to its task queue. So the initial startup, even after services are running, is further delayed as these tasks finish. View the task queue in the RabbitMQ dashboard and the size of the search indices to get a sense of how much processing is left. See the **Services** table in [run.md](run.md). The **Setup Troubles**  section may also be useful.
+Invenio initializes fixtures (basically, the static app_data files) asynchronously by sending them to its task queue. So the initial startup, even after services are running, is further delayed as these tasks finish. We can view the task queue in the RabbitMQ dashboard and the size of the search indices to get a sense of how much processing is left. See the **Services** table in [run.md](run.md). The **Setup Troubles**  section may also be useful.
 
-Once running, visit https://127.0.0.1:5000 in a web browser. **Note**: The server is using a self-signed SSL certificate, so your browser issues a warning that you have to by-pass.
+Once running, visit https://127.0.0.1:5000 in a web browser. **Note**: The server is using a self-signed SSL certificate, so our browser issues a warning that we have to by-pass.
 
-The super admin is archives@cca.edu with password "password", this comes from app_data/users.yaml. You may need to `invenio users activate archives@cca.edu` the admin account.
+The super admin is archives@cca.edu with password "password", this comes from app_data/users.yaml. We may need to `invenio users activate archives@cca.edu` the admin account.
 
-## Theme & Templates
+## Frontend: Theme & Templates
 
 Lots of UI variables to override and we can specify an additional stylesheet.
 
@@ -61,17 +52,11 @@ export const overriddenComponents = {
 }
 ```
 
-If all of the children of a section with an accordion header are removed, the accordion remains but is empty. Awkward.Waiting on [a PR](https://github.com/inveniosoftware/invenio-app-rdm/pull/2087) (merged, but not in v11) to make it so we can remove the parent AccordionField as well.
-
-## Custom code & views
-
-https://inveniordm.docs.cern.ch/develop/howtos/custom_code/
-
-There is a custom view at `/vocablist` which lists all vocabs and links to their API routes.
+If all of the children of a section with an accordion header are removed, the accordion remains but is empty. Awkward. Waiting on [a PR](https://github.com/inveniosoftware/invenio-app-rdm/pull/2087) (merged, but not in v11, v12 maybe?) to make it so we can remove the parent AccordionField as well.
 
 ### Custom JavaScript
 
-To add custom JS to a template, you'll need to override the template, add a webpack entrypoint, and reference the script in the template. At a high level:
+To add custom JS to a template, we need to override the template, add a webpack entrypoint, and reference the script in the template. At a high level:
 
 - create the script in site/cca/assets/semanti-ui/js/cca
 - add its entry to site/cca/webpack.py like `'test': './js/cca/test.js'`
@@ -87,9 +72,19 @@ To add custom JS to a template, you'll need to override the template, add a webp
 
 Then rebuild the JS assets & restart the app: `invenio-cli assets build && invenio-cli run`
 
+### Editing/testing core JS/CSS
+
+`invenio-cli assets build` completely rebuilds the JS and CSS assets, installing remote packages and compiling the JS and CSS from scratch, overwriting local changes. Use `invenio-cli assets watch` to rebuild assets whenever the source files change, e.g. if editing an Invenio or site package. The packages are under the instance path in the assets directory and already compiled to ESM and commonjs formats. There's a Pipfile script `pipenv run instancepath` which echoes the path to the instance directory, so `cd (pipenv run instancepath)/assets` takes us there and `invenio webpack build` rebuilds the assets.
+
+## Custom code & views
+
+https://inveniordm.docs.cern.ch/develop/howtos/custom_code/
+
+There is a demo of a custom view at `/vocablist` which lists all vocabs and links to their API routes.
+
 ## Testing Invenio core modules
 
-See, for instance, [invenio-rdm-records](https://github.com/inveniosoftware/invenio-rdm-records) where it says how to install dependencies and run tests. These steps won't be enough, however, they don't include two necessary modules. It's also not clear to me why we're installing things one-by-one, doing as much typing as possible.
+See, for instance, [invenio-rdm-records](https://github.com/inveniosoftware/invenio-rdm-records) where it says how to install dependencies and run tests. These steps aren't enough, however, they don't include two necessary modules.
 
 ```sh
 pipenv --python 3.9
@@ -98,7 +93,7 @@ pip install -e .[all]
 pip install invenio-search[opensearch2] invenio-db[postgresql] docker-services-cli check_manifest sphinx
 ```
 
-Then to run tests, ensure Docker is running, and `./run-tests.sh`.
+Then to run tests, ensure Docker is running and `./run-tests.sh`.
 
 ## GitHub _and_ GitLab?!?
 
