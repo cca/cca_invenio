@@ -1,6 +1,6 @@
 # CCA InvenioRDM
 
-CCA InvenioRDM instance. This is mostly a cookiecutter Invenio project with additional documentation for us.
+CCA InvenioRDM instance. This is mostly a cookiecutter Invenio project with some custom settings and vocabularies. See our "notes" folder for further documentation.
 
 ## Setup
 
@@ -13,14 +13,13 @@ Some fixtures are not checked into this repository. Build them with the tools in
 gsutil cp gs://BUCKET/employee_data.json employee_data.json
 gsutil cp gs://BUCKET/student_data.json student_data.json
 pipenv run python taxos/users.py employee_data.json student_data.json
-cp vocab/names.yaml $CCA_INVENIO_PATH/app_data/vocabularies/names.yaml
-cp vocab/users.yaml $CCA_INVENIO_PATH/app_data/users.yaml
+INVENIO_REPO=/path/to/this/repo ./vocab/sync # copies updated vocabs to this repo
 ```
 
 Then run the commands below from the root of this project to install the app:
 
 ```sh
-pip install invenio-cli # install invenio-cli globally
+pipx install invenio-cli # install invenio-cli globally (recommend using pipx instead of pip)
 invenio-cli install --dev # creates the virtualenv, install dependencies, & some other setup
 invenio-cli services setup --no-demo-data # sets up db, cache, search, task queue
 invenio-cli run # runs the application
@@ -29,8 +28,6 @@ invenio-cli run # runs the application
 The services setup enqueues many tasks rather than completing them synchronously, so the first time you `run` the app it will take a while before setup is complete.
 
 I've run into `invenio-cli install` build errors related to the cairo package, the errors say something like "no library called "cairo" was found" and "cannot load library 'libcairo.2.dylib'". I had cairo installed via homebrew, but the library wasn't in any of the directories that the build process was looking in. I fixed this with `cp /opt/homebrew/Cellar/cairo/1.18.0/lib/libcairo.2.dylib /usr/local/lib/` (the path to the cairo library may be different on your system).
-
-See our "notes" folder for further documentation.
 
 ## Overview
 
