@@ -27,25 +27,6 @@
 
 # schema.org: https://schema.org/
 
-# course work (custom type)
-- id: course-work
-  icon: graduation cap
-  props:
-    csl: graphic
-    datacite_general: Image
-    datacite_type: ""
-    openaire_resourceType: "0020"
-    openaire_type: image
-    eurepo: info:eu-repo/semantics/other
-    schema.org: https://schema.org/CreativeWork
-    subtype: ""
-    type: course-work
-  title:
-    en: Course Work
-  tags:
-    - depositable
-    - linkable
-
 # documents/publications
 - id: publication
   icon: file alternate
