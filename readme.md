@@ -4,7 +4,7 @@ CCA InvenioRDM instance. This is mostly a cookiecutter Invenio project with some
 
 ## Setup
 
-Requires Docker, python 3.9, pipenv, node 16, and npm 7. `invenio-cli check-requirements --development` will check if you have these. To install on an M2 Mac, additional packages are needed: `brew install cairo libffi pkg-config`. Finally, the invenio-saml module also requires `brew install libxmlsec1`.
+Requires Docker, python, pipenv, node, and ImageMagick. `invenio-cli check-requirements --development` checks these requirements, see also [our .tool-versions](.tool-versions) file. To install on an M2 Mac, additional packages are needed: `brew install cairo libffi pkg-config`. Finally, the invenio-saml module also requires `brew install libxmlsec1`.
 
 Some fixtures are not checked into this repository. Build them with the tools in the cca/vault_migration repository and copy them here.
 

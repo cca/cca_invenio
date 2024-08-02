@@ -10,6 +10,45 @@ High-level Invenio upgrade:
 
 The v10 and v11 upgrades below were performed with the "containerized" setup so they're not fully representative of an upgrade using the local/services setup. **TODO** practice an upgrade (11 -> 12?) with services setup
 
+## 12.0.0 upgrade
+
+https://inveniordm.docs.cern.ch/releases/upgrading/upgrade-v12.0/
+
+Remove the existing virtualenv `pipenv --rm`.
+Update to more current Python and Node versions. Edit Pipfile, .tool-versions, and `mise install` or `asdf install`.
+
+```sh
+invenio-cli packages update 12.0.0 # this updates Pipfile
+pipenv uninstall flask-babelex # not needed if we rebuild the venv?
+invenio-cli assets build # also not needed with below?
+invenio-cli install --dev
+```
+
+Change `from flask_babelex import lazy_gettext as _` to `from invenio_i18n import lazy_gettext as _` in [invenio.cfg](../invenio.cfg).
+
+At first, the alembic upgrade below failed with `sqlalchemy.exc.OperationalError: (psycopg2.OperationalError) connection to server at "localhost" (::1), port 5432 failed: FATAL:  password authentication failed for user "invenio-app-rdm"` when our db user is "invenio" because I hadn't run `invenio-cli install` so it was not reading our invenio.cfg file.
+
+```sh
+invenio-cli packages lock # could this just be `pipenv lock`?
+pipenv shell # must be in venv for `invenio` (no -cli) cmds
+invenio alembic upgrade # db migration
+invenio queues declare # add statistics processing queues
+# "data migration"
+invenio shell (find (pipenv --venv 2>/dev/null)/lib/*/site-packages/invenio_app_rdm -name migrate_11_0_to_12_0.py)
+# rebuild search indices
+invenio index destroy --yes-i-know
+invenio index init
+invenio rdm rebuild-all-indices
+# new roles
+invenio roles create administration-moderation
+invenio roles create administration
+invenio access allow administration-moderation role administration-moderation
+invenio access allow administration-access role administration
+invenio access allow superuser-access role administration
+```
+
+Somewhere along this process deleted the instance's data directory (`(pipenv --venv 2>/dev/null)/var/instance/data`).
+
 ## 11.0.0 upgrade
 
 First, read the release notes for upgrade considerations: https://inveniordm.docs.cern.ch/releases/upgrading/upgrade-v11.0/

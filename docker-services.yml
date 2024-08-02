@@ -37,6 +37,7 @@ services:
     restart: "unless-stopped"
     environment:
       - "POSTGRES_USER=invenio"
+      # TODO change this
       - "POSTGRES_PASSWORD=invenio"
       - "POSTGRES_DB=invenio"
     ports:
