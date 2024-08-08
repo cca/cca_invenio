@@ -11,7 +11,6 @@ flask-debugtoolbar = "==0.14.1"
 # name below should match what's in /site/setup.cfg
 cca = {editable = true, path="./site"}
 greenlet = "==3.0.3"
-invenio-cli = "==1.2.0"
 python-dotenv = "==1.0.1"
 requests = "==2.31.0" # 2.32+ breaks docker-py & `invenio-cli services` commands
 uwsgi = "==2.0.25.1"
