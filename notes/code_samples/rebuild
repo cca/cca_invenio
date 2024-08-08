@@ -1,8 +1,7 @@
 #!/usr/bin/env fish
 # TODO flag to recreate the venv too?
 echo "Rebuilding the Invenio application, this will DESTROY ALL DATA in the database and search engine and load fresh fixtures from the all_data directory"
-invenio-cli services destroy
-invenio-cli services setup
+invenio-cli services setup --force --no-demo-data
 echo "The 'Failed to setup services.' warning because 'distutils.errors.DistutilsOptionError: no message catalogs found' error does not seem to affect the app"
 read -P 'would you like to run the application in the foreground? (y/N)' answer
 if [ $answer = 'y']

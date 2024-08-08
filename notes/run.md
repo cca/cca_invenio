@@ -23,7 +23,7 @@ If you're running the app locally, the main URLs (for website and REST API) are 
 
 ## Local Rebuild
 
-To reset the local instance, run `invenio-cli destroy`, then redo the setup steps in [the readme](../readme.md). If we do not destroy the services, the next time we set up we get an error.
+To reset the local instance, run `invenio-cli services setup --force --no-demo-data` when performing the steps in [the readme](../readme.md). The `--force` flag destroys the services; if we did not, we would get an error the next time we setup.
 
 ## CLI Usage
 
