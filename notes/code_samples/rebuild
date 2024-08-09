@@ -4,6 +4,6 @@ echo "Rebuilding the Invenio application, this will DESTROY ALL DATA in the data
 invenio-cli services setup --force --no-demo-data
 echo "The 'Failed to setup services.' warning because 'distutils.errors.DistutilsOptionError: no message catalogs found' error does not seem to affect the app"
 read -P 'would you like to run the application in the foreground? (y/N)' answer
-if [ $answer = 'y']
+if [ "$answer" = 'y' ]
     invenio-cli run
 end
