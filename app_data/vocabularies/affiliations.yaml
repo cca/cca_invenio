@@ -1,4 +1,4 @@
-# Full file: https://raw.githubusercontent.com/inveniosoftware/cookiecutter-invenio-rdm/master/%7B%7Bcookiecutter.project_shortname%7D%7D/app_data/vocabularies/affiliations_ror.yaml
+# Example aff file: https://github.com/inveniosoftware/invenio-rdm-records/blob/e3df51f5a9f25c20a4234e0d6e524c8d021d8fd2/invenio_rdm_records/fixtures/data/vocabularies/affiliations_ror.yaml
 # CCA affiliation org https://ror.org/01mmcf932
 - acronym: CCA
   id: 01mmcf932

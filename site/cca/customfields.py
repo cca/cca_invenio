@@ -8,10 +8,10 @@ RDM_NAMESPACES = {
 
 RDM_CUSTOM_FIELDS = [
     VocabularyCF(  # the type of custom field, VocabularyCF is a controlled vocabulary
-        name="cca:program",  # name of the field, namespaced by `cern`
+        name="cca:program",  # name of the field, namespaced by `cca`
         vocabulary_id="programs",  # controlled vocabulary id defined in the vocabularies.yaml file
         dump_options=True,  # True when the list of all possible values will be visible in the dropdown UI component, typically for small vocabularies
-        multiple=False, # if the field accepts a list of values (True) or single value (False)
+        multiple=False,  # if the field accepts a list of values (True) or single value (False)
     ),
 ]
 
@@ -30,11 +30,11 @@ RDM_CUSTOM_FIELDS_UI = [
                     description="Select one of CCA's academic programs",
                     autocompleteFrom="/api/vocabularies/programs",
                     autocompleteFromAcceptHeader="application/vnd.inveniordm.v1+json",
-                    multiple=False,   # True for selecting multiple values
+                    multiple=False,  # True for selecting multiple values
                     clearable=True,
-                )
+                ),
             ),
-        ]
+        ],
     }
 ]
 
@@ -51,7 +51,4 @@ RDM_FACETS = {
     },
 }
 
-RDM_SEARCH = {
-    **RDM_SEARCH,
-    "facets": RDM_SEARCH["facets"] + ["program"]
-}
+RDM_SEARCH = {**RDM_SEARCH, "facets": RDM_SEARCH["facets"] + ["program"]}
