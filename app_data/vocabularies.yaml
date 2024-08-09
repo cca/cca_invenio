@@ -34,14 +34,10 @@ subjects:
 # only contains CCA right now
 affiliations:
   pid-type: aff
-  schemes:
-    - id: ROR
-      name: Research Organization Registry
-      uri: "https://ror.org/"
-      data-file: vocabularies/affiliations.yaml
+  data-file: vocabularies/affiliations.yaml
 names:
   pid-type: names
   data-file: vocabularies/names.yaml
 programs:
-  pid-type: sub
+  pid-type: prog
   data-file: vocabularies/programs.yaml
