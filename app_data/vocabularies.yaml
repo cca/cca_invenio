@@ -1,5 +1,5 @@
-# only contains CCA right now
-# names can have dependencies on affs so put affs first
+# Example: https://github.com/inveniosoftware/invenio-rdm-records/blob/master/invenio_rdm_records/fixtures/data/vocabularies.yaml
+# CCA is the only affiliation right now, names can depend on affs so put affs first
 affiliations:
   pid-type: aff
   data-file: vocabularies/affiliations.yaml
@@ -12,6 +12,8 @@ contributorsroles:
 datetypes:
   pid-type: dat
   data-file: vocabularies/date_types.yaml
+# we do not customize description types
+# https://github.com/inveniosoftware/invenio-rdm-records/blob/master/invenio_rdm_records/fixtures/data/vocabularies/description_types.yaml
 licenses:
   pid-type: lic
   data-file: vocabularies/licenses.csv
