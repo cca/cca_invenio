@@ -9,6 +9,9 @@ creatorsroles:
 contributorsroles:
   pid-type: cor
   data-file: vocabularies/roles.yaml
+datetypes:
+  pid-type: dat
+  data-file: vocabularies/date_types.yaml
 licenses:
   pid-type: lic
   data-file: vocabularies/licenses.csv
