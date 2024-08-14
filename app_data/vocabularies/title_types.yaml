@@ -1,0 +1,44 @@
+# Example: https://github.com/inveniosoftware/invenio-rdm-records/blob/master/invenio_rdm_records/fixtures/data/vocabularies/title_types.yaml
+# Datacite title types: https://datacite-metadata-schema.readthedocs.io/en/4.5/properties/title/#a-titletype
+- id: alternative-title
+  props:
+    datacite: AlternativeTitle
+  title:
+    en: Alternative title
+    sv: Alternativ titel
+    de: Alternativer Titel
+- id: descriptive-title
+  props:
+    datacite: Other # used in VAULT MODS, no equivalent in datacite
+  title:
+    en: Descriptive
+    sv: Beskrivande
+    de: Beschreibend
+- id: subtitle
+  props:
+    datacite: Subtitle
+  title:
+    en: Subtitle
+    sv: Undertitel
+    de: Untertitel
+- id: transcribed-title
+  props:
+    datacite: Other # used in VAULT MODS, no equivalent in datacite
+  title:
+    en: Transcribed
+    sv: Transkriberat
+    de: Transkribiert
+- id: translated-title
+  props:
+    datacite: TranslatedTitle
+  title:
+    en: Translated title
+    sv: Översatt titel
+    de: Übersetzter Titel
+- id: other
+  props:
+    datacite: Other
+  title:
+    en: Other
+    sv: Övrig titel
+    de: Sonstiger Titel
