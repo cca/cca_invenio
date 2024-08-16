@@ -1,9 +1,36 @@
 from invenio_rdm_records.config import RDM_FACETS, RDM_SEARCH
 from invenio_records_resources.services.records.facets import CFTermsFacet
 from invenio_vocabularies.services.custom_fields import VocabularyCF
+from invenio_records_resources.services.custom_fields import BaseCF
+from marshmallow_utils.fields import SanitizedUnicode
+
+
+# Custom Field options: https://github.com/inveniosoftware/invenio-records-resources/tree/master/invenio_records_resources/services/custom_fields
+class ArchivesSeriesCF(BaseCF):
+    """Archives Series and Subseries custom field
+    { "series": "II. College Life", "subseries": "3. Events"}"""
+
+    def __init__(self, name, **kwargs):
+        """Constructor."""
+        super().__init__(
+            name,
+            field_args=dict(series=SanitizedUnicode(), subseries=SanitizedUnicode()),
+            **kwargs
+        )
+
+    @property
+    def mapping(self):
+        """Return the mapping."""
+        return {
+            "properties": {
+                "series": {"type": "text"},
+                "subseries": {"type": "text"},
+            }
+        }
+
 
 RDM_NAMESPACES = {
-    "cca": "https://www.cca.edu/",
+    "cca": "https://libraries.cca.edu/",
 }
 
 RDM_CUSTOM_FIELDS = [
