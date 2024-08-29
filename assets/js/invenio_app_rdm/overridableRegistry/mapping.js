@@ -2,18 +2,17 @@
  * Add here all the overridden components of your app.
  * Example from Zenodo:
  * https://github.com/zenodo/zenodo-rdm/blob/master/assets/js/invenio_app_rdm/overridableRegistry/mapping.js#L3
+ * Find the names of overridable components in RDMDepositForm.js:
+ * https://github.com/inveniosoftware/invenio-app-rdm/blob/master/invenio_app_rdm/theme/assets/semantic-ui/js/invenio_app_rdm/deposit/RDMDepositForm.js
  */
 
 export const overriddenComponents = {
-    "InvenioAppRdm.Deposit.FundingField.layout": () => null,
-    "InvenioAppRdm.Deposit.LanguagesField.layout": () => null,
-    "InvenioAppRdm.Deposit.VersionField.layout": () => null,
-    "InvenioAppRdm.Deposit.PublisherField.layout": () => null,
-    "InvenioAppRdm.Deposit.IdentifiersField.layout": () => null,
+    "InvenioAppRdm.Deposit.AccordionFieldFunding.container": () => null,
+    "InvenioAppRdm.Deposit.LanguagesField.container": () => null,
+    "InvenioAppRdm.Deposit.VersionField.container": () => null,
+    "InvenioAppRdm.Deposit.PublisherField.container": () => null,
+    "InvenioAppRdm.Deposit.AccordionFieldAlternateIdentifiers.container": () => null,
     // ? do we want to retain this actually? Might be useful for Libraries records.
-    "InvenioAppRdm.Deposit.RelatedWorksField.layout": () => null,
+    "InvenioAppRdm.Deposit.AccordionFieldRelatedWorks.container": () => null,
+    "InvenioAppRdm.Deposit.AccordionFieldReferences.container": () => null,
 }
-
-// @TODO Funders, Alternate Identifiers, and Related Works all have empty
-// AccordionField headers after we have removed the child overridable components
-// This PR fixes: https://github.com/inveniosoftware/invenio-app-rdm/pull/2087
