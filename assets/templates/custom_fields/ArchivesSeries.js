@@ -49,8 +49,8 @@ export class ArchivesSeries extends Component {
                         defaultValue={""} // this.state.seriesValue?
                         fieldPath={`${fieldPath}.series`}
                         label={<FieldLabel htmlFor={fieldPath} icon={icon} label={series.label} />}
+                        // event arg is essentially useless, no non-null properties
                         onBlur={(event, component) => {
-                            console.log('onBlur', component, this.state)
                             this.setState({series: component.field.value })
                         }}
                         options={Object.keys(archivesSeries).map(s => (
