@@ -1,5 +1,5 @@
 #!/usr/bin/env fish
-if [ "$1" = venv ]
+if [ "$argv[1]" = "venv" ]
     echo "Rebuilding the virtual environment"
     invenio-cli install --dev
 end
