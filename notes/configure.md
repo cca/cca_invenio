@@ -77,7 +77,7 @@ APP_DEFAULT_SECURE_HEADERS['content_security_policy']['default-src'].append(
 
 The .invenio file also has `file_storage = S3` but that file might just be used when invenio-cli bootstraps a new instance.
 
-@TODO When choose S3 storage during `invenio-cli init` you get a Minio service too, we need to [follow the steps](https://inveniordm.docs.cern.ch/customize/s3/#set-your-minio-credentials) to change the admin account credentials and hook it up to GSB.
+TODO When we choose S3 storage during `invenio-cli init` we get a Minio service too, we need to [follow the steps](https://inveniordm.docs.cern.ch/customize/s3/#set-your-minio-credentials) to change the admin account credentials and hook it up to GSB.
 
 ## Custom Fields
 
@@ -85,6 +85,15 @@ Simplest: https://inveniordm.docs.cern.ch/customize/custom_fields/records/
 Reference: https://inveniordm.docs.cern.ch/reference/widgets/#autocompletedropdown
 Build your own: https://inveniordm.docs.cern.ch/develop/howtos/custom_fields/
 
-Managed to build a custom "Academic Programs" field in around an hour that uses a vocabulary, autocompletes on the form, and has a custom display template linking to search results sharing the same value (similar to how we do it in VAULT). The only thing that did not work is that the search facet does not appear, but the indexing clearly works because the hyperlinked search returns results.
+Managed to build a custom "Academic Programs" field that uses a vocabulary, autocompletes on the form, and has a custom display template linking to search results sharing the same value (similar to how we do it in VAULT). The only thing that did not work is that the search facet does not appear, but the indexing clearly works because the hyperlinked search returns results. One other disappointment is that, though I defined a bunch of properties for each term in the related programs vocab, it only records the `id` and `title` in the record.
 
-One other disappointment is that, though I defined a bunch of properties in for each term in the related programs vocab, it only records the `id` and `title` in the record.
+Our `ArchivesSeriesCF` is a custom field with our own structure (dictionary) and deposit form widget. We can build custom fields that do almost anything with this approach, which is not limited to the few types of custom fields Invenio provides. The biggest challenge is writing the React form widget. Helpful reference points are [Semantic UI React](https://react.semantic-ui.com/) and [react-invenio-forms](https://github.com/inveniosoftware/react-invenio-forms), specifically the [forms components](https://github.com/inveniosoftware/react-invenio-forms/tree/master/src/lib/forms). Sometimes limitations in one component force us to use a lower level one. Read the source code of components to understand how they work and what props they accept. For instance, `Dropdown` does not support change handlers, but it is a wrapper around `SelectField` which does.
+
+[Formik](https://formik.org/docs/overview) is used for form state management and validation, but I never quite understood how it was affecting fields and its documentation did not prove fruitful.
+
+**Questions** remaining for custom fields:
+
+- Can they be specific to a Community?
+- Can they be specific to a Record type?
+
+The full record is passed as `this.props.record` to custom field components, but I'm not sure if changes to the record elsewhere on the deposit form rerender the component. Perhaps if the component's key is set to `key={this.props.record.metadata.resource_type.id + 'fieldname'}` it will rerender when the resource type changes (see how subseries key includes the series value in `ArchivesSeriesCF`).

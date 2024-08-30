@@ -48,11 +48,11 @@ https://inveniordm.docs.cern.ch/develop/howtos/override_components/
 
 ```js
 export const overriddenComponents = {
-    "InvenioAppRdm.Deposit.FundingField.layout": () => null,
+    "InvenioAppRdm.Deposit.AccordionFieldFunding.container": () => null,
 }
 ```
 
-If all of the children of a section with an accordion header are removed, the accordion remains but is empty. Awkward. Waiting on [a PR](https://github.com/inveniosoftware/invenio-app-rdm/pull/2087) (merged, but not in v11, v12 maybe?) to make it so we can remove the parent AccordionField as well.
+Overriding an `AccordionField` like above removes an entire collapsible section from the deposit form, while we can also remove specific components from within a section (e.g. `InvenioAppRdm.Deposit.LanguagesField.container` removes only the **Languages** field from the **Recommended information** section).
 
 ### Custom JavaScript
 
@@ -72,9 +72,11 @@ To add custom JS to a template, we need to override the template, add a webpack 
 
 Then rebuild the JS assets & restart the app: `invenio-cli assets build && invenio-cli run`
 
-### Editing/testing core JS/CSS
+### Editing/testing JS/CSS
 
 `invenio-cli assets build` completely rebuilds the JS and CSS assets, installing remote packages and compiling the JS and CSS from scratch, overwriting local changes. Use `invenio-cli assets watch` to rebuild assets whenever the source files change, e.g. if editing an Invenio or site package. The packages are under the instance path in the assets directory and already compiled to ESM and commonjs formats. There's a Pipfile script `pipenv run instancepath` which echoes the path to the instance directory, so `cd (pipenv run instancepath)/assets` takes us there and `invenio webpack build` rebuilds the assets.
+
+`assets watch` is quicker than `assets build` but the UI still doesn't reflect changes, at least for custom fields component changes, we need to rerun it on each edit. `watch` runs with `NODE_ENV=development` so assets are not minified/obfuscated. This makes it far easier to use the [React Developer Tools](https://chromewebstore.google.com/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi) and other debugging tools.
 
 ## Custom code & views
 
