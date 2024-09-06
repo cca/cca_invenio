@@ -1,7 +1,7 @@
 from invenio_i18n import lazy_gettext as _
 from invenio_rdm_records.config import RDM_FACETS, RDM_SEARCH
 from invenio_records_resources.services.records.facets import CFTermsFacet
-from invenio_records_resources.services.custom_fields import BaseCF
+from invenio_records_resources.services.custom_fields import BaseCF, TextCF
 from invenio_vocabularies.services.custom_fields import VocabularyCF
 from marshmallow import fields
 from marshmallow_utils.fields import SanitizedUnicode
@@ -43,6 +43,7 @@ RDM_NAMESPACES = {
 
 RDM_CUSTOM_FIELDS = [
     ArchivesSeriesCF(name="cca:archives_series"),
+    TextCF(name="cca:conditional_field"),
     VocabularyCF(  # the type of custom field, VocabularyCF is a controlled vocabulary
         dump_options=True,  # True when the list of all possible values will be visible in the dropdown UI component, typically for small vocabularies
         multiple=False,  # if the field accepts a list of values (True) or single value (False)
@@ -56,20 +57,28 @@ RDM_CUSTOM_FIELDS_UI = [
         "section": _("CCA Custom Fields"),
         "fields": [
             {
-                "field": "cca:program",
-                "template": "program.html",
-                "ui_widget": "AutocompleteDropdown",
-                "props": {
-                    "autocompleteFrom": "/api/vocabularies/programs",
-                    "autocompleteFromAcceptHeader": "application/vnd.inveniordm.v1+json",
-                    "clearable": True,
-                    "description": _("Select one of CCA's academic programs"),
-                    "icon": "building",
-                    "label": _("Academic Program"),
-                    "multiple": False,  # True for selecting multiple values
-                    "placeholder": _("Animation Program"),
-                },
+                "field": "cca:conditional_field",
+                "template": "conditionalfield.html",
+                "ui_widget": "ConditionalField",
+                # props all hard-coded into ConditionalField.js
+                "props": {},
             },
+            # TODO: literal dict & _() for i18n strings
+            dict(
+                field="cca:program",
+                ui_widget="AutocompleteDropdown",
+                template="program.html",
+                props=dict(
+                    autocompleteFrom="/api/vocabularies/programs",
+                    autocompleteFromAcceptHeader="application/vnd.inveniordm.v1+json",
+                    clearable=True,
+                    description=_("Select one of CCA's academic programs"),
+                    icon="building",
+                    label=_("Academic Program"),
+                    multiple=False,  # True for selecting multiple values
+                    placeholder=_("Animation Program"),
+                ),
+            ),
             {
                 "field": "cca:archives_series",
                 "template": "archivesseries.html",
