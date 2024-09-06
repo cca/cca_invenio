@@ -55,26 +55,25 @@ RDM_CUSTOM_FIELDS_UI = [
     {
         "section": _("CCA Custom Fields"),
         "fields": [
-            # TODO: literal dict & _() for i18n strings
-            dict(
-                field="cca:program",
-                ui_widget="AutocompleteDropdown",
-                template="program.html",
-                props=dict(
-                    autocompleteFrom="/api/vocabularies/programs",
-                    autocompleteFromAcceptHeader="application/vnd.inveniordm.v1+json",
-                    clearable=True,
-                    description="Select one of CCA's academic programs",
-                    icon="building",
-                    label="Academic Program",
-                    multiple=False,  # True for selecting multiple values
-                    placeholder="Animation Program",
-                ),
-            ),
+            {
+                "field": "cca:program",
+                "template": "program.html",
+                "ui_widget": "AutocompleteDropdown",
+                "props": {
+                    "autocompleteFrom": "/api/vocabularies/programs",
+                    "autocompleteFromAcceptHeader": "application/vnd.inveniordm.v1+json",
+                    "clearable": True,
+                    "description": _("Select one of CCA's academic programs"),
+                    "icon": "building",
+                    "label": _("Academic Program"),
+                    "multiple": False,  # True for selecting multiple values
+                    "placeholder": _("Animation Program"),
+                },
+            },
             {
                 "field": "cca:archives_series",
-                "ui_widget": "ArchivesSeries",
                 "template": "archivesseries.html",
+                "ui_widget": "ArchivesSeries",
                 "props": {
                     "icon": "archive",
                     "series": {
