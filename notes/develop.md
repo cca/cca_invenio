@@ -96,14 +96,3 @@ pip install invenio-search[opensearch2] invenio-db[postgresql] docker-services-c
 ```
 
 Then to run tests, ensure Docker is running and `./run-tests.sh`.
-
-## GitHub _and_ GitLab?!?
-
-I want the project features of GitHub as well as the ability to easily write Markdown links to the various Invenio software projects, but we use GitLab for our CI/CD. I originally tried mirroring the GH repo in GL, but that proved too slow. Instead, we can use a remote with multiple push URLs:
-
-```sh
-git remote set-url --push --add origin git@github.com:cca/cca_invenio.git
-git remote set-url --push --add origin git@gitlab.com:california-college-of-the-arts/invenio.git
-```
-
-Then `git push` updates both remotes at once. The `origin` remote's fetch URL can theoretically be either URL.
