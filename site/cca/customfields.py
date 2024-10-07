@@ -81,8 +81,8 @@ RDM_CUSTOM_FIELDS_UI = [
             ),
             {
                 "field": "cca:archives_series",
-                "ui_widget": "ArchivesSeries",
                 "template": "archivesseries.html",
+                "ui_widget": "ArchivesSeries",
                 "props": {
                     "icon": "archive",
                     "series": {
