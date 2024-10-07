@@ -43,6 +43,7 @@ RDM_NAMESPACES = {
 
 RDM_CUSTOM_FIELDS = [
     ArchivesSeriesCF(name="cca:archives_series"),
+    TextCF(name="cca:community_field"),
     TextCF(name="cca:conditional_field"),
     VocabularyCF(  # the type of custom field, VocabularyCF is a controlled vocabulary
         dump_options=True,  # True when the list of all possible values will be visible in the dropdown UI component, typically for small vocabularies
@@ -60,7 +61,14 @@ RDM_CUSTOM_FIELDS_UI = [
                 "field": "cca:conditional_field",
                 "template": "conditionalfield.html",
                 "ui_widget": "ConditionalField",
-                # props all hard-coded into ConditionalField.js
+                # props hard-coded into ConditionalField.js
+                "props": {},
+            },
+            {
+                "field": "cca:community_field",
+                "template": "communityfield.html",
+                "ui_widget": "CommunityField",
+                # props hard-coded into CommunityField.js
                 "props": {},
             },
             # TODO: literal dict & _() for i18n strings
