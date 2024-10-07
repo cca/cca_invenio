@@ -1,6 +1,4 @@
 // field is only visible when record is submitted to a particular community
-import React from "react"
-import React from "react"
 import React, {useState, useEffect} from "react"
 import {TextField} from "react-invenio-forms"
 
