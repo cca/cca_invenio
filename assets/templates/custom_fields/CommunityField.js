@@ -1,23 +1,34 @@
 // field is only visible when record is submitted to a particular community
-import React, {Component} from "react"
+import {useFormikContext} from "formik"
+import React, {useState, useEffect} from "react"
+// redux store getState().deposit.editorState.selectedCommunity is the only way to know the selected community
+import {useSelector} from "react-redux"
 import {TextField} from "react-invenio-forms"
 
-// ! Neither the values from useFormikContext nor the record from the props tell you what community the record is in.
-// ! We can only look for ?community=id in the URL which is only present when the record is submitted to a particular community.
-export class CommunityField extends Component {
-    render() {
-        const {fieldPath} = this.props
-        const community = new URLSearchParams(window.location.search).get("community")
+const CommunityField = ({fieldPath}) => {
+    const {setFieldValue} = useFormikContext()
+    const community = useSelector(state => state.deposit.editorState.selectedCommunity?.slug)
+    const [active, setActive] = useState(community === 'test')
+    console.log("Initial state", community, active)
 
-        if (community === 'test') {
-            return <TextField
-                fieldPath={fieldPath}
-                helpText="This field is only visible when record is submitted to the Test Community."
-                label="Community-specific Field"
-            />
+    useEffect(() => {
+        console.log("useEffect state", community, active)
+        const isActive = (community === 'test')
+        const newKey = `communityfield-${community}`
+        if (active !== isActive) {
+            setActive(isActive)
+            // clear the field value when it becomes inactive
+            if (!isActive) setFieldValue(fieldPath, "")
         }
-        return null
-    }
+    }, [community, active, fieldPath, setFieldValue])
+
+    return <TextField
+        className={active ? "" : "d-none"}
+        disabled={!active}
+        fieldPath={fieldPath}
+        helpText="This field is only visible when record is submitted to the Test Community."
+        label="Community-specific Field"
+    />
 }
 
 export default CommunityField

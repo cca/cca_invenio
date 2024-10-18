@@ -89,11 +89,8 @@ Managed to build a custom "Academic Programs" field that uses a vocabulary, auto
 
 Our `ArchivesSeriesCF` is a custom field with our own structure (dictionary) and deposit form widget. We can build custom fields that do almost anything with this approach, which is not limited to the few types of custom fields Invenio provides. The biggest challenge is writing the React form widget. Helpful reference points are [Semantic UI React](https://react.semantic-ui.com/) and [react-invenio-forms](https://github.com/inveniosoftware/react-invenio-forms), specifically the [forms components](https://github.com/inveniosoftware/react-invenio-forms/tree/master/src/lib/forms). Sometimes limitations in one component force us to use a lower level one. Read the source code of components to understand how they work and what props they accept. For instance, `Dropdown` does not support change handlers, but it is a wrapper around `SelectField` which does.
 
-[Formik](https://formik.org/docs/overview) is used for form state management and validation, but I never quite understood how it was affecting fields and its documentation did not prove fruitful.
+[Formik](https://formik.org/docs/overview) is used for form state management and validation. You can `useFormikContext` in a functional React component to access the deposit form's current values, which allows you to make conditional fields.
 
-**Questions** remaining for custom fields:
+We have two demo custom fields `ConditionalField` and `CommunityField` which demonstrate conditional inputs that only show on the deposit form some of the time. `ConditionalField` checks if another metadata field has a particular value and disables the field if the condition is not met. `CommunityField` is analogous and shows only for submissions to a specific community.
 
-- Can they be specific to a Community?
-- Can they be specific to a Record type?
-
-The full record is passed as `this.props.record` to custom field components, but I'm not sure if changes to the record elsewhere on the deposit form rerender the component. Perhaps if the component's key is set to `key={this.props.record.metadata.resource_type.id + 'fieldname'}` it will rerender when the resource type changes (see how subseries key includes the series value in `ArchivesSeriesCF`).
+The `props` passed to a custom field React components represent only the initial state of the record (e.g. they only have data for drafts or new versions being edited). In order to access the current and mutable state of the form, we have to use Formik and Redux.
