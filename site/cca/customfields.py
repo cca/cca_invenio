@@ -71,22 +71,21 @@ RDM_CUSTOM_FIELDS_UI = [
                 # props hard-coded into CommunityField.js
                 "props": {},
             },
-            # TODO: literal dict & _() for i18n strings
-            dict(
-                field="cca:program",
-                ui_widget="AutocompleteDropdown",
-                template="program.html",
-                props=dict(
-                    autocompleteFrom="/api/vocabularies/programs",
-                    autocompleteFromAcceptHeader="application/vnd.inveniordm.v1+json",
-                    clearable=True,
-                    description=_("Select one of CCA's academic programs"),
-                    icon="building",
-                    label=_("Academic Program"),
-                    multiple=False,  # True for selecting multiple values
-                    placeholder=_("Animation Program"),
-                ),
-            ),
+            {
+                "field": "cca:program",
+                "ui_widget": "AutocompleteDropdown",
+                "template": "program.html",
+                "props": {
+                    "autocompleteFrom": "/api/vocabularies/programs",
+                    "autocompleteFromAcceptHeader": "application/vnd.inveniordm.v1+json",
+                    "clearable": True,
+                    "description": _("Select one of CCA's academic programs"),
+                    "icon": "building",
+                    "label": _("Academic Program"),
+                    "multiple": False,  # True for selecting multiple values
+                    "placeholder": _("Animation Program"),
+                },
+            },
             {
                 "field": "cca:archives_series",
                 "template": "archivesseries.html",
