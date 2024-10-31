@@ -10,10 +10,10 @@ flask-debugtoolbar = "==0.15.1"
 [packages]
 # name below should match what's in /site/setup.cfg
 cca = {editable = true, path="./site"}
-invenio-app-rdm = {extras = ["opensearch2"], version = "==12.0.5"}
+invenio-app-rdm = {extras = ["opensearch2"], version = "==12.0.10"}
 python-dotenv = "==1.0.1"
 requests = "==2.31.0" # 2.32+ breaks docker-py & `invenio-cli services` commands
-uwsgi = "==2.0.26"
+uwsgi = "==2.0.28"
 uwsgi-tools = "==1.1.1"
 uwsgitop = "==0.12"
 
