@@ -4,7 +4,7 @@
 
 ### Language Versions
 
-There is a ".tool-versions" file in the root of the project for the Python and Node versions which asdf or mise can use to set up those interpreters. Invenio supports Python 3.9 at the latest (as of 03/2023) and only Node 16. Python 3.12 and Node 20 support are on the way.
+There is a ".tool-versions" file in the root of the project for the Python and Node versions which asdf or mise can use to set up those interpreters.
 
 ### Invenio Installation
 
@@ -12,7 +12,7 @@ See [Installation docs](https://inveniordm.docs.cern.ch/install/). We recommend 
 
 ```sh
 # to build fresh, answering configuration questions
-invenio-cli init rdm -c 11.0
+invenio-cli init rdm -c 12.0
 invenio-cli install --dev
 invenio-cli services setup --no-demo-data
 ```
@@ -20,6 +20,7 @@ invenio-cli services setup --no-demo-data
 To start the app, ensure Docker is running, spin up the services, and `run` the app.
 
 ```sh
+docker desktop start
 invenio-cli services start
 invenio-cli run
 ```
@@ -76,7 +77,7 @@ Then rebuild the JS assets & restart the app: `invenio-cli assets build && inven
 
 `invenio-cli assets build` completely rebuilds the JS and CSS assets, installing remote packages and compiling the JS and CSS from scratch, overwriting local changes. Use `invenio-cli assets watch` to rebuild assets whenever the source files change, e.g. if editing an Invenio or site package. The packages are under the instance path in the assets directory and already compiled to ESM and commonjs formats. There's a Pipfile script `pipenv run instancepath` which echoes the path to the instance directory, so `cd (pipenv run instancepath)/assets` takes us there and `invenio webpack build` rebuilds the assets.
 
-`assets watch` is quicker than `assets build` but the UI still doesn't reflect changes, at least for custom fields component changes, we need to rerun it on each edit. `watch` runs with `NODE_ENV=development` so assets are not minified/obfuscated. This makes it far easier to use the [React Developer Tools](https://chromewebstore.google.com/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi) and other debugging tools.
+`assets watch` is quicker than `assets build` but the UI still doesn't reflect changes, at least for custom fields component changes, we need to rerun it on each edit. `watch` runs with `NODE_ENV=development` so assets are not minified/obfuscated. This makes it far easier to use [React Developer Tools](https://chromewebstore.google.com/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi) and other debugging tools.
 
 ## Custom code & views
 
@@ -86,13 +87,13 @@ There is a demo of a custom view at `/vocablist` which lists all vocabs and link
 
 ## Testing Invenio core modules
 
-See, for instance, [invenio-rdm-records](https://github.com/inveniosoftware/invenio-rdm-records) where it says how to install dependencies and run tests. These steps aren't enough, however, they don't include two necessary modules.
+See, for instance, [invenio-rdm-records](https://github.com/inveniosoftware/invenio-rdm-records) where it says how to install dependencies and run tests. These steps aren't enough, however, they don't include some necessary modules.
 
 ```sh
-pipenv --python 3.9
+pipenv --python 3.12
 pipenv shell
 pip install -e .[all]
 pip install invenio-search[opensearch2] invenio-db[postgresql] docker-services-cli check_manifest sphinx
 ```
 
-Then to run tests, ensure Docker is running and `./run-tests.sh`.
+To run tests, ensure Docker is running and `./run-tests.sh`.
