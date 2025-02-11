@@ -121,9 +121,6 @@
 - id: 8beb0ccf-5ae8-5537-a3e7-73c890323194
   scheme: cca_local
   subject: Woodworking Shop (Oakland, Calif.)
-- id: 24051b13-99f1-555b-a6d3-7eda5e161fa2
-  scheme: cca_local
-  subject: California College of Arts and Crafts
 - id: 33e9ce1f-4697-574e-bef3-59bdc8c08feb
   scheme: cca_local
   subject: California School of Arts and Crafts
@@ -157,6 +154,51 @@
 - id: 5cecdb63-4bf1-5b10-a3b1-ca37891236d3
   scheme: cca_local
   subject: 'School of the California Guild of Arts and Crafts '
+- id: https://vocab.getty.edu/page/ulan/500110976
+  scheme: cca_local
+  subject: Henderson, Mel, 1922-
+- id: https://vocab.getty.edu/page/ulan/500333271
+  scheme: cca_local
+  subject: Hung, Su-Chen
+- id: https://vocab.getty.edu/page/ulan/500121148
+  scheme: cca_local
+  subject: Lloyd, David
+- id: https://vocab.getty.edu/page/ulan/500122118
+  scheme: cca_local
+  subject: Mason, Phillip Lindsay
+- id: https://vocab.getty.edu/page/ulan/500065231
+  scheme: cca_local
+  subject: Nahl, Perham Wilhelm, 1869-1935
+- id: https://vocab.getty.edu/page/ulan/500017575
+  scheme: cca_local
+  subject: Nepote, Alexander, 1913-1986
+- id: https://vocab.getty.edu/page/ulan/500060539
+  scheme: cca_local
+  subject: Petri-Raben, Trude
+- id: https://vocab.getty.edu/page/ulan/500473843
+  scheme: cca_local
+  subject: Veeder, Jane
+- id: https://vocab.getty.edu/page/ulan/500239398
+  scheme: cca_local
+  subject: Vivanco, Sandra
+- id: https://vocab.getty.edu/page/ulan/500127833
+  scheme: cca_local
+  subject: West, Isabelle Clark Percy, 1882-1976
+- id: https://vocab.getty.edu/page/ulan/500065511
+  scheme: cca_local
+  subject: Wolf, Hamilton Achille, 1883-1967
+- id: bd6952e5-bd4b-5f6c-ba7a-4af7c5f7eb06
+  scheme: cca_local
+  subject: California College of Arts and Crafts, Founders day.
+- id: 4f2950dc-a068-5c5c-adc9-da051eda0b06
+  scheme: cca_local
+  subject: Ciriclio, Susan E., 1946-
+- id: 193af1c1-0557-555a-9ae9-f848e28c6238
+  scheme: cca_local
+  subject: Browne, Tom Martin, 1938-
+- id: e6b49bcd-09fa-5737-b454-0c47a4b64ad1
+  scheme: cca_local
+  subject: Holt, Earle Francis
 - id: a97b12f2-cd0c-50ab-8bcc-1debba741d23
   scheme: cca_local
   subject: Acona, Samuel
@@ -1486,9 +1528,6 @@
 - id: 08fd2822-6851-5422-9611-7c3120dbbc14
   scheme: cca_local
   subject: Maruyama, Wendy, 1952-
-- id: c829c465-4c9a-59ee-8acb-0b61f2f6b996
-  scheme: cca_local
-  subject: Mason, Phillip Lindsay
 - id: ad0e7ad3-88dc-5357-b359-6ddd93074921
   scheme: cca_local
   subject: Massey, Jonathan, 1969-
@@ -1651,9 +1690,6 @@
 - id: cc1ef2be-c18d-5807-ba60-f1cf0613a019
   scheme: cca_local
   subject: Myles, Glenn, 1933-
-- id: adad867c-176d-5adb-bd51-842c2402d383
-  scheme: cca_local
-  subject: Nahl, Perham Wilhelm, 1869-1935
 - id: d53f59a5-fac1-51a6-b958-c7a75b1fbd14
   scheme: cca_local
   subject: Nakamura, Randy
