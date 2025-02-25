@@ -65,7 +65,9 @@ services:
     environment:
       # settings only for development. DO NOT use in production!
       - bootstrap.memory_lock=true
-      - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m"
+      # UseSVE=0 is due to https://github.com/opensearch-project/opensearch-build/issues/5217
+      # Xmx/Xms are memory limits & could be increased if we see performance problems
+      - "OPENSEARCH_JAVA_OPTS=-Xms512m -Xmx512m -XX:UseSVE=0"
       - "DISABLE_INSTALL_DEMO_CONFIG=true"
       - "DISABLE_SECURITY_PLUGIN=true"
       - "discovery.type=single-node"
