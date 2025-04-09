@@ -6,20 +6,19 @@ This document is about managing a running Invenio instance. See **Getting Starte
 
 | Service | URL | Notes |
 |---------|-----|-------|
+| Main site | https://127.0.0.1:5000 | |
+| API | https://127.0.0.1:5000/api/records | same port as app if running locally |
 | RabbitMQ admin interface | http://localhost:15672 | credentials "guest/guest" |
 | Elasticsearch | http://localhost:9200/_cat/indices?v | |
 | Postgres db | localhost:5432 | username, password, & db name are all "invenio-vault", run `./notes/code-samples/dbconnect` |
 | pgAdmin (db) | http://127.0.0.1:5050/login | credentials "ephetteplace@cca.edu/invenio-vault" or look in docker-services.yml |
-| Minio | http://localhost:9001/browser | credentials "CHANGE_ME/CHANGE_ME" |
-| API | https://127.0.0.1:5000/api/records | same port as app if running locally |
+| Minio | http://localhost:9001/browser | if used, credentials "CHANGE_ME/CHANGE_ME" |
 
-The Postgres database is another service but is not exposed, use pgAdmin to interact with it.
-
-The OpenSearch Dashboard is disabled in the docker-services.yml but could be added.
+Postgres is another service but is not exposed, use pgAdmin to interact with it. OpenSearch Dashboard is disabled in docker-services.yml but could be added.
 
 You may need to set the postgres host to "host.docker.internal" e.g. in docker/pgadmin/servers.json.
 
-If you're running the app locally, the main URLs (for website and REST API) are localhost:5000 while if you run the fully containerized app then you do not need the port and the website, background worker, and API are all on different containers. Each of these three has the application code, but there are no static files for the worker & API.
+If we're running the app locally, the main URLs (for website and REST API) are 127.0.0.1:5000 while if we run the fully containerized app then we do not need the port and the website, background worker, and API are all on different containers. Each of these three has the application code, but there are no static files for the worker & API.
 
 ## Local Rebuild
 
@@ -27,7 +26,7 @@ To reset the local instance, run `invenio-cli services setup --force --no-demo-d
 
 ## CLI Usage
 
-The `invenio` command has numerous commands for interacting with different parts of the app. **@TODO list common tasks here**
+The `invenio` command has numerous commands for interacting with different parts of the app. **TODO list common tasks here**
 
 We could also install Graz U Library's [repository-cli](https://github.com/tu-graz-library/repository-cli/). It adds these extra commands:
 
@@ -45,7 +44,7 @@ If the `invenio-cli services setup` command fails, we can sort of see what the c
 ```sh
 invenio db init create
 # on a local instance the INVENIO_INSTANCE_PATH is the venv + var/instance/data so
-# (pipenv --venv)/var/instance/data
+# .venv/var/instance/data
 invenio files location create --default default-location ${INVENIO_INSTANCE_PATH}/data
 # TODO are these needed here? I think rdm-records fixtures creates them
 invenio roles create admin

@@ -1,9 +1,12 @@
 # Deployment
 
-Copy example.env to .env and fill in values. An `ENVIRONMENT` variable should be set to one of `dev` (local minikube), `staging`, or `prod`. If you `pipenv shell` then pipenv automatically loads values in .env files. The outline below is aspirational—parts that haven't been implemented yet are noted with `TODO`.
+NOTE: this information is out of date. We need to connect the cca_invenio with our repo for the helm chart.
+
+Copy example.env to .env and fill in values. An `ENVIRONMENT` variable should be set to one of `dev` (local minikube), `staging`, or `prod`. The outline below is aspirational—parts that haven't been implemented yet are noted with `TODO`.
 
 ```sh
-pipenv shell # loads .env with ENVIRONMENT=dev
+# TODO load env vars in .env
+source .venv/bin/activate.fish
 git commit ... && git push # commit changes to code
 ./deploy/ci.sh deploy # test local deployment
 export ENVIRONMENT=staging

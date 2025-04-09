@@ -1,0 +1,32 @@
+[project]
+name = "cca_invenio"
+version = "0.1.0"
+description = "CCA's InvenioRDM instance."
+authors = [{name = "Eric Phetteplace", email = "ephetteplace@cca.edu"}]
+readme = "readme.md"
+# matches mise.toml
+requires-python = ">=3.12"
+license = "ECL-2.0"
+dependencies = [
+    "invenio-app-rdm[opensearch2] == 12.0.13",
+    "invenio-utilities-tuw == 2024.2.1",
+    "python-dotenv == 1.0.1",
+    # TODO still true? 2.32+ breaks docker-py & invenio-cli services commands
+    "requests == 2.31.0",
+    "uwsgi == 2.0.28",
+    "uwsgi-tools == 1.1.1",
+    "uwsgitop == 0.12"
+]
+
+[project.optional-dependencies]
+dev = [
+    "check-manifest >= 0.25",
+    "flask-debugtoolbar == 0.15.1"
+]
+
+[build-system]
+build-backend = "setuptools.build_meta"
+requires = ["setuptools>=42", "wheel"]
+
+[tool.setuptools.packages.find]
+where = ["site"]

@@ -29,7 +29,7 @@ Change `from flask_babelex import lazy_gettext as _` to `from invenio_i18n impor
 At first, the alembic upgrade below failed with `sqlalchemy.exc.OperationalError: (psycopg2.OperationalError) connection to server at "localhost" (::1), port 5432 failed: FATAL:  password authentication failed for user "invenio-app-rdm"` when our db user is "invenio" because I hadn't run `invenio-cli install` so it was not reading our invenio.cfg file.
 
 ```sh
-invenio-cli packages lock # could this just be `pipenv lock`?
+invenio-cli packages lock
 pipenv shell # must be in venv for `invenio` (no -cli) cmds
 invenio alembic upgrade # db migration
 invenio queues declare # add statistics processing queues
@@ -77,13 +77,13 @@ invenio shell /usr/local/lib/python3.9/site-packages/invenio_app_rdm/upgrade_scr
 
 ## 10.0.0 upgrade
 
-Edited Pipfile to reference Invenio 10.0.0
+Edited Pipfile to reference Invenio 10.0.0.
 
-`invenio-cli containers build` failed with errors related to webpack and missing assets from the new custom fields feature
+`invenio-cli containers build` failed with errors related to webpack and missing assets from the new custom fields feature.
 
-Had to edit .invenio, add `search = elasticsearch7` line
+Had to edit .invenio, add `search = elasticsearch7` line.
 
-on web-ui container
+On web-ui container:
 
 ```sh
 cd /opt/invenio/src
@@ -93,6 +93,6 @@ invenio-cli packages update 10.0.0
 invenio-cli assets build
 ```
 
-none of the invenio or invenio-cli commands work on the container because they expect pipenv to have made a virtualenv but the Dockerfile installs the dependencies into the system python environment
+None of the invenio or invenio-cli commands work on the container because they expect pipenv to have made a virtualenv but the Dockerfile installs the dependencies into the system python environment.
 
-exit and `invenio-cli containers build` on the host
+Exit and `invenio-cli containers build` on the host.

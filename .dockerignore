@@ -3,10 +3,12 @@ __pycache__
 .env
 .git
 .gitlab-ci.yml
+mise.toml
 .tool-versions
 .venv/
 *.pyc
 *.pyo
+celerybeat-schedule.db
 deploy/
 example.env
 notes/

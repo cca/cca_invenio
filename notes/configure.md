@@ -42,7 +42,7 @@ These two settings let users to sign up and login without confirming their email
 
 As of v11, there is a `--confirm` flag so you can `invenio users create -c` to automatically confirm the created user.
 
-To give an account admin permissions, run: `pipenv run invenio roles add <email> admin`
+To give an account admin permissions, run: `uv run invenio roles add <email> admin`
 
 See the [SAML Integration](https://inveniordm.docs.cern.ch/customize/authentication/#saml-integration) documentation.
 

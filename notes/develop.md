@@ -13,7 +13,7 @@ See [Installation docs](https://inveniordm.docs.cern.ch/install/). We recommend 
 ```sh
 # to build fresh, answering configuration questions
 invenio-cli init rdm -c 12.0
-invenio-cli install --dev
+invenio-cli install all --dev
 invenio-cli services setup --no-demo-data
 ```
 
@@ -75,7 +75,7 @@ Then rebuild the JS assets & restart the app: `invenio-cli assets build && inven
 
 ### Editing/testing JS/CSS
 
-`invenio-cli assets build` completely rebuilds the JS and CSS assets, installing remote packages and compiling the JS and CSS from scratch, overwriting local changes. Use `invenio-cli assets watch` to rebuild assets whenever the source files change, e.g. if editing an Invenio or site package. The packages are under the instance path in the assets directory and already compiled to ESM and commonjs formats. There's a Pipfile script `pipenv run instancepath` which echoes the path to the instance directory, so `cd (pipenv run instancepath)/assets` takes us there and `invenio webpack build` rebuilds the assets.
+`invenio-cli assets build` completely rebuilds the JS and CSS assets, installing remote packages and compiling the JS and CSS from scratch, overwriting local changes. Use `invenio-cli assets watch` to rebuild assets whenever the source files change, e.g. if editing an Invenio or site package. The packages are under the instance path in the assets directory and already compiled to ESM and commonjs formats. `invenio webpack build` rebuilds the assets.
 
 `assets watch` is quicker than `assets build` but the UI still doesn't reflect changes, at least for custom fields component changes, we need to rerun it on each edit. `watch` runs with `NODE_ENV=development` so assets are not minified/obfuscated. This makes it far easier to use [React Developer Tools](https://chromewebstore.google.com/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi) and other debugging tools.
 

@@ -1,0 +1,6 @@
+[env]
+UV_PYTHON = "3.12"
+[tools]
+node = "20.16.0"
+# matches pyproject.toml
+python = "3.12.4"
