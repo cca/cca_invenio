@@ -1,6 +1,8 @@
 # Vocabularies created by migration project
 app_data/vocabularies/names.yaml
 app_data/users.yaml
+# Downloaded courses data
+courses.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
