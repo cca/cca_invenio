@@ -46,6 +46,7 @@ def prepare_bulk_data(file_path):
         courses: list[dict[str, Any]] = json.load(f)
 
     bulk_data: list[dict[str, Any]] = []
+    # TODO we will want only a subset of the fields in the course data
     for course in courses:
         bulk_data.append(
             # We want this to KeyError if a course lacks an id
