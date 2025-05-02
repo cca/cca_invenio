@@ -25,6 +25,9 @@ dev = [
     "flask-debugtoolbar == 0.15.1"
 ]
 
+[project.scripts]
+courses = "cca.cli:main"
+
 [build-system]
 build-backend = "setuptools.build_meta"
 requires = ["setuptools>=42", "wheel"]
