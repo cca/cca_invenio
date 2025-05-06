@@ -1,3 +1,4 @@
+from typing import Any
 from invenio_i18n import lazy_gettext as _
 from invenio_rdm_records.config import RDM_FACETS, RDM_SEARCH
 from invenio_records_resources.services.records.facets import CFTermsFacet
@@ -17,7 +18,7 @@ class ArchivesSeriesCF(BaseCF):
         super().__init__(
             name,
             field_args=dict(series=SanitizedUnicode(), subseries=SanitizedUnicode()),
-            **kwargs
+            **kwargs,
         )
 
     # BaseCF must implement field property
@@ -53,20 +54,20 @@ RDM_CUSTOM_FIELDS = [
     ),
 ]
 
-RDM_CUSTOM_FIELDS_UI = [
+RDM_CUSTOM_FIELDS_UI: list[dict[str, Any]] = [
     {
         "section": _("CCA Custom Fields"),
         "fields": [
             {
                 "field": "cca:conditional_field",
-                "template": "conditionalfield.html",
+                "template": "conditional_field.html",
                 "ui_widget": "ConditionalField",
                 # props hard-coded into ConditionalField.js
                 "props": {},
             },
             {
                 "field": "cca:community_field",
-                "template": "communityfield.html",
+                "template": "community_field.html",
                 "ui_widget": "CommunityField",
                 # props hard-coded into CommunityField.js
                 "props": {},
@@ -88,7 +89,7 @@ RDM_CUSTOM_FIELDS_UI = [
             },
             {
                 "field": "cca:archives_series",
-                "template": "archivesseries.html",
+                "template": "archives_series.html",
                 "ui_widget": "ArchivesSeries",
                 "props": {
                     "icon": "archive",
