@@ -40,22 +40,80 @@ def download_courses(
     print(f"Downloaded {filename} to {destination_filename}.")
 
 
+def filter_course_dict(course: dict[str, Any]) -> dict[str, Any]:
+    """Return a subset of the course dictionary & improve some fields."""
+    course_subset: dict[str, Any] = course.copy()
+    # Easiest to define a list of fields we _don't_ want
+    unneeded_fields: list[str] = [
+        "status",
+        "hidden",
+        "min_unit",
+        "max_unit",
+        "grading_basic",
+        "capacity",
+        "wait_list",
+        "enrollment",
+        "meetings",
+    ]
+    for field in unneeded_fields:
+        course_subset.pop(field)
+    # "AP_Summer_2025" -> "Summer 2025"
+    course_subset["term_string"] = (
+        course_subset["term"].replace("AP_", "").replace("_", " ")
+    )
+    # filter out unpublished instructors
+    course_subset["instructors"] = [
+        instructor
+        for instructor in course_subset["instructors"]
+        if instructor["published"]
+    ]
+    course_subset["instructors_string"] = ", ".join(
+        [
+            f"{instructor['first_name']}{' ' + instructor['middle_name'] + ' ' if instructor['middle_name'] else ' '}{instructor['last_name']}"
+            for instructor in course_subset["instructors"]
+        ]
+    )
+    # Make the "owner" academic unit more accessible
+    course_subset["owner_program_code"] = [
+        au["refid"].replace("AU_", "")
+        for au in course_subset["academic_units"]
+        if au["course_owner"]
+    ][0]
+    course_subset["owner_program_name"] = [
+        au["name"] for au in course_subset["academic_units"] if au["course_owner"]
+    ][0]
+    return course_subset
+
+
+def skip_course(course: dict[str, Any]) -> bool:
+    """Return True if the course should be skipped. Skip: 1) hidden, 2) Extension,
+    3) Pre-college. Question: do we need to worry about cancelled courses?"""
+    if course["hidden"] == "1":
+        return True
+    # Statuses:
+    # Set(4) { 'Closed', 'Open', 'Preliminary', 'Waitlist' }
+    owner = [au for au in course["academic_units"] if au["course_owner"]][0]
+    if owner["refid"] in ("AU_EXTED", "AU_PRECO"):
+        return True
+    return False
+
+
 def prepare_bulk_data(file_path):
     """Prepare data for OpenSearch bulk indexing."""
     with open(file_path, "r") as f:
         courses: list[dict[str, Any]] = json.load(f)
-
     bulk_data: list[dict[str, Any]] = []
-    # TODO we will want only a subset of the fields in the course data
     for course in courses:
-        bulk_data.append(
-            # We want this to KeyError if a course lacks an id
-            {"_index": "courses", "_id": course["section_refid"], "_source": course}
-        )
+        if not skip_course(course):
+            course: dict[str, Any] = filter_course_dict(course)
+            bulk_data.append(
+                # We want this to KeyError if a course lacks an id
+                {"_index": "courses", "_id": course["section_refid"], "_source": course}
+            )
     return bulk_data
 
 
-def push_to_opensearch(os_host, bulk_data):
+def push_to_opensearch(os_host: str, bulk_data: list[dict[str, Any]]):
     """Push bulk data to OpenSearch."""
     # TODO presumably will need to set up authentication
     os_client = OpenSearch([os_host])
