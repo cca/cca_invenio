@@ -157,7 +157,7 @@ def main(
     if delete:
         os_client = OpenSearch([os_host])
         os_client.indices.delete(
-            "courses", allow_no_indices=True, ignore_unavailable=True
+            "courses", allow_no_indices=True, ignore_unavailable=True  # type: ignore
         )
         print("Deleted the 'courses' OpenSearch index.")
     download_courses(bucket, filename, destination_filename)

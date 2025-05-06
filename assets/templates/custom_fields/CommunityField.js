@@ -1,7 +1,7 @@
 // field is only visible when record is submitted to a particular community
 import {useFormikContext} from "formik"
 import React, {useState, useEffect} from "react"
-// redux store getState().deposit.editorState.selectedCommunity is the only way to know the selected community
+// redux store useSelector is the only way to get the community slug
 import {useSelector} from "react-redux"
 import {TextField} from "react-invenio-forms"
 
@@ -14,7 +14,6 @@ const CommunityField = ({fieldPath}) => {
     useEffect(() => {
         console.log("useEffect state", community, active)
         const isActive = (community === 'test')
-        const newKey = `communityfield-${community}`
         if (active !== isActive) {
             setActive(isActive)
             // clear the field value when it becomes inactive

@@ -29,21 +29,99 @@ class ArchivesSeriesCF(BaseCF):
 
     @property
     def mapping(self):
-        """Return the mapping."""
+        """Search mapping"""
         return {
             "properties": {
+                # We can't have these be keywords with their roman numeral prefixes
                 "series": {"type": "text"},
                 "subseries": {"type": "text"},
             }
         }
 
 
-RDM_NAMESPACES = {
+# Associated course information, see a course data file for available fields
+# And site/cca/cli.py for how to load this data into OpenSearch
+class CourseCF(BaseCF):
+    """{
+    "department": "Architecture",
+    "department_code": "ARCHT",
+    "instructors_string": "Frida Kahlo, Jean-Paul Sartre",
+    "instructors": [
+        { "first_name": "Frida", "last_name": "Kahlo", "middle_name": "", "username": "fkahlo", "employee_id": "500101", "uid": "1001001" },
+        { "first_name": "Jean-Paul", "last_name": "Sartre", "middle_name": "", "username": "jpsatre", "employee_id": "500102", "uid": "1001002" }
+    ],
+    "section": "ARCHT-1000-1",
+    "section_refid": "COURSE_SECTION-3-42782",
+    "term": "Fall 2025",
+    "title": "Architecture 1" }"""
+
+    def __init__(self, name, **kwargs):
+        """Constructor."""
+        super().__init__(
+            name,
+            field_args=dict(
+                department=SanitizedUnicode(),
+                department_code=SanitizedUnicode(),
+                instructors_string=SanitizedUnicode(),
+                instructors=fields.Nested(
+                    {
+                        "first_name": SanitizedUnicode(),
+                        "last_name": SanitizedUnicode(),
+                        "middle_name": SanitizedUnicode(),
+                        "username": SanitizedUnicode(),
+                        "employee_id": SanitizedUnicode(),
+                        "uid": SanitizedUnicode(),
+                    }
+                ),
+                section=SanitizedUnicode(),
+                section_refid=SanitizedUnicode(),
+                term=SanitizedUnicode(),
+                title=SanitizedUnicode(),
+            ),
+            **kwargs,
+        )
+
+    # BaseCF must implement field property
+    @property
+    def field(self) -> fields.Dict:
+        """Marshmallow field for custom fields."""
+        return fields.Dict()
+
+    @property
+    def mapping(self):
+        """Search mapping."""
+        return {
+            "properties": {
+                "department": {"type": "text"},
+                "department_code": {"type": "keyword"},
+                "instructors_string": {"type": "text"},
+                "instructors": {
+                    "type": "nested",
+                    "properties": {
+                        "first_name": {"type": "text"},
+                        "last_name": {"type": "text"},
+                        "middle_name": {"type": "text"},
+                        "username": {"type": "keyword"},
+                        "employee_id": {"type": "keyword"},
+                        "uid": {"type": "keyword"},
+                    },
+                },
+                "section": {"type": "keyword"},
+                "section_refid": {"type": "keyword"},
+                "term": {"type": "text"},
+                "title": {"type": "text"},
+            }
+        }
+
+
+RDM_NAMESPACES: dict[str, str] = {
     "cca": "https://libraries.cca.edu/",
 }
 
-RDM_CUSTOM_FIELDS = [
+RDM_CUSTOM_FIELDS: list[BaseCF] = [
     ArchivesSeriesCF(name="cca:archives_series"),
+    CourseCF(name="cca:course"),
+    # TODO these example fields can eventually be removed
     TextCF(name="cca:community_field"),
     TextCF(name="cca:conditional_field"),
     VocabularyCF(  # the type of custom field, VocabularyCF is a controlled vocabulary
@@ -58,6 +136,12 @@ RDM_CUSTOM_FIELDS_UI: list[dict[str, Any]] = [
     {
         "section": _("CCA Custom Fields"),
         "fields": [
+            {
+                "field": "cca:course",
+                "template": "course.html",
+                "ui_widget": "CourseField",
+                "props": {},
+            },
             {
                 "field": "cca:conditional_field",
                 "template": "conditional_field.html",
@@ -111,7 +195,7 @@ RDM_CUSTOM_FIELDS_UI: list[dict[str, Any]] = [
     }
 ]
 
-RDM_FACETS = {
+RDM_FACETS: dict[str, dict[str, Any]] = {
     **RDM_FACETS,
     "program": {
         "facet": CFTermsFacet(  # backend facet
@@ -124,4 +208,7 @@ RDM_FACETS = {
     },
 }
 
-RDM_SEARCH = {**RDM_SEARCH, "facets": RDM_SEARCH["facets"] + ["program"]}
+RDM_SEARCH: dict[str, list[str]] = {
+    **RDM_SEARCH,
+    "facets": RDM_SEARCH["facets"] + ["program"],
+}
