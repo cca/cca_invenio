@@ -87,8 +87,21 @@ def push_to_opensearch(os_host, bulk_data):
     default=lambda: os.getenv("COURSES_OS_HOST", "http://localhost:9200"),
     help="The OpenSearch host URL.",
 )
-def main(bucket: str, filename: str, destination_filename: str, os_host: str):
+@click.option(
+    "--delete",
+    is_flag=True,
+    help="Delete the OpenSearch index before pushing new data.",
+)
+def main(
+    bucket: str, filename: str, destination_filename: str, os_host: str, delete: bool
+):
     """Download course JSON from the Integrations bucket, format it for bulk addition to OpenSearch, and push it to the "courses" index. By default, the bucket name is "int_files_source", the blob name is "course_section_data_AP_<current_term>.json", and the OpenSearch host is "http://localhost:9200"."""
+    if delete:
+        os_client = OpenSearch([os_host])
+        os_client.indices.delete(
+            "courses", allow_no_indices=True, ignore_unavailable=True
+        )
+        print("Deleted the 'courses' OpenSearch index.")
     download_courses(bucket, filename, destination_filename)
     bulk_data: list[dict[str, Any]] = prepare_bulk_data(destination_filename)
     push_to_opensearch(os_host, bulk_data)
