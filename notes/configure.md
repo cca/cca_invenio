@@ -123,11 +123,13 @@ The .invenio file also has `file_storage = S3` but that file might only be used 
 
 ## Custom Fields
 
-Simplest: https://inveniordm.docs.cern.ch/customize/custom_fields/records/
-Reference: https://inveniordm.docs.cern.ch/reference/widgets/#autocompletedropdown
+Simplest: https://inveniordm.docs.cern.ch/customize/metadata/custom_fields/records/
+Reference: https://inveniordm.docs.cern.ch/reference/custom_fields/widgets/#autocompletedropdown
 Build your own: https://inveniordm.docs.cern.ch/develop/howtos/custom_fields/
 
-Managed to build a custom "Academic Programs" field that uses a vocabulary, autocompletes on the form, and has a custom display template linking to search results sharing the same value (similar to how we do it in VAULT). The only thing that did not work is that the search facet does not appear, but the indexing clearly works because the hyperlinked search returns results. One other disappointment is that, though I defined a bunch of properties for each term in the related programs vocab, it only records the `id` and `title` in the record.
+Code for custom fields is distributed throughout the code base. Field configuration is Python in [site/cca/customfields.py](../site/cca/customfields.py), upload form components are React and live in assets/templates/custom_fields/, and record display templates are HTML and live in templates/.
+
+We have an example "Academic Programs" `VocabularyCF` field that uses a vocabulary, autocompletes on the form, and has a display template linking to search results sharing the same value (similar to VAULT dynamic links). The only thing that did not work is that the search facet does not appear, but the terms are indexed because the hyperlinked search returns results. One other disappointment is that, though I defined extra properties for each term in the related programs vocab, it only records the`id` and `title` in the record. If we want more than an identifier and a label, we need to create our own custom fields from the ground up.
 
 Our `ArchivesSeriesCF` is a custom field with our own structure (dictionary) and deposit form widget. We can build custom fields that do almost anything with this approach, which is not limited to the few types of custom fields Invenio provides. The biggest challenge is writing the React form widget. Helpful reference points are [Semantic UI React](https://react.semantic-ui.com/) and [react-invenio-forms](https://github.com/inveniosoftware/react-invenio-forms), specifically the [forms components](https://github.com/inveniosoftware/react-invenio-forms/tree/master/src/lib/forms). Sometimes limitations in one component force us to use a lower level one. Read the source code of components to understand how they work and what props they accept. For instance, `Dropdown` does not support change handlers, but it is a wrapper around `SelectField` which does.
 
@@ -136,3 +138,12 @@ Our `ArchivesSeriesCF` is a custom field with our own structure (dictionary) and
 We have two demo custom fields `ConditionalField` and `CommunityField` which demonstrate conditional inputs that only show on the deposit form some of the time. `ConditionalField` checks if another metadata field has a particular value and disables the field if the condition is not met. `CommunityField` is analogous and shows only for submissions to a specific community.
 
 The `props` passed to a custom field React components represent only the initial state of the record (e.g. they only have data for drafts or new versions being edited). In order to access the current and mutable state of the form, we have to use Formik and Redux.
+
+### Keyword vs. Text Indexing
+
+In a custom field, we define how its metadata is indexed in the search engine via the field class' `mapping` method. For text fields, we can choose to either index them as `text` which is tokenized and can be partially matched or `keyword` that require exact matches. "Washing" matches "Washing Machine" if it is indexed as text, but not as a keyword. `text` is good for titles and descriptions, while `keyword` is good for identifiers.
+
+- `course.title`, `course.instructors_string` -> type = `text`
+- `course.section`, `course.instructors[].uid` -> type = `keyword`
+
+See the `CourseCF` `mapping` method for our most sophisticated example.

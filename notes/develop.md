@@ -81,6 +81,8 @@ Then rebuild the JS assets & restart the app: `invenio-cli assets build && inven
 
 ## Custom code & views
 
+These are added in the site folder. We can place multiple modules there but right now "cca" is the only one. We should use this container for our custom fields and CLI commands.
+
 https://inveniordm.docs.cern.ch/develop/howtos/custom_code/
 
 There is a demo of a custom view at `/vocablist` which lists all vocabs and links to their API routes.
