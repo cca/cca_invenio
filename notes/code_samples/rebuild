@@ -1,7 +1,7 @@
 #!/usr/bin/env fish
 if [ "$argv[1]" = "venv" ]
     echo "Rebuilding the virtual environment"
-    invenio-cli install --dev
+    invenio-cli install all --dev
 end
 
 echo "Rebuilding the Invenio application, this will DESTROY ALL DATA in the database and search engine and load fresh fixtures from the app_data directory"
