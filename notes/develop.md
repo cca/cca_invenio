@@ -25,7 +25,7 @@ invenio-cli services start
 invenio-cli run
 ```
 
-If rebuilding a local instance, use `invenio-cli install --dev` to recreate the virtualenv. A mere `pipenv install` won't copy over the configuration and static files to a location inside the venv and the app breaks.
+If rebuilding a local instance, use `invenio-cli install all --dev` to recreate the virtualenv. A mere `pipenv install` won't copy over the configuration and static files to a location inside the venv and the app breaks.
 
 Invenio initializes fixtures (basically, the static app_data files) asynchronously by sending them to its task queue. So the initial startup, even after services are running, is further delayed as these tasks finish. We can view the task queue in the RabbitMQ dashboard and the size of the search indices to get a sense of how much processing is left. See the **Services** table in [run.md](run.md). The **Setup Troubles**  section may also be useful.
 
