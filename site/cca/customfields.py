@@ -43,6 +43,7 @@ class ArchivesSeriesCF(BaseCF):
 # And site/cca/cli.py for how to load this data into OpenSearch
 class CourseCF(BaseCF):
     """{
+    "colocated_sections": ["COURSE_SECTION-3-42783"],
     "department": "Architecture",
     "department_code": "ARCHT",
     "instructors_string": "Frida Kahlo, Jean-Paul Sartre",
@@ -51,6 +52,7 @@ class CourseCF(BaseCF):
         { "first_name": "Jean-Paul", "last_name": "Sartre", "middle_name": "", "username": "jpsatre", "employee_id": "500102", "uid": "1001002" }
     ],
     "section": "ARCHT-1000-1",
+    "section_calc_id": "ARCHT-1000-1_AP_Fall_2025",
     "section_refid": "COURSE_SECTION-3-42782",
     "term": "Fall 2025",
     "title": "Architecture 1" }"""
@@ -60,6 +62,7 @@ class CourseCF(BaseCF):
         super().__init__(
             name,
             field_args=dict(
+                colocated_sections=fields.List(SanitizedUnicode()),
                 department=SanitizedUnicode(),
                 department_code=SanitizedUnicode(),
                 instructors_string=SanitizedUnicode(),
@@ -74,6 +77,7 @@ class CourseCF(BaseCF):
                     }
                 ),
                 section=SanitizedUnicode(),
+                section_calc_id=SanitizedUnicode(),
                 section_refid=SanitizedUnicode(),
                 term=SanitizedUnicode(),
                 title=SanitizedUnicode(),
@@ -92,6 +96,7 @@ class CourseCF(BaseCF):
         """Search mapping."""
         return {
             "properties": {
+                "colocated_sections": {"type": "keyword"},
                 "department": {"type": "text"},
                 "department_code": {"type": "keyword"},
                 "instructors_string": {"type": "text"},
@@ -107,6 +112,7 @@ class CourseCF(BaseCF):
                     },
                 },
                 "section": {"type": "keyword"},
+                "section_calc_id": {"type": "keyword"},
                 "section_refid": {"type": "keyword"},
                 "term": {"type": "text"},
                 "title": {"type": "text"},
@@ -136,10 +142,12 @@ RDM_CUSTOM_FIELDS_UI: list[dict[str, Any]] = [
     {
         "section": _("CCA Custom Fields"),
         "fields": [
+            # ! When I add this I get an error that CourseField.js cannot be found by any loader
             {
                 "field": "cca:course",
                 "template": "course.html",
-                "ui_widget": "CourseField",
+                # "ui_widget": "CourseField",
+                "ui_widget": None,
                 "props": {},
             },
             {
