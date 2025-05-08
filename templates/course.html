@@ -1,3 +1,25 @@
-<code><pre>
-    {{ field_value | tojson }}
-</pre></code>
+{% if field_value %}
+<h4>Course</h4>
+
+<p>
+    {% if field_value.title %}
+        {{ field_value.title }}
+    {% endif %}
+    {% if field_value.section %}
+        {{ field_value.section }}
+    {% endif %}
+    {% if field_value.term %}
+        {{ field_value.term }}
+    {% endif %}
+</p>
+
+{% if field_value.instructors_string %}
+    <p><strong>Instructor(s)</strong>: {{ field_value.instructors_string }}</p>
+{% endif %}
+
+{# TODO delete this #}
+<details>
+    <summary>Course data</summary>
+    <code><pre>{{ field_value | tojson(indent=2) }}</pre></code>
+</details>
+{% endif %}
