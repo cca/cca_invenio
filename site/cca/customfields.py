@@ -89,6 +89,7 @@ class CourseCF(BaseCF):
     @property
     def field(self) -> fields.Dict:
         """Marshmallow field for custom fields."""
+        # ? Can we specify the dict structure, like in __init__, here?
         return fields.Dict()
 
     @property
@@ -140,12 +141,12 @@ RDM_CUSTOM_FIELDS: list[BaseCF] = [
 
 RDM_CUSTOM_FIELDS_UI: list[dict[str, Any]] = [
     {
-        "section": _("CCA Custom Fields"),
+        "section": _("CCA Fields"),
         "fields": [
-            # ! When I add this I get an error that CourseField.js cannot be found by any loader
             {
                 "field": "cca:course",
                 "template": "course.html",
+                # ! When I add this I get an error that CourseField.js cannot be found by any loader
                 # "ui_widget": "CourseField",
                 "ui_widget": None,
                 "props": {},
