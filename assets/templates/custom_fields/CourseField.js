@@ -33,6 +33,7 @@ const courses = [
     }
 ]
 
+// TODO this field should be required for publication-syllabus resources
 export class CourseField extends Component {
     constructor(props) {
         super(props)
