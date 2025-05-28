@@ -10,7 +10,6 @@ on:
 
 env:
   APP: 'invenio'
-  IMAGE: 'moodle'
   PROJECT_ID: 'cca-web-staging'
   REGISTRY: 'us-west2-docker.pkg.dev'
   REPOSITORY: 'docker-web'
@@ -85,8 +84,8 @@ jobs:
         uses: docker/build-push-action@v6.18.0
         with:
           cache-to: type=inline
-          cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.IMAGE }}:latest
+          cache-from: type=registry,ref=${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.APP }}:latest
           tags: |
-            ${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.IMAGE }}:latest
-            ${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.IMAGE }}:${{ steps.tag.outputs.tag }}
+            ${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.APP }}:latest
+            ${{ env.REGISTRY }}/${{ env.PROJECT_ID }}/${{ env.REPOSITORY }}/${{ env.APP }}:${{ steps.tag.outputs.tag }}
           push: true
