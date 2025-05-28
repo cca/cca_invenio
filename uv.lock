@@ -265,13 +265,13 @@ dev = [
 [package.metadata]
 requires-dist = [
     { name = "check-manifest", marker = "extra == 'dev'", specifier = ">=0.25" },
-    { name = "flask-debugtoolbar", marker = "extra == 'dev'", specifier = "==0.15.1" },
+    { name = "flask-debugtoolbar", marker = "extra == 'dev'", specifier = ">=0.15.0" },
     { name = "google-cloud-storage", specifier = ">=3.1.0" },
-    { name = "invenio-app-rdm", extras = ["opensearch2"], specifier = "==12.0.13" },
-    { name = "invenio-utilities-tuw", specifier = "==2024.2.1" },
-    { name = "python-dotenv", specifier = "==1.0.1" },
+    { name = "invenio-app-rdm", extras = ["opensearch2"], specifier = "==12.1.0" },
+    { name = "invenio-utilities-tuw", specifier = "==2025.0.0" },
+    { name = "python-dotenv", specifier = ">=1.1.0" },
     { name = "requests", specifier = "==2.31.0" },
-    { name = "uwsgi", specifier = "==2.0.28" },
+    { name = "uwsgi", specifier = "==2.0.29" },
     { name = "uwsgi-tools", specifier = "==1.1.1" },
     { name = "uwsgitop", specifier = "==0.12" },
 ]
@@ -1518,7 +1518,7 @@ wheels = [
 
 [[package]]
 name = "invenio-app-rdm"
-version = "12.0.13"
+version = "12.1.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "cairosvg" },
@@ -1558,9 +1558,9 @@ dependencies = [
     { name = "invenio-theme" },
     { name = "invenio-userprofiles" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/d5/40/4bced89f653b0a75148bd5da6e1ed4cfd80f6fe3576af5942cf00aaa4777/invenio_app_rdm-12.0.13.tar.gz", hash = "sha256:13f1fd3d8f4ba6b1bbfa2c723e174314e45a0429b9e03f5284e3dff9c9b41796", size = 471858, upload-time = "2025-01-14T20:32:53.159Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/d8/70/59b033088927ec6a63bfebc35b91ff15a6a63a544a7e847a8247b8a812e5/invenio_app_rdm-12.1.0.tar.gz", hash = "sha256:75b266db751a3a2e6e4f915109baaa83ad39730e66c6d99732581951b23184f1", size = 759183, upload-time = "2025-04-29T13:40:32.444Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/9e/01/db649e12873631025dad0fcf26ec230dd4b5a04605e4c4389248caa26f45/invenio_app_rdm-12.0.13-py2.py3-none-any.whl", hash = "sha256:1ea4ab09543756163fb53f4ab9b97710dcaa9d9e78cb7f65165160c808cb784a", size = 866101, upload-time = "2025-01-14T20:32:50.585Z" },
+    { url = "https://files.pythonhosted.org/packages/90/14/acc8c549bd5d14f29f405a2b01be0c3a3bf2fb40e31e30af79e1a1b81cb5/invenio_app_rdm-12.1.0-py2.py3-none-any.whl", hash = "sha256:0f1973f4833146ea220f0baf4590f5fb6476577799ee8d01c56ca0d541c9ad88", size = 1191764, upload-time = "2025-04-29T13:40:29.75Z" },
 ]
 
 [package.optional-dependencies]
@@ -2273,14 +2273,14 @@ wheels = [
 
 [[package]]
 name = "invenio-utilities-tuw"
-version = "2024.2.1"
+version = "2025.0.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "invenio-app-rdm" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/d6/63/5aedd3428fda5427c1744dc55fcc59ccf4c396d7b53d76d445591d770d3d/invenio_utilities_tuw-2024.2.1.tar.gz", hash = "sha256:d667e57a753aa7e7a32f4067e3b9eea8feff79b859f601f77ef3af937f1229de", size = 20150, upload-time = "2024-09-19T17:51:11.543Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/31/3a/3888f80b1e88e6da5763dfc36ebafa7f92142186e26164eb23971e966775/invenio_utilities_tuw-2025.0.0.tar.gz", hash = "sha256:af882b02bf83d071f40f530804d5cfdc6957bfd065323705095f3c0fc6880125", size = 21480, upload-time = "2025-03-11T16:48:06.609Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/b2/1e/d96951bba4ee168396ae7bdf74e361c662c1078af69e7390d2359cd403ed/invenio_utilities_tuw-2024.2.1-py3-none-any.whl", hash = "sha256:0afe3576ae23c9e4a5e025c28a804b244393ab62ce8e1a3cf3d2710eebc2d785", size = 21935, upload-time = "2024-09-19T17:51:10.16Z" },
+    { url = "https://files.pythonhosted.org/packages/05/11/4d80421b5dd7a3e0ecf8d555fdb357d3391e17a09c8ca7819c8a044ebe9c/invenio_utilities_tuw-2025.0.0-py3-none-any.whl", hash = "sha256:a22f2ebf12709a219f5f035e7dcfd452d9d5d58cc81f4699aa33f3ed4c81aba4", size = 23826, upload-time = "2025-03-11T16:48:05.37Z" },
 ]
 
 [[package]]
@@ -3355,11 +3355,11 @@ wheels = [
 
 [[package]]
 name = "python-dotenv"
-version = "1.0.1"
+version = "1.1.0"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/bc/57/e84d88dfe0aec03b7a2d4327012c1627ab5f03652216c63d49846d7a6c58/python-dotenv-1.0.1.tar.gz", hash = "sha256:e324ee90a023d808f1959c46bcbc04446a10ced277783dc6ee09987c37ec10ca", size = 39115, upload-time = "2024-01-23T06:33:00.505Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/88/2c/7bb1416c5620485aa793f2de31d3df393d3686aa8a8506d11e10e13c5baf/python_dotenv-1.1.0.tar.gz", hash = "sha256:41f90bc6f5f177fb41f53e87666db362025010eb28f60a01c9143bfa33a2b2d5", size = 39920, upload-time = "2025-03-25T10:14:56.835Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/6a/3e/b68c118422ec867fa7ab88444e1274aa40681c606d59ac27de5a5588f082/python_dotenv-1.0.1-py3-none-any.whl", hash = "sha256:f7b63ef50f1b690dddf550d03497b66d609393b40b564ed0d674909a68ebf16a", size = 19863, upload-time = "2024-01-23T06:32:58.246Z" },
+    { url = "https://files.pythonhosted.org/packages/1e/18/98a99ad95133c6a6e2005fe89faedf294a748bd5dc803008059409ac9b1e/python_dotenv-1.1.0-py3-none-any.whl", hash = "sha256:d7c01d9e2293916c18baf562d95698754b0dbbb5e74d457c45d4f6561fb9d55d", size = 20256, upload-time = "2025-03-25T10:14:55.034Z" },
 ]
 
 [[package]]
@@ -4136,9 +4136,9 @@ wheels = [
 
 [[package]]
 name = "uwsgi"
-version = "2.0.28"
+version = "2.0.29"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/24/c2/d58480aadc9a1f420dd96fc43cf0dcd8cb5ededb95cab53743529c23b6cd/uwsgi-2.0.28.tar.gz", hash = "sha256:79ca1891ef2df14508ab0471ee8c0eb94bd2d51d03f32f90c4bbe557ab1e99d0", size = 816212, upload-time = "2024-10-26T10:06:16.107Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/af/74/34f5411f1c1dc55cbcba3d817d1723b920484d2aeede4663bbaa5be7ee22/uwsgi-2.0.29.tar.gz", hash = "sha256:6bd150ae60d0d9947429ea7dc8e5f868de027e5eb38355fb613b9413732c432f", size = 822515, upload-time = "2025-04-11T19:22:00.407Z" }
 
 [[package]]
 name = "uwsgi-tools"

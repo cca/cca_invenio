@@ -9,12 +9,12 @@ requires-python = ">=3.12"
 license = "ECL-2.0"
 dependencies = [
     "google-cloud-storage>=3.1.0",
-    "invenio-app-rdm[opensearch2] == 12.0.13",
-    "invenio-utilities-tuw == 2024.2.1",
-    "python-dotenv == 1.0.1",
+    "invenio-app-rdm[opensearch2] == 12.1.0",
+    "invenio-utilities-tuw == 2025.0.0",
+    "python-dotenv >= 1.1.0",
     # TODO still true? 2.32+ breaks docker-py & invenio-cli services commands
     "requests == 2.31.0",
-    "uwsgi == 2.0.28",
+    "uwsgi == 2.0.29",
     "uwsgi-tools == 1.1.1",
     "uwsgitop == 0.12",
 ]
@@ -22,7 +22,8 @@ dependencies = [
 [project.optional-dependencies]
 dev = [
     "check-manifest >= 0.25",
-    "flask-debugtoolbar == 0.15.1"
+    # invenio 12 doesn't yet support debugtoolbar 0.16
+    "flask-debugtoolbar >= 0.15.0"
 ]
 
 [build-system]
