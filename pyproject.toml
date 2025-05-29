@@ -12,14 +12,12 @@ dependencies = [
     "invenio-app-rdm[opensearch2] == 12.1.0",
     "invenio-utilities-tuw == 2025.0.0",
     "python-dotenv >= 1.1.0",
-    # TODO still true? 2.32+ breaks docker-py & invenio-cli services commands
-    "requests == 2.31.0",
     "uwsgi == 2.0.29",
     "uwsgi-tools == 1.1.1",
     "uwsgitop == 0.12",
 ]
 
-[project.optional-dependencies]
+[dependency-groups]
 dev = [
     "check-manifest >= 0.25",
     # invenio 12 doesn't yet support debugtoolbar 0.16

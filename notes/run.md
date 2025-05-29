@@ -54,7 +54,7 @@ invenio index init
 invenio rdm-records custom-fields init
 invenio communities custom-fields init
 # app is semi-usable without errors now but uploads still won't work
-# until you load fixtures because they contains all the vocabs (resource types, subjects, etc.)
+# until you load fixtures because they contain all the vocabs (resource types, subjects, etc.)
 invenio rdm fixtures
 # app is usable but has no content
 # this submits a background task to create demo records, will take time
