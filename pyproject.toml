@@ -5,16 +5,20 @@ description = "CCA's InvenioRDM instance."
 authors = [{name = "Eric Phetteplace", email = "ephetteplace@cca.edu"}]
 readme = "readme.md"
 # matches mise.toml
-requires-python = ">=3.12"
+requires-python = ">=3.12,<3.13"
 license = "ECL-2.0"
 dependencies = [
     "google-cloud-storage>=3.1.0",
     "invenio-app-rdm[opensearch2] == 12.1.0",
+    # lxml & xmlsec saml deps are pinned for macOS compatibility, see develop.md
+    "invenio-saml==1.1.0",
     "invenio-utilities-tuw == 2025.0.0",
+    "lxml==5.3.0",
     "python-dotenv >= 1.1.0",
     "uwsgi == 2.0.29",
     "uwsgi-tools == 1.1.1",
     "uwsgitop == 0.12",
+    "xmlsec==1.3.14",
 ]
 
 [dependency-groups]

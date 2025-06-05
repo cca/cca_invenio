@@ -9,8 +9,17 @@ ENV LANG=en_US.UTF-8 \
 
 # Install OS package dependencies
 RUN --mount=type=cache,sharing=locked,target=/var/cache/apt \
-    apt-get update --fix-missing && apt-get install -y build-essential libssl-dev libffi-dev \
-    python3-dev cargo pkg-config curl --no-install-recommends
+    apt-get update --fix-missing && \
+    apt-get install -y --no-install-recommends \
+        build-essential \
+        cargo \
+        curl \
+        libffi-dev \
+        libssl-dev \
+        libxml2-dev \
+        libxmlsec1-dev \
+        pkg-config \
+        python3-dev
 
 # Install Node.js 20.x
 RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
