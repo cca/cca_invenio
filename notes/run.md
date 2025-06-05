@@ -83,3 +83,7 @@ user.password = hash_password("password")
 current_datastore.activate_user(user)
 db.session.commit()
 ```
+
+## Change Record Owner
+
+See our [change_owner.py](./code_samples/change_owner.py) script: `invenio shell notes/code_samples/change_owner.py record_id email@cca.edu`.
