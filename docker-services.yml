@@ -8,6 +8,7 @@ services:
     image: invenio
     restart: "unless-stopped"
     environment:
+      # TODO should we be setting some/all of these in invenio.cfg with GSM instead?
       - "INVENIO_ACCOUNTS_SESSION_REDIS_URL=redis://cache:6379/1"
       - "INVENIO_BROKER_URL=amqp://guest:guest@mq:5672/"
       - "INVENIO_CACHE_REDIS_URL=redis://cache:6379/0"
@@ -36,8 +37,8 @@ services:
     image: postgres:12.4
     restart: "unless-stopped"
     environment:
+      # these insecure values are only used locally
       - "POSTGRES_USER=invenio"
-      # TODO change this
       - "POSTGRES_PASSWORD=invenio"
       - "POSTGRES_DB=invenio"
     ports:
