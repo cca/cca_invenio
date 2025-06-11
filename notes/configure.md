@@ -52,10 +52,11 @@ Invenio works with Amazon S3. We use a Google Storage Bucket with some interoper
 
 - Use appropriate Google Cloud project (e.g. staging versus prod)
 - Under Cloud Storage > Buckets, create a storage bucket with Standard storage class and no public access. Invenio runs requests for files through the application, so we can have private items.
-  - @TODO should we use Autoclass instead of Standard? Is it worth it? Pending research.
-  - @TODO Object protection measures. If we use, for instance, object versioning do we need fewer backups?
+  - Select **Autoclass** when creating the bucket
+  - **TODO Object protection measures**. If we use, for instance, object versioning do we need fewer backups?
 - Under IAM > Service Accounts, create a service account with no project-level permissions and no user access, then go to the bucket you created > Permissions > Grant Access and enter the service account, give it Storage Object Admin role
 - Create a [HMAC key](https://cloud.google.com/storage/docs/authentication/hmackeys) for the service account, save the key and secret to Dashlane (**this is the only time the secret is shown**)
+- **TODO steps on adding these to Secret Manager**
 - Add S3 storage configuration to invenio.cfg (see below)
 
 ```ini
@@ -75,9 +76,7 @@ APP_DEFAULT_SECURE_HEADERS['content_security_policy']['default-src'].append(
 )
 ```
 
-The .invenio file also has `file_storage = S3` but that file might just be used when invenio-cli bootstraps a new instance.
-
-TODO When we choose S3 storage during `invenio-cli init` we get a Minio service too, we need to [follow the steps](https://inveniordm.docs.cern.ch/customize/s3/#set-your-minio-credentials) to change the admin account credentials and hook it up to GSB.
+The .invenio file also has `file_storage = S3` but that file might only be used when invenio-cli bootstraps a new instance. When we choose S3 storage during `invenio-cli init`, we get a [Minio](https://github.com/minio/minio) service, too. We must [follow the steps](https://inveniordm.docs.cern.ch/customize/s3/#set-your-minio-credentials) to change the admin account credentials and hook it up to GSB.
 
 ## Custom Fields
 
