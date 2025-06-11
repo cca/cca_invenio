@@ -27,7 +27,7 @@ kubectl -ninvenio-dev create secret tls wildcard-cca-edu-tls --cert=/path/to/wil
 
 ## Creating Helm imagePullSecrets
 
-The helm values.yaml uses `imagePullSecrets` fields to authenticate with our docker registry, these fields are the name of a kubernetes docker-registry secret in the app's namespace. We use a service account with read/write permissions to authenticate with the registry with a JSON key.
+The helm values.yaml uses `imagePullSecrets` fields to authenticate with our docker registry, these fields are the name of a kubernetes docker-registry secret in the app's namespace. We use a service account with read-only permissions to authenticate with the registry with a JSON key.
 
 ```fish
 set NS invenio-dev
@@ -45,7 +45,7 @@ gcloud iam service-accounts create $SA --project $PROJECT \
 gcloud artifacts repositories add-iam-policy-binding $GAR_REPO \
     --project=$PROJECT \
     --location=$GAR_LOCATION \
-    --role="roles/artifactregistry.writer" \
+    --role="roles/artifactregistry.reader" \
     --member="serviceAccount:$SERVICE_ACCOUNT_EMAIL"
 
 gcloud iam service-accounts keys create key.json --iam-account=$SA_EMAIL
