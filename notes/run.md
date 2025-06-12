@@ -9,20 +9,20 @@ This document is about managing a running Invenio instance. See **Getting Starte
 | Main site | https://127.0.0.1:5000 | |
 | API | https://127.0.0.1:5000/api/records | same port as app if running locally |
 | RabbitMQ admin interface | http://localhost:15672 | credentials "guest/guest" |
-| Elasticsearch | http://localhost:9200/_cat/indices?v | |
-| Postgres db | localhost:5432 | username, password, & db name are all "invenio-vault", run `./notes/code-samples/dbconnect` |
-| pgAdmin (db) | http://127.0.0.1:5050/login | credentials "ephetteplace@cca.edu/invenio-vault" or look in docker-services.yml |
+| Opensearch | http://localhost:9200/_cat/indices?v | |
+| Postgres db | localhost:5432 | username, password, & db name are all "invenio", run `./notes/code-samples/dbconnect` |
+| pgAdmin (db) | http://127.0.0.1:5050/login | credentials "ephetteplace@cca.edu/invenio" or look in docker-services.yml |
 | Minio | http://localhost:9001/browser | if used, credentials "CHANGE_ME/CHANGE_ME" |
 
 Postgres is another service but is not exposed, use pgAdmin to interact with it. OpenSearch Dashboard is disabled in docker-services.yml but could be added.
 
-You may need to set the postgres host to "host.docker.internal" e.g. in docker/pgadmin/servers.json.
+We may need to set the postgres host to "host.docker.internal" e.g. in docker/pgadmin/servers.json.
 
 If we're running the app locally, the main URLs (for website and REST API) are 127.0.0.1:5000 while if we run the fully containerized app then we do not need the port and the website, background worker, and API are all on different containers. Each of these three has the application code, but there are no static files for the worker & API.
 
 ## Local Rebuild
 
-To reset the local instance, run `invenio-cli services setup --force --no-demo-data` when performing the steps in [the readme](../readme.md). The `--force` flag destroys the services; if we did not, we would get an error the next time we setup.
+To reset the local instance, run `invenio-cli services setup --force --no-demo-data` when performing the steps in [the readme](../readme.md). The `--force` flag destroys the services; if we did not, we get an error the next time we setup. There's a [rebuild](./code_samples/rebuild) script in our code samples.
 
 ## CLI Usage
 

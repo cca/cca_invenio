@@ -1,12 +1,12 @@
 {
     "Servers": {
       "1": {
-        "Name": "invenio-vault_db",
+        "Name": "invenio_db",
         "Group": "Servers",
         "Host": "invenio-db-1",
         "Port": 5432,
         "MaintenanceDB": "postgres",
-        "Username": "invenio-vault",
+        "Username": "invenio",
         "SSLMode": "prefer"
       }
     }

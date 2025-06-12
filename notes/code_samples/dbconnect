@@ -1,2 +1,2 @@
 #!/usr/bin/env sh
-PGPASSWORD=invenio-vault psql -h localhost -U invenio-vault invenio-vault
+PGPASSWORD=invenio psql -h localhost -U invenio invenio
