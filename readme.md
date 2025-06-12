@@ -4,16 +4,18 @@ CCA InvenioRDM instance. This is mostly a cookiecutter Invenio project with some
 
 ## Setup
 
-Development requires docker, mise, python, uv, node, and ImageMagick. `invenio-cli check-requirements --development` checks these requirements, see also [our mise.toml](mise.toml) file. To install on an M2 Mac, additional packages are needed: `brew install cairo libffi pkg-config`. Finally, the invenio-saml module also requires `brew install libxmlsec1`.
+Development requires docker, python, uv, node, and ImageMagick. `invenio-cli check-requirements --development` checks these requirements. See [our mise.toml](mise.toml) file; mise isn't required, but is helpful. To install on an M2 Mac, additional packages are needed: `brew install cairo libffi libxmlsec1 pkg-config`.
 
-Some fixtures are not checked into this repository. Build them with the tools in the cca/vault_migration repository and copy them here.
+Many configuration values are in Secret Manager; see [configure.md](./notes/configure.md#secret-manager) for details.
+
+Some fixtures are not in this repository. Build them with the tools in [the vault_migration repository](https://github.com/cca/vault_migration) and copy them here.
 
 ```sh
 # in vault_migration
-gsutil cp gs://BUCKET/employee_data.json employee_data.json
-gsutil cp gs://BUCKET/student_data.json student_data.json
-poetry run python taxos/users.py employee_data.json student_data.json
-INVENIO_REPO=/path/to/this/repo ./vocab/sync # copies updated vocabs to this repo
+gsutil cp gs://integration-success/employee_data.json employee_data.json
+gsutil cp gs://integration-success/student_data.json student_data.json
+uv run python taxos/users.py employee_data.json student_data.json
+INVENIO_REPO=/path/to/this/repo ./vocab/sync # copies to this repo
 ```
 
 Then run the commands below from the root of this project to install the app:
@@ -22,14 +24,14 @@ Then run the commands below from the root of this project to install the app:
 uv install invenio-cli # install invenio-cli globally (recommend using pipx instead of pip)
 invenio-cli install all --dev # creates the virtualenv, install dependencies, & some other setup
 invenio-cli services setup --no-demo-data # sets up db, cache, search, task queue
-invenio-cli run # runs the application
+ENVIRONMENT=local invenio-cli run # runs the application, can set var in .env file
 ```
 
 The services setup enqueues many tasks rather than completing them synchronously, so the first time you `run` the app it will take a while before setup is complete.
 
 I've run into `invenio-cli install` build errors related to the cairo package, the errors say something like "no library called "cairo" was found" and "cannot load library 'libcairo.2.dylib'". I had cairo installed via homebrew, but the library wasn't in any of the directories that the build process was looking in. I fixed this with `ln -sf (brew --prefix cairo)/lib/libcairo.2.dylib /usr/local/lib/` (the path to the cairo library may be different on your system).
 
-Similarly, `uwsgi` has trouble building against managed python installations, see [this comment](https://github.com/astral-sh/uv/issues/6488#issuecomment-2345417341) for instance. The solution is to set a `LIBRARY_PATH` shell var that points to the "lib" directory of our local python. With `mise` and fish shell, this looks like `set -x LIBRARY_PATH (mise where python)/lib`.
+Similarly, `uwsgi` has trouble building against managed python installations, see [this comment](https://github.com/astral-sh/uv/issues/6488#issuecomment-2345417341) for instance. The solution is to set a `LIBRARY_PATH` env var that points to the "lib" directory of our local python. With `mise` and fish shell, this looks like `set -x LIBRARY_PATH (mise where python)/lib`.
 
 ## Overview
 
@@ -54,7 +56,13 @@ Following is an overview of the generated files and folders:
 | `templates` | Folder for your Jinja templates. |
 | `.invenio` | Common file used by Invenio-CLI to be version controlled. |
 | `.invenio.private` | Private file used by Invenio-CLI *not* version controlled. |
+| `.env`, `example.env` | Environment variables automatically loaded with `dotenv` |
+| `mise.toml` | mise manages installed language (node, python) versions |
 
 ## Documentation
 
-To learn how to configure, customize, deploy and much more, visit the [InvenioRDM Documentation](https://inveniordm.docs.cern.ch/).
+See the [InvenioRDM Documentation](https://inveniordm.docs.cern.ch/) for general details and [our notes](./notes/) for more specifics.
+
+## LICENSE
+
+[ECL 2.0](https://opensource.org/license/ecl-2-0)
