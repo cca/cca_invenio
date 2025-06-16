@@ -3,6 +3,8 @@ app_data/vocabularies/names.yaml
 app_data/users.yaml
 # Downloaded courses data
 courses.json
+# Secret configuration
+secret.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

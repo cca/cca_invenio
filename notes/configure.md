@@ -25,9 +25,9 @@ For [Names](https://inveniordm.docs.cern.ch/customize/vocabularies/names/), new 
 
 ## Secret Manager
 
-We store environment-dependent configuration values in [Google Secret Manager](https://console.cloud.google.com/security/secret-manager?project=cca-web-staging). Each instance, including a dev environment running on localhost, has its own JSON secret. We need at least an `ENVIRONMENT` env var to determine if we are running `local`, `staging`, or `production`. The `staging` and `production` instances also need a `GSM_CREDENTIALS` env var for a service account that can authenticate to their secret.
+We store environment-dependent configuration values in [Google Secret Manager](https://console.cloud.google.com/security/secret-manager?project=cca-web-staging). Each instance, including a dev environment running on localhost, has its own JSON secrets. We need at least an `ENVIRONMENT` env var to determine if we are running `local`, `staging`, or `production`. The `staging` and `production` instances also need a `GSM_CREDENTIALS` env var for a service account that can authenticate to their secret. Locally, we can set `ENVIRONMENT=local` and `CCA_SECRETS=secret.json` to use a local JSON file instead of GSM. It is recommended to test with a secret.json file only temporarily and to delete it once finished.
 
-To see the necessary values, view an existing secret, like the local one. They are not necessarily confidential information, but values that change per instance, like hostnames. Here's an example (some fields may be missing):
+To see the necessary values, view an existing secret. They are not necessarily confidential information, but values that change per instance, like hostnames. Here's an example (some fields may be missing):
 
 ```json
 { "APP_ALLOWED_HOSTS": ["127.0.0.1"],
@@ -40,7 +40,7 @@ To see the necessary values, view an existing secret, like the local one. They a
 "SITE_API_URL": "https://127.0.0.1:5000/api" }
 ```
 
-**TODO** instructions to create & use a GS_CREDENTIALS env var to authenticate when not running locally
+**TODO** instructions to create & use `GSM_CREDENTIALS` to authenticate when not running locally
 
 ## Security, Users
 
