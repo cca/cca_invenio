@@ -1,10 +1,16 @@
 #!/usr/bin/env fish
-if [ "$argv[1]" = "venv" ]
+if [ "$argv[1]" = venv ]
     echo "Rebuilding the virtual environment"
-    invenio-cli install --dev
+    rm -rf .venv
+    invenio-cli install all --dev
 end
 
-echo "Rebuilding the Invenio application, this will DESTROY ALL DATA in the database and search engine and load fresh fixtures from the app_data directory"
+echo "Rebuilding the Invenio application, this DESTROYS ALL DATA in the database, search engine, files storage bucket, and loads fresh fixtures from the app_data directory"
+read -P 'Are you sure you want to continue? (y/N) ' answer
+if [ "$answer" != y ]
+    exit
+end
+gsutil -m rm -r "gs://invenio-local/**"
 invenio-cli services setup --force --no-demo-data
 echo "The 'Failed to setup services.' warning because 'babel.messages.frontend.OptionError: no message catalogs found' error does not seem to affect the app"
 

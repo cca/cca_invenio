@@ -56,16 +56,17 @@ invenio communities custom-fields init
 # app is semi-usable without errors now but uploads still won't work
 # until you load fixtures because they contain all the vocabs (resource types, subjects, etc.)
 invenio rdm fixtures
-# app is usable but has no content
-# this submits a background task to create demo records, will take time
-invenio rdm-records demo
-# may be necessary after the two commands above?
-invenio rdm-records rebuild-index
 # Invenio v12 also adds this step
 invenio queues declare
+# This is the final step before creating demo data
+invenio rdm-records fixtures
+# app is usable but has no content, we can optionally create demo records, takes time:
+# invenio rdm-records demo
+# may be necessary after the two commands above?
+invenio rdm-records rebuild-index
 ```
 
-The instructions for setting up with services do not work because the CLI never recognizes that the opensearch container has started. But if you run `invencio-cli services start` first, wait for it to end even if it says search never came online, check the search container and URL (port 9200), then you can run `invenio-cli services setup` to initialize everything and load the demo data.
+The instructions for setting up with services do not work because the CLI never recognizes that the opensearch container has started. But if you run `invenio-cli services start` first, wait for it to end even if it says search never came online, check the search container and URL (port 9200), then you can run `invenio-cli services setup` to initialize everything and load the demo data.
 
 There was an npm error when running `invenio-cli assets build`, I fixed it by _downgrading_ npm to v6. `invenio-cli check-requirements --development` complains if you have npm > 7.
 
