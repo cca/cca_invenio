@@ -46,7 +46,18 @@ To see the necessary values, view an existing secret. They are not necessarily c
 "SITE_API_URL": "https://127.0.0.1:5000/api" }
 ```
 
-**TODO** instructions to create & use `GSM_CREDENTIALS` to authenticate when not running locally
+For remote (staging, prod) instances, we also need to create a Service Account which will authenticate with Secret Manager:
+
+```bash
+# create the service account in the appropriate project
+gcloud iam service-accounts create invenio-staging-secrets --display-name "Invenio Staging Secrets" --project cca-web-staging
+# allow the service account to access Secret Manager
+gcloud secrets add-iam-policy-binding invenio_staging --member="serviceAccount:invenio-staging-secrets@cca-web-staging.iam.gserviceaccount.com" --project="cca-web-staging" --role="roles/secretmanager.secretAccessor"
+# create a JSON key for the service account
+gcloud iam service-accounts keys create key.json --iam-account invenio-staging-secrets@cca-web-staging.iam.gserviceaccount.com
+```
+
+Finally, when installing our helm chart we set a `GSM_CREDENTIALS` environment variable with the contents of the key like `helm install ... --set invenio.extraConfig.GSM_CREDENTIALS="(cat key.json)"` (or `$(cat key.json)` for bash shell).
 
 ## Security, Users
 
@@ -76,12 +87,15 @@ See the [SAML Integration](https://inveniordm.docs.cern.ch/customize/authenticat
 Invenio works with Amazon S3. We use a Google Storage Bucket with some interoperability considerations.
 
 - Use appropriate Google Cloud project (e.g. staging versus prod)
-- Under Cloud Storage > Buckets, create a storage bucket with Standard storage class and no public access. Invenio handles authorization.
-  - Select **Autoclass** when creating the bucket
-  - **TODO Object protection measures**. If we use, for instance, object versioning do we need fewer backups?
-  - Allow CORS from the Invenio domain, `gcloud storage buckets update gs://invenio-bucket --cors-file notes/cors.json` where [cors.json](./cors.json) lists the instance domain(s), or else PDF previews won't work
-- Under IAM > Service Accounts, create a service account with no project-level permissions nor user access, then go to the bucket > **Permissions** > **Grant Access** and enter the service account, give it the **Storage Object Admin** role
-- Create a [HMAC key](https://cloud.google.com/storage/docs/authentication/hmackeys) for the service account, save the key and secret to Dashlane (**this is the only time the secret is shown**)
+- Under Cloud Storage > Buckets, create a private storage bucket. Invenio handles authorization.
+  - Single location like `us-west1` for staging, consider multi-region for production
+  - Select **Autoclass** when creating the bucket and opt-in to Coldline/Archive classes
+  - **Prevent public access** and use **Uniform** access control
+  - We should consider soft delete and object versioning for production to reduce chances of accidental data loss
+  - Allow CORS from the Invenio domain, `gcloud storage buckets update gs://invenio-local --cors-file notes/cors.json` where [cors.json](./cors.json) lists the instance domain(s), or else PDF previews won't work
+- Under IAM > Service Accounts, create a service account with no project-level permissions nor user access `gcloud iam service-accounts create invenio-local-gsb --display-name "Invenio Local Files" --project cca-web-staging`
+- Go to the bucket > **Permissions** > **Grant Access** and give the service account the **Storage Object Admin** role `gsutil iam ch serviceAccount:invenio-local-gsb@cca-web-staging.iam.gserviceaccount.com:objectAdmin gs://invenio-local`
+- Create a [HMAC key](https://cloud.google.com/storage/docs/authentication/hmackeys) for the service account, save the key and secret to Dashlane (**this is the only time the secret is shown**) `gsutil hmac create invenio-local-gsb@cca-web-staging.iam.gserviceaccount.com`
 - Add necessary `S3_...` variables to [Secret Manager](#secret-manager) and to invenio.cfg (see below)
 
 ```python
@@ -102,6 +116,8 @@ APP_DEFAULT_SECURE_HEADERS["content_security_policy"]["default-src"].append(
     S3_ENDPOINT_URL
 )
 ```
+
+Finally, Invenio might not initialize the correct files location by default. We can run `invenio files location create gs-invenio-local s3://invenio-local --default` to create a new default location pointing to the storage bucket.
 
 The .invenio file also has `file_storage = S3` but that file might only be used when invenio-cli bootstraps a new instance. When we choose S3 storage during `invenio-cli init`, we get a [Minio](https://github.com/minio/minio) service, too. We must [follow the steps](https://inveniordm.docs.cern.ch/customize/s3/#set-your-minio-credentials) to change the admin account credentials and hook it up to GSB.
 

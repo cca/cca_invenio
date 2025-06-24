@@ -11,11 +11,12 @@ Running Invenio in helm requires TLS and image pull secrets, see below. Outline:
 ```sh
 set NS invenio-dev
 kubectl create ns $NS
-# create secrets in ns
-helm install -f path/to/cca-values.yml invenio path/to/invenio-helm/charts/invenio --version 0.7.0 --namespace $NS
+# TODO create image pull secret in ns (see below), other secrets too?
+# key.json is a service account key with permission to read from secret manager
+helm install -f path/to/cca-values.yml invenio path/to/invenio-helm/charts/invenio --version 0.7.0 --namespace $NS --set invenio.extraConfig.GSM_CREDENTIALS=(cat key.json) --set postgresql.auth.password=$PG_PASS --set rabbitmq.auth.password=$RABBITMQ_PASS
 ```
 
-The values files may need some `--set` flags for passwords like postgres.
+We made need further `--set` flags for secret values. These values should match the ones in the instance's [secret manager](./configure.md#secret-manager).
 
 ## Creating Helm TLS
 
