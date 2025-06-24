@@ -24,7 +24,8 @@ Then run the commands below from the root of this project to install the app:
 uv install invenio-cli # install invenio-cli globally (recommend using pipx instead of pip)
 invenio-cli install all --dev # creates the virtualenv, install dependencies, & some other setup
 invenio-cli services setup --no-demo-data # sets up db, cache, search, task queue
-ENVIRONMENT=local invenio-cli run # runs the application, can set var in .env file
+export ENVIRONMENT=local # if not using `mise` ensure vars from .env exist
+invenio-cli run # runs the application & celery worker for the task queue
 ```
 
 The services setup enqueues many tasks rather than completing them synchronously, so the first time you `run` the app it will take a while before setup is complete.

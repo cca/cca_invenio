@@ -27,6 +27,8 @@ For [Names](https://inveniordm.docs.cern.ch/customize/vocabularies/names/), new 
 
 We store environment-dependent configuration values in [Google Secret Manager](https://console.cloud.google.com/security/secret-manager?project=cca-web-staging). Each instance, including a dev environment running on localhost, has its own JSON secrets. We need at least an `ENVIRONMENT` env var to determine if we are running `local`, `staging`, or `production`. The `staging` and `production` instances also need a `GSM_CREDENTIALS` env var for a service account that can authenticate to their secret. Locally, we can set `ENVIRONMENT=local` and `CCA_SECRETS=secret.json` to use a local JSON file instead of GSM. It is recommended to test with a secret.json file only temporarily and to delete it once finished.
 
+While the main app loads values in a .env file, the celery background workers do not. We must export `ENVIRONMENT`, `CCA_SECRETS`, `AWS_REQUEST_CHECKSUM_CALCULATION`, and `AWS_RESPONSE_CHECKSUM_VALIDATION` to run the app locally. `mise` does this automatically.
+
 To see the necessary values, view an existing secret. They are not necessarily confidential information, but values that change per instance, like hostnames. Here's an example (some fields may be missing):
 
 ```json
@@ -36,6 +38,10 @@ To see the necessary values, view an existing secret. They are not necessarily c
 "POSTGRES_PASSWORD": "invenio",
 "POSTGRES_USERNAME": "invenio",
 "RABBITMQ_PASSWORD": "password",
+"S3_ENDPOINT_URL": "https://storage.googleapis.com/invenio-local",
+"S3_REGION_NAME": "us-west1",
+"S3_ACCESS_KEY_ID": "service account hmac key",
+"S3_SECRET_ACCESS_KEY": "service account hmac secret",
 "SITE_UI_URL": "https://127.0.0.1:5000",
 "SITE_API_URL": "https://127.0.0.1:5000/api" }
 ```
@@ -70,27 +76,29 @@ See the [SAML Integration](https://inveniordm.docs.cern.ch/customize/authenticat
 Invenio works with Amazon S3. We use a Google Storage Bucket with some interoperability considerations.
 
 - Use appropriate Google Cloud project (e.g. staging versus prod)
-- Under Cloud Storage > Buckets, create a storage bucket with Standard storage class and no public access. Invenio runs requests for files through the application, so we can have private items.
+- Under Cloud Storage > Buckets, create a storage bucket with Standard storage class and no public access. Invenio handles authorization.
   - Select **Autoclass** when creating the bucket
   - **TODO Object protection measures**. If we use, for instance, object versioning do we need fewer backups?
-- Under IAM > Service Accounts, create a service account with no project-level permissions and no user access, then go to the bucket you created > Permissions > Grant Access and enter the service account, give it Storage Object Admin role
+  - Allow CORS from the Invenio domain, `gcloud storage buckets update gs://invenio-bucket --cors-file notes/cors.json` where [cors.json](./cors.json) lists the instance domain(s), or else PDF previews won't work
+- Under IAM > Service Accounts, create a service account with no project-level permissions nor user access, then go to the bucket > **Permissions** > **Grant Access** and enter the service account, give it the **Storage Object Admin** role
 - Create a [HMAC key](https://cloud.google.com/storage/docs/authentication/hmackeys) for the service account, save the key and secret to Dashlane (**this is the only time the secret is shown**)
-- **TODO steps on adding these to Secret Manager**
-- Add S3 storage configuration to invenio.cfg (see below)
+- Add necessary `S3_...` variables to [Secret Manager](#secret-manager) and to invenio.cfg (see below)
 
-```ini
+```python
 # Invenio-Files-Rest
 # ==================
-FILES_REST_STORAGE_FACTORY='invenio_s3.s3fs_storage_factory'
+FILES_REST_STORAGE_FACTORY = "invenio_s3.s3fs_storage_factory"
 
 # Invenio-S3
-# ==========
-S3_ENDPOINT_URL=f'https://storage.googleapis.com/BUCKET_NAME'
-S3_ACCESS_KEY_ID='HMAC key'
-S3_SECRET_ACCESS_KEY='HMAC secret'
+# https://invenio-s3.readthedocs.io/en/latest/configuration.html
+# In actual invenio.cfg these will be secrets["VAR_NAME"] values instead
+S3_ENDPOINT_URL = "https://storage.googleapis.com"
+S3_REGION_NAME = "us-west1"
+S3_ACCESS_KEY_ID = "HMAC key"
+S3_SECRET_ACCESS_KEY = "HMAC secret"
 
 # Allow S3 endpoint in the CSP rules
-APP_DEFAULT_SECURE_HEADERS['content_security_policy']['default-src'].append(
+APP_DEFAULT_SECURE_HEADERS["content_security_policy"]["default-src"].append(
     S3_ENDPOINT_URL
 )
 ```

@@ -1,6 +1,8 @@
 [cli]
 flavour = RDM
-logfile = /logs/invenio-cli.log
+javascript_package_manager = pnpm
+logfile = /Users/ephetteplace/Code/invenio/logs/invenio-cli.log
+python_package_manager = uv
 
 [cookiecutter]
 project_name = CCA InvenioRDM
@@ -11,11 +13,11 @@ github_repo = cca/cca_invenio
 description = CCA InvenioRDM Instance
 author_name = Eric Phetteplace (@phette23)
 author_email = ephetteplace@cca.edu
-year = 2024
-python_version = 3.9
+year = 2025
+python_version = 3.12
 database = postgresql
 search = opensearch2
-file_storage = local
+file_storage = s3
 development_tools = yes
 site_code = yes
 use_reduced_vocabs = no
