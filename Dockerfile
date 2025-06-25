@@ -61,6 +61,7 @@ RUN --mount=type=cache,target=/root/.cache/uv \
     uv sync --frozen --no-dev
 
 # Build Javascript assets
+# ! will this work with fake values in invenio.cfg?
 RUN --mount=type=cache,target=/var/cache/assets invenio collect --verbose && invenio webpack buildall
 
 FROM python:3.12-slim-bookworm AS runtime

@@ -57,7 +57,7 @@ gcloud secrets add-iam-policy-binding invenio_staging --member="serviceAccount:i
 gcloud iam service-accounts keys create key.json --iam-account invenio-staging-secrets@cca-web-staging.iam.gserviceaccount.com
 ```
 
-Finally, when installing our helm chart we set a `GSM_CREDENTIALS` environment variable with the contents of the key like `helm install ... --set invenio.extraConfig.GSM_CREDENTIALS="(cat key.json)"` (or `$(cat key.json)` for bash shell).
+Finally, when installing our helm chart we set a `GSM_CREDENTIALS` environment variable with the contents of the key like `helm install ... --set invenio.extraConfig.GSM_CREDENTIALS="(cat key.json)"` (or `$(cat key.json)` for bash shell). We also need to set a `GSM_CREDENTIALS` secret in the GitHub environment so CI builds can access it.
 
 ## Security, Users
 
