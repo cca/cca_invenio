@@ -1,4 +1,5 @@
 # Vocabularies created by migration project
+# ! but we need these in the repo when CI builds an image
 app_data/vocabularies/names.yaml
 app_data/users.yaml
 # Downloaded courses data

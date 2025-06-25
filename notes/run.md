@@ -45,7 +45,7 @@ If the `invenio-cli services setup` command fails, we can sort of see what the c
 invenio db init create
 # on a local instance the INVENIO_INSTANCE_PATH is the venv + var/instance/data so
 # .venv/var/instance/data
-invenio files location create --default default-location ${INVENIO_INSTANCE_PATH}/data
+invenio files location create --default default-location s3://invenio-local
 # TODO are these needed here? I think rdm-records fixtures creates them
 invenio roles create admin
 invenio access allow superuser-access role admin
