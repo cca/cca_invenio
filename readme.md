@@ -4,7 +4,7 @@ CCA InvenioRDM instance. This is mostly a cookiecutter Invenio project with some
 
 ## Setup
 
-Development requires docker, python, uv, node, and ImageMagick. `invenio-cli check-requirements --development` checks these requirements. See [our mise.toml](mise.toml) file; mise isn't required, but is helpful. To install on an M2 Mac, additional packages are needed: `brew install cairo libffi libxmlsec1 pkg-config`.
+Development requires docker, python, uv, node, and ImageMagick. `invenio-cli check-requirements --development` checks these requirements. See [our mise.toml](mise.toml) file; mise isn't required, but is helpful. To install on an M2 Mac, additional packages are needed: `brew install cairo libffi libxmlsec1 pkg-config`. See [build.md](./notes/build.md) for notes on overcoming build errors.
 
 Many configuration values are in Secret Manager; see [configure.md](./notes/configure.md#secret-manager) for details.
 
@@ -21,18 +21,14 @@ INVENIO_REPO=/path/to/this/repo ./vocab/sync # copies to this repo
 Then run the commands below from the root of this project to install the app:
 
 ```sh
-uv install invenio-cli # install invenio-cli globally (recommend using pipx instead of pip)
-invenio-cli install all --dev # creates the virtualenv, install dependencies, & some other setup
+uv tool install invenio-cli # install invenio-cli globally (recommended instead of using pip)
+invenio-cli install all --dev # creates the virtualenv, install dependencies, & other setup
 invenio-cli services setup --no-demo-data # sets up db, cache, search, task queue
 export ENVIRONMENT=local # if not using `mise` ensure vars from .env exist
 invenio-cli run # runs the application & celery worker for the task queue
 ```
 
-The services setup enqueues many tasks rather than completing them synchronously, so the first time you `run` the app it will take a while before setup is complete.
-
-I've run into `invenio-cli install` build errors related to the cairo package, the errors say something like "no library called "cairo" was found" and "cannot load library 'libcairo.2.dylib'". I had cairo installed via homebrew, but the library wasn't in any of the directories that the build process was looking in. I fixed this with `ln -sf (brew --prefix cairo)/lib/libcairo.2.dylib /usr/local/lib/` (the path to the cairo library may be different on your system).
-
-Similarly, `uwsgi` has trouble building against managed python installations, see [this comment](https://github.com/astral-sh/uv/issues/6488#issuecomment-2345417341) for instance. The solution is to set a `LIBRARY_PATH` env var that points to the "lib" directory of our local python. With `mise` and fish shell, this looks like `set -x LIBRARY_PATH (mise where python)/lib`.
+The services setup enqueues many tasks rather than completing them synchronously, so the first time you `run` the app it takes a while before setup is complete.
 
 ## Overview
 
@@ -58,7 +54,7 @@ Following is an overview of the generated files and folders:
 | `.invenio` | Common file used by Invenio-CLI to be version controlled. |
 | `.invenio.private` | Private file used by Invenio-CLI *not* version controlled. |
 | `.env`, `example.env` | Environment variables automatically loaded with `dotenv` |
-| `mise.toml` | mise manages installed language (node, python) versions |
+| `mise.toml` | [mise](https://mise.jdx.dev/) manages env vars & installed languages (node, python) |
 
 ## Documentation
 

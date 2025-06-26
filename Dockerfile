@@ -2,8 +2,6 @@
 # https://github.com/front-matter/invenio-rdm-starter/blob/ba0269ff0eec036d5d38408d5fa7184f284036b3/Dockerfile
 FROM python:3.12-bookworm AS builder
 
-# Dockerfile that builds the InvenioRDM Starter Docker image.
-
 ENV LANG=en_US.UTF-8 \
     LANGUAGE=en_US:en
 
@@ -30,22 +28,25 @@ COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 RUN uv venv /opt/invenio/.venv
 
 # Use the virtual environment automatically
-ENV VIRTUAL_ENV=/opt/invenio/.venv \
-    UV_PROJECT_ENVIRONMENT=/opt/invenio/.venv \
+# uwsgi must be built without XML or it breaks lxml/xmlsec compatibility
+# https://github.com/cca/cca_invenio/issues/39
+ENV INVENIO_INSTANCE_PATH=/opt/invenio/var/instance \
     PATH="/opt/invenio/.venv/bin:$PATH" \
-    WORKING_DIR=/opt/invenio \
     PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     UV_COMPILE_BYTECODE=1 \
     UV_LINK_MODE=copy \
+    UV_PROJECT_ENVIRONMENT=/opt/invenio/.venv \
     UV_PYTHON_DOWNLOADS=0 \
-    INVENIO_INSTANCE_PATH=/opt/invenio/var/instance
+    UWSGI_PROFILE_OVERRIDE="xml=no" \
+    VIRTUAL_ENV=/opt/invenio/.venv \
+    WORKING_DIR=/opt/invenio
 
 WORKDIR ${INVENIO_INSTANCE_PATH}
 
 COPY pyproject.toml uv.lock ./
 RUN --mount=type=cache,target=/root/.cache/uv \
-    uv sync --frozen --no-install-project --no-dev
+    uv sync --frozen --no-install-project --no-dev --group uwsgi
 COPY . .
 
 COPY site ${INVENIO_INSTANCE_PATH}/site
@@ -56,12 +57,10 @@ COPY app_data ${INVENIO_INSTANCE_PATH}/app_data
 COPY translations ${INVENIO_INSTANCE_PATH}/translations
 COPY ./invenio.cfg ${INVENIO_INSTANCE_PATH}
 
-# Install Python dependencies
-RUN --mount=type=cache,target=/root/.cache/uv \
-    uv sync --frozen --no-dev
+# Install Python dependencies including local "site" module
+RUN --mount=type=cache,target=/root/.cache/uv uv sync --frozen --no-dev --group uwsgi
 
 # Build Javascript assets
-# ! will this work with fake values in invenio.cfg?
 RUN --mount=type=cache,target=/var/cache/assets invenio collect --verbose && invenio webpack buildall
 
 FROM python:3.12-slim-bookworm AS runtime
@@ -70,6 +69,7 @@ ENV LANG=en_US.UTF-8 \
     LANGUAGE=en_US:en
 
 # Install OS package dependencies
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
 RUN --mount=type=cache,sharing=locked,target=/var/cache/apt apt-get update -y --fix-missing && \
     apt-get install -y --no-install-recommends \
         apt-transport-https \
@@ -80,6 +80,7 @@ RUN --mount=type=cache,sharing=locked,target=/var/cache/apt apt-get update -y --
         gpg \
         libcairo2 \
         libxml2 \
+        libxmlsec1 \
     && apt-get clean
 
 ENV INVENIO_INSTANCE_PATH=/opt/invenio/var/instance \

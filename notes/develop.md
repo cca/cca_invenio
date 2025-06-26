@@ -89,19 +89,6 @@ There is a demo of a custom view at `/vocablist` which lists all vocabs and link
 
 We want to eventually use [invenio-saml](https://invenio-saml.readthedocs.io/en/latest/) for SSO authentication. The [SAML integration](https://inveniordm.docs.cern.ch/customize/authentication/#saml-integration) section of the Invenio docs seems to have the most specific setup instructions.
 
-### Invenio SAML on macOS
-
-The new macOS chips & python's SAML/XML libraries don't work well together. In running Invenio locally with `invenio-saml`, the app would crash with an error from the xmlsec dependency:
-
-```python
-    File ".venv/lib/python3.12/site-packages/onelogin/saml2/auth.py", line 12, in <module>
-    import xmlsec
-ImportError: dlopen(.venv/lib/python3.12/site-packages/xmlsec.cpython-312-darwin.so, 0x0002):
-symbol not found in flat namespace '_xmlSecOpenSSLTransformHmacRipemd160GetKlass'
-```
-
-Pinning python-saml's dependencies to specific versions (lxml==5.3.0, xmlsec==1.3.14) fixed the issue. The saml library is loose with its dependency constraints ("lxml>=4.6.5,!=4.7.0", "xmlsec>=1.3.9") as is xmlsec ("lxml>=3.8, !=4.7.0"). It may also be necessary to use an older libxmlsec1 in homebrew (I used 1.2.37 from [my own tap](https://github.com/phette23/homebrew-local)). There's been discussion of this issue in python-xmlsec bugs [163](https://github.com/xmlsec/python-xmlsec/issues/163), [254](https://github.com/xmlsec/python-xmlsec/issues/254), and [346](https://github.com/xmlsec/python-xmlsec/issues/346). [This comment](https://github.com/xmlsec/python-xmlsec/issues/163#issuecomment-2766043196) discusses the same fix but the `--no-binary` flag has not been necessary.
-
 ## Testing Invenio core modules
 
 See, for instance, [invenio-rdm-records](https://github.com/inveniosoftware/invenio-rdm-records) where it says how to install dependencies and run tests. These steps aren't enough, however, they don't include some necessary modules.
