@@ -277,9 +277,6 @@ dependencies = [
     { name = "invenio-utilities-tuw" },
     { name = "lxml" },
     { name = "python-dotenv" },
-    { name = "uwsgi" },
-    { name = "uwsgi-tools" },
-    { name = "uwsgitop" },
     { name = "xmlsec" },
 ]
 
@@ -287,6 +284,11 @@ dependencies = [
 dev = [
     { name = "check-manifest" },
     { name = "flask-debugtoolbar" },
+]
+uwsgi = [
+    { name = "uwsgi" },
+    { name = "uwsgi-tools" },
+    { name = "uwsgitop" },
 ]
 
 [package.metadata]
@@ -298,9 +300,6 @@ requires-dist = [
     { name = "invenio-utilities-tuw", specifier = "==2025.0.0" },
     { name = "lxml", specifier = "==5.3.0" },
     { name = "python-dotenv", specifier = ">=1.1.0" },
-    { name = "uwsgi", specifier = "==2.0.30" },
-    { name = "uwsgi-tools", specifier = "==1.1.1" },
-    { name = "uwsgitop", specifier = "==0.12" },
     { name = "xmlsec", specifier = "==1.3.14" },
 ]
 
@@ -308,6 +307,11 @@ requires-dist = [
 dev = [
     { name = "check-manifest", specifier = ">=0.25" },
     { name = "flask-debugtoolbar", specifier = ">=0.15.0" },
+]
+uwsgi = [
+    { name = "uwsgi", specifier = "==2.0.30" },
+    { name = "uwsgi-tools", specifier = "==1.1.1" },
+    { name = "uwsgitop", specifier = "==0.12" },
 ]
 
 [[package]]
