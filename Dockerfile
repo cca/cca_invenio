@@ -104,7 +104,6 @@ COPY --from=builder --chown=invenio:root ${INVENIO_INSTANCE_PATH}/invenio.cfg ${
 # https://github.com/front-matter/invenio-rdm-starter/blob/main/setup.sh
 # COPY ./setup.sh /opt/invenio/.venv/bin/setup.sh
 
-# ? Why? This is an empty dir
 WORKDIR ${WORKING_DIR}/src
 
 USER invenio

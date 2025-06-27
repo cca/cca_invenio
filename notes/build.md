@@ -10,14 +10,14 @@ The python XML ecosystem is a compatibility mess. We need it to use SSO authenti
 
 `invenio-saml` has no upper cap on its dependency constraints, which means it installs lxml 6 out of the box, which doesn't work at all. So we have to pin `lxml` and `xmlsec` in such a way that their underlying libraries match. The included libxml2 is 2.12.6 for `lxml==5.2.1` and `xmlsec==1.3.14`, while `lxml==5.3.0` uses `libxml2` 2.12.9 which works but after all these problems we are being conversative.
 
-Works? | OS | libxml2 | libxmlsec1 | lxml | python-xmlsec
---- | --- | --- | --- |
-✅ | MacOS | system 2.9? | brew 1.2.37 | 5.3.0 | 1.3.14
-✅ |  MacOS | brew 2.13.8 | brew 1.3.7 | 5.4 | 1.3.15
-✅ | Debian | 2.9.14 | 1.2.37-2 | 5.2.1 | 1.3.14
-✅ | Debian | 2.9.14 | 1.2.37-2 | 5.3 | 1.3.14
-❌ | Debian | 2.9.14 | 1.2.37-2 | 5.4 | 1.3.14
-❓ | Debian | 2.9.14 | 1.2.37-2 | 5.4 | 1.3.15
+| Works? | OS     | libxml2   | libxmlsec1   | lxml   | python-xmlsec |
+|--------|--------|-----------|--------------|--------|---------------|
+| ✅     | MacOS  | system 2.9? | brew 1.2.37 | 5.3.0  | 1.3.14        |
+| ✅     | MacOS  | brew 2.13.8 | brew 1.3.7  | 5.4    | 1.3.15        |
+| ✅     | Debian | 2.9.14    | 1.2.37-2     | 5.2.1  | 1.3.14        |
+| ✅     | Debian | 2.9.14    | 1.2.37-2     | 5.3    | 1.3.14        |
+| ❌     | Debian | 2.9.14    | 1.2.37-2     | 5.4    | 1.3.14        |
+| ❓     | Debian | 2.9.14    | 1.2.37-2     | 5.4    | 1.3.15        |
 
 We could probably upgrade to 5.4/1.3.15 but so much time has been spent on this issue already. View underlying libraries like so:
 
