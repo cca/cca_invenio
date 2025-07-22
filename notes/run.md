@@ -79,7 +79,7 @@ from flask_security.utils import hash_password
 from invenio_accounts.proxies import current_datastore
 from invenio_db import db
 
-user = current_datastore.get_user("admin@inveniosoftware.org")
+user = current_datastore.get_user("archives@cca.edu")
 user.password = hash_password("password")
 current_datastore.activate_user(user)
 db.session.commit()
