@@ -6,6 +6,8 @@ app_data/users.yaml
 courses.json
 # Secret configuration
 secret.json
+# SAML certs
+saml/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
