@@ -12,9 +12,11 @@ See [Installation docs](https://inveniordm.docs.cern.ch/install/). We recommend 
 
 ```sh
 # to build fresh, answering configuration questions
-invenio-cli init rdm -c 12.0
+invenio-cli init rdm -c 12.1
 invenio-cli install all --dev
 invenio-cli services setup --no-demo-data
+# if using cloud storage
+uv run invenio files location create gs-invenio-local s3://invenio-local --default
 ```
 
 To start the app, ensure Docker is running, spin up the services, and `run` the app.
@@ -22,7 +24,7 @@ To start the app, ensure Docker is running, spin up the services, and `run` the 
 ```sh
 docker desktop start
 invenio-cli services start
-invenio-cli run
+invenio-cli run all
 ```
 
 If rebuilding a local instance, use `invenio-cli install --dev` to recreate the virtualenv. A mere `pipenv install` won't copy over the configuration and static files to a location inside the venv and the app breaks.
