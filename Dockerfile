@@ -19,8 +19,8 @@ RUN --mount=type=cache,sharing=locked,target=/var/cache/apt \
         pkg-config \
         python3-dev
 
-# Install Node.js 20.x
-RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
+# Install Node.js 22.x
+RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash - && \
     apt-get install -y nodejs --no-install-recommends && apt-get clean
 
 # Install uv and activate virtualenv
