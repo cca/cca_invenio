@@ -25,5 +25,5 @@ and gsutil -m cp -n invenio-*.json.gz invenio-*.jsonl.gz gs://invenio-opensearch
 # and rm invenio-*.json.gz
 
 # to restore: https://inveniordm.docs.cern.ch/operate/ops/backup_search_indices/#restore
-# elasticdump --input invenio-events-stats-record-view-*.mappings.json --output http://localhost:9200/(jq -r ". | keys[0]"  invenio-events-stats-record-view-*.mapping.json) --type mapping
-# elasticdump --input invenio-events-stats-record-view-*.jsonl --output http://localhost:9200/(head -n1 invenio-events-stats-record-view-*.jsonl | jq -r "._index") --type data
+# elasticdump --input invenio-events-stats-record-view.mappings.json --output http://localhost:9200/(jq -r ". | keys[0]"  invenio-events-stats-record-view.mapping.json) --type mapping
+# elasticdump --input invenio-events-stats-record-view.jsonl --output http://localhost:9200/(head -n1 invenio-events-stats-record-view.jsonl | jq -r "._index") --type data
