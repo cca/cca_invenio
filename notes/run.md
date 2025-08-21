@@ -35,6 +35,17 @@ invenio repository users list # list all users
 invenio repository records --help # many commands for manipulating records!
 ```
 
+## Search Index Backup
+
+Some persistent data is stored in the search index, such as usage statistics. We may need to back up this data before upgrades. There's a [stats_backup.fish](./code_samples/stats_backup.fish) script which outlines the process using [elasticdump](https://github.com/elasticsearch-dump/elasticsearch-dump) (which is compatible with OpenSearch). The basic outline is:
+
+- Identify indices that need backing up, see `curl -s "localhost:9200/_cat/indices?h=index"`
+- Dump a select set of indices _and their mappings_
+- Gzip the files and copy them to a storage bucket
+- Download from bucket and restore with `elasticdump` afterwards
+
+[This upgrade note](https://inveniordm.docs.cern.ch/releases/v13/upgrade-v13.0/#rebuild-search-indices) makes it sound like search indices may not need to be backed up after v13.
+
 ## Setup Troubles
 
 The API uses the search indices. If you go to visit every page (e.g. search, dashboard, etc.) but see errors and 500 HTTP responses from the API, then the search indices probably have not been created. `invenio index init` lets you visit various pages, but there will be no contents, because the indices are empty.
