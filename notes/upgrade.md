@@ -10,6 +10,35 @@ High-level Invenio upgrade:
 
 The v10 and v11 upgrades below were performed with the "containerized" setup so they're not representative of an upgrade using the local/services setup.
 
+## 13.0.2 upgrade
+
+Change `APP_ALLOWED_HOSTS` to `TRUSTED_HOSTS` in [invenio.cfg](/invenio.cfg).
+
+Add .mjs javascript type to nginx.conf for new PDF previewer.
+
+```sh
+# invenio-cli packages update 13.0.2
+# maybe I should've done the recommended cmd above instead of `uv` because
+# below I have to manually build the frontend assets
+uv add invenio-app-rdm[opensearch2, s3]==13.0.2
+uv sync
+invenio-cli assets build -d
+source .venv/bin/activate.fish
+# with the app running or maybe at least the workers?
+invenio alembic upgrade
+invenio shell (find .venv/lib/*/site-packages/invenio_app_rdm -name migrate_12_0_to_13_0.py)
+invenio index destroy --yes-i-know # this cmd does not destroy the stats indices
+set search_prefix invenio
+# weren't these already deleted by `invenio index destroy`?
+invenio index delete --force --yes-i-know "$search_prefix-rdmrecords-records-record-*-percolators"
+invenio index init
+# if you have records custom fields
+invenio rdm-records custom-fields init
+# if you have communities custom fields
+invenio communities custom-fields init
+invenio rdm rebuild-all-indices
+```
+
 ## 12.0.0 upgrade
 
 https://inveniordm.docs.cern.ch/releases/upgrading/upgrade-v12.0/

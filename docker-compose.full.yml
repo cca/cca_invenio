@@ -48,6 +48,11 @@ services:
     extends:
       file: docker-services.yml
       service: pgadmin
+  # We use actual cloud storage on local but this is another way to test
+  # s3:
+  #   extends:
+  #     file: docker-services.yml
+  #     service: s3
   # Frontend
   frontend:
     extends:
@@ -72,9 +77,9 @@ services:
       - "5000"
     volumes:
       - static_data:/opt/invenio/var/instance/static
-      - uploaded_data:/opt/invenio/var/instance/data
-      - archived_data:/opt/invenio/var/instance/archive
-
+      # Not needed when using cloud storage
+      # - uploaded_data:/opt/invenio/var/instance/data
+      # - archived_data:/opt/invenio/var/instance/archive
   # API Rest Application
   web-api:
     extends:
@@ -84,10 +89,10 @@ services:
     image: invenio:latest
     ports:
       - "5000"
-    volumes:
-      - uploaded_data:/opt/invenio/var/instance/data
-      - archived_data:/opt/invenio/var/instance/archive
-
+    # Not needed when using cloud storage
+    # volumes:
+    #   - uploaded_data:/opt/invenio/var/instance/data
+    #   - archived_data:/opt/invenio/var/instance/archive
   # Worker
   worker:
     extends:
@@ -106,8 +111,22 @@ services:
         condition: service_started
       mq:
         condition: service_started
+  # Jobs scheduler
+  scheduler:
+    extends:
+      file: docker-services.yml
+      service: app
+    command: ["celery -A invenio_app.celery beat --scheduler invenio_jobs.services.scheduler:RunScheduler --loglevel=INFO"]
+    image: invenio:latest
+    depends_on:
+      mq:
+        condition: service_started
+      db:
+        condition: service_started
+
 volumes:
   static_data:
-  uploaded_data:
-  archived_data:
+  # Not needed when using cloud storage
+  # uploaded_data:
+  # archived_data:
   db:
