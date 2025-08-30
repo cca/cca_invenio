@@ -1,5 +1,6 @@
 [env]
 _.file = ".env"
+PYTHONWARNINGS = "ignore:pkg_resources is deprecated:UserWarning"
 UV_PYTHON = "3.12"
 [tools]
 node = "22.18.0"
