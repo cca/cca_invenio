@@ -12,16 +12,35 @@ If a fixture in app_data changes, then the whole app needs to be rebuilt. Run `.
 
 ## [Vocabularies](https://inveniordm.docs.cern.ch/customize/vocabularies/)
 
-- ~~AAT subjects~~ not enough to justify
-- Custom local/CCA subjects for terms not found in LC (e.g. specific CCA properties)
-- LC vocabs (LCSH, LCNAF, LCGFT) terms we've used before
-- Temporal (list of decades)
-- Names (from Libraries subject names taxo)
-- Users (from our integrations JSON)
+Much of the work creating these is in the [migration repo](https://github.com/cca/vault_migration).
+
+- Subjects
+  - Custom local/CCA subjects for terms not found in LC (e.g. specific CCA properties)
+  - ~~AAT subjects~~ not enough to justify
+  - LC vocabs (LCSH, LCNAF, LCGFT) terms we've used before
+  - Temporal (list of decades)
+- Names (autofill in "Creatributors" modal, from integrations JSON)
+- Users (actual accounts, from integrations JSON)
 
 Should we combine several vocabs as one "CCA" subject? **Pros**: one single entry in subjects drop-down. **Cons**: odd mixture of terms serving different purposes.
 
-For [Names](https://inveniordm.docs.cern.ch/customize/vocabularies/names/), new ones can be added with `invenio vocabularies -v names -f ./app_data/vocabularies-future.yaml` where that yaml config references the names to be loaded in app_data/names.yaml. I haven't figured out how to load names without a real identifier (like ORCID).
+### Updating Vocabularies
+
+For [Names](https://inveniordm.docs.cern.ch/operate/customize/vocabularies/names/#how-to-import-and-update-your-name-records), new ones can be updated with `invenio vocabularies update -v names -f ./app_data/vocabularies_future.yaml` where that yaml config references the names to be loaded in app_data/vocabularies/names.yaml. Note the relative path; that is relative to where you run the `invenio` command, not relative to the vocabularies_future.yaml file.
+
+```yaml
+names:
+  readers:
+    - type: yaml
+      args:
+        origin: "./app_data/vocabularies/names.yaml"
+  writers:
+    - type: names-service
+      args:
+        update: true
+```
+
+There is also an `invenio rdm-records add-to-fixture` command as of v12. This uses the vocabularies.yaml file but I'm not sure which vocabularies it's capable of updating.
 
 ## Secret Manager
 
@@ -97,6 +116,7 @@ Invenio works with Amazon S3. We use a Google Storage Bucket with some interoper
 - Go to the bucket > **Permissions** > **Grant Access** and give the service account the **Storage Object Admin** role `gsutil iam ch serviceAccount:invenio-local-gsb@cca-web-staging.iam.gserviceaccount.com:objectAdmin gs://invenio-local`
 - Create a [HMAC key](https://cloud.google.com/storage/docs/authentication/hmackeys) for the service account, save the key and secret to Dashlane (**this is the only time the secret is shown**) `gsutil hmac create invenio-local-gsb@cca-web-staging.iam.gserviceaccount.com`
 - Add necessary `S3_...` variables to [Secret Manager](#secret-manager) and to invenio.cfg (see below)
+- Add `AWS_REQUEST_CHECKSUM_CALCULATION="WHEN_REQUIRED"` & `AWS_RESPONSE_CHECKSUM_VALIDATION="WHEN_REQUIRED"` env vars (e.g. to a .env file locally or an extraEnvVars property in the helm chart)
 
 ```python
 # Invenio-Files-Rest

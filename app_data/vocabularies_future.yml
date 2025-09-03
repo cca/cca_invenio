@@ -1,0 +1,19 @@
+# ! does not work, somehow not picking up the reader/writer?
+affiliations:
+  readers:
+    - type: yaml
+      args:
+        origin: "./app_data/vocabularies/affiliations.yaml"
+  writers:
+    - type: affiliations-service
+      args:
+        update: true
+names:
+  readers:
+    - type: yaml
+      args:
+        origin: "./app_data/vocabularies/names.yaml"
+  writers:
+    - type: names-service
+      args:
+        update: true

@@ -2,7 +2,11 @@
 # CCA is the only affiliation right now, names can depend on affs so put affs first
 affiliations:
   pid-type: aff
-  data-file: vocabularies/affiliations.yaml
+  schemes:
+    - id: ROR
+      name: Research Organization Registry
+      uri: "https://ror.org/"
+      data-file: vocabularies/affiliations.yaml
 creatorsroles:
   pid-type: crr
   data-file: vocabularies/roles.yaml

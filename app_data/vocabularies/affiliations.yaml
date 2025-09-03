@@ -1,21 +1,20 @@
 # Example aff file: https://github.com/inveniosoftware/invenio-rdm-records/blob/master/invenio_rdm_records/fixtures/data/vocabularies/affiliations_ror.yaml
 # CCA affiliation org https://ror.org/01mmcf932 https://isni.org/isni/0000000122883033
 - acronym: CCA
-  # TODO after Invenio v13 we can use more ROR fields
-  # aliases
-  # - California College of Arts and Crafts
-  # country: US
-  # country_name: United States
-  # location_name: San Francisco
-  # status: active
-  # types:
-  # - education
+  aliases:
+  - California College of Arts and Crafts
+  country: US
+  country_name: United States
+  location_name: San Francisco
+  status: active
+  types:
+  - education
   id: 01mmcf932
   identifiers:
     - identifier: 01mmcf932
       scheme: ror
-    # - identifier: 0000 0001 2288 3033
-    #   scheme: isni
+    - identifier: 0000 0001 2288 3033
+      scheme: isni
   name: California College of the Arts
   title:
     en: California College of the Arts
