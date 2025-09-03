@@ -2,7 +2,14 @@
 
 We use `helm` for deployment to staging and production instances, see the [cca/invenio-helm](https://github.com/cca/invenio-helm) repo.
 
-These notes are partial and we will need to update them once we figure out more.
+```sh
+cd path/to/invenio-helm
+cd charts
+vim set_secrets.sh # add passwords
+./deploy.sh
+```
+
+The deploy script uninstalls the chart if it exists before reinstalling. The chart uses StatefulSets so data is not lost. If not already done, we should change the `invenio.init` value to be `False` as it will fail when upgrading an existing instance.
 
 ## Secrets
 
@@ -51,19 +58,6 @@ Invenio is designed to run only on HTTPS. The helm chart doesn't work without a 
 ### Google Secret Manager
 
 Create a Service Account with the "Secret Manager Secret Accessor" role, see [configure > secret manager](./configure.md#secret-manager) for details. Save the JSON key to a key.json file, then run `kubectl -ninvenio-dev create secret generic gsm-credentials --from-file=key.json=./key..json`. This is referenced in the Helm chart in the `invenio.extra_env_from_secret` field.
-
-## Helm Deployment
-
-It is likely that the app's namespace already exists. Ensure secrets exist before installation.
-
-```sh
-set -x NS invenio-dev # fish shell
-kubectl create ns $NS
-# key.json is a service account key with permission to read from secret manager
-helm install -f path/to/cca-values.yml invenio path/to/invenio-helm/charts/invenio --version 0.7.0 --namespace $NS --set postgresql.auth.password=$PG_PASS --set rabbitmq.auth.password=$RABBITMQ_PASS
-```
-
-We made need further `--set` flags for secret values. These values should match the ones in the instance's [secret manager](./configure.md#secret-manager).
 
 ## Links
 
