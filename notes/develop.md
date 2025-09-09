@@ -27,7 +27,7 @@ invenio-cli services start
 invenio-cli run all
 ```
 
-If rebuilding a local instance, use `invenio-cli install --dev` to recreate the virtualenv. A mere `pipenv install` won't copy over the configuration and static files to a location inside the venv and the app breaks.
+If rebuilding a local instance, use `invenio-cli install --dev` to recreate the virtualenv. A mere `uv install` won't copy over the configuration and static files to a location inside the venv and the app breaks.
 
 Invenio initializes fixtures (basically, the static app_data files) asynchronously by sending them to its task queue. So the initial startup, even after services are running, is further delayed as these tasks finish. We can view the task queue in the RabbitMQ dashboard and the size of the search indices to get a sense of how much processing is left. See the **Services** table in [run.md](run.md). The **Setup Troubles**  section may also be useful.
 
@@ -91,15 +91,20 @@ There is a demo of a custom view at `/vocablist` which lists all vocabs and link
 
 We want to eventually use [invenio-saml](https://invenio-saml.readthedocs.io/en/latest/) for SSO authentication. The [SAML integration](https://inveniordm.docs.cern.ch/customize/authentication/#saml-integration) section of the Invenio docs seems to have the most specific setup instructions.
 
-## Testing Invenio core modules
+## Invenio Modules
+
+The Invenio docs have a good overview of the relationship between the many modules: https://inveniordm.docs.cern.ch/community/code/source-code/#repositories-survival-guide
+
+This helps to identify where a template or React component lives.
+
+### Testing Invenio core modules
 
 See, for instance, [invenio-rdm-records](https://github.com/inveniosoftware/invenio-rdm-records) where it says how to install dependencies and run tests. These steps aren't enough, however, they don't include some necessary modules.
 
 ```sh
-pipenv --python 3.12
-pipenv shell
-pip install -e .[all]
-pip install invenio-search[opensearch2] invenio-db[postgresql] docker-services-cli check_manifest sphinx
+uv init --python 3.12 # note: precise version may vary
+uv pip install -e .[all]
+uv pip install invenio-search[opensearch2] invenio-db[postgresql] docker-services-cli check_manifest sphinx
+docker desktop start
+uv run ./run-tests.sh
 ```
-
-To run tests, ensure Docker is running and `./run-tests.sh`.
