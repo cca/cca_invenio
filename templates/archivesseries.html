@@ -3,7 +3,7 @@
     <a href='/search?q=custom_fields.cca\:archives_series.series:{{ field_value.get("series", "") | tojson }}'>
         {{ field_value.get("series", "") }}
     </a>
-    <a href='/search?q=custom_fields.cca\:archives_series.series:{{ field_value.get("series", "") | tojson }}'>
+    <a href='/search?q=%2Bcustom_fields.cca\:archives_series.series:{{ field_value.get("series", "") | tojson }}+%2Bcustom_fields.cca\:archives_series.subseries:{{ field_value.get("subseries", "") | tojson }}'>
         {{ field_value.get("subseries", "") }}
     </a>
 </p>

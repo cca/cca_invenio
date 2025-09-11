@@ -2,7 +2,7 @@ import { useFormikContext } from "formik"
 import React, { useState, useEffect } from "react"
 import { TextField } from "react-invenio-forms"
 
-const ConditionalField = ({ fieldPath }) => {
+const ConditionalField = ({ fieldPath, ...props }) => {
     const {values, setFieldValue} = useFormikContext()
     const [active, setActive] = useState(false)
     const [key, setKey] = useState('conditionalfield')
@@ -23,9 +23,9 @@ const ConditionalField = ({ fieldPath }) => {
             className={active ? "" : "d-none"}
             disabled={!active}
             fieldPath={fieldPath}
-            helpText="Enter the publication title. This field only appears for publication resources."
+            helpText={props.description}
             key={key}
-            label="Publication title"
+            label={props.label}
         />
     )
 }

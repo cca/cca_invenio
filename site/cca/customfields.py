@@ -1,3 +1,5 @@
+from typing import Any
+
 from invenio_i18n import lazy_gettext as _
 from invenio_rdm_records.config import RDM_FACETS, RDM_SEARCH
 from invenio_records_resources.services.custom_fields import BaseCF, TextCF
@@ -26,8 +28,9 @@ class ArchivesSeriesCF(BaseCF):
         """Marshmallow field for custom fields."""
         return fields.Dict()
 
+    # BaseCF must implement search mapping
     @property
-    def mapping(self):
+    def mapping(self) -> dict[str, Any]:
         """Return the mapping."""
         return {
             "properties": {
@@ -37,11 +40,11 @@ class ArchivesSeriesCF(BaseCF):
         }
 
 
-RDM_NAMESPACES = {
+RDM_NAMESPACES: dict[str, str] = {
     "cca": "https://libraries.cca.edu/",
 }
 
-RDM_CUSTOM_FIELDS = [
+RDM_CUSTOM_FIELDS: list[BaseCF] = [
     ArchivesSeriesCF(name="cca:archives_series"),
     TextCF(name="cca:community_field"),
     TextCF(name="cca:conditional_field"),
@@ -53,7 +56,7 @@ RDM_CUSTOM_FIELDS = [
     ),
 ]
 
-RDM_CUSTOM_FIELDS_UI = [
+RDM_CUSTOM_FIELDS_UI: list[dict[str, Any]] = [
     {
         "section": _("CCA Custom Fields"),
         "fields": [
@@ -61,15 +64,23 @@ RDM_CUSTOM_FIELDS_UI = [
                 "field": "cca:conditional_field",
                 "template": "conditionalfield.html",
                 "ui_widget": "ConditionalField",
-                # props hard-coded into ConditionalField.js
-                "props": {},
+                "props": {
+                    "description": _(
+                        "Enter the publication title. This field only appears for publication resources."
+                    ),
+                    "label": _("Publication Title"),
+                },
             },
             {
                 "field": "cca:community_field",
                 "template": "communityfield.html",
                 "ui_widget": "CommunityField",
-                # props hard-coded into CommunityField.js
-                "props": {},
+                "props": {
+                    "description": _(
+                        "This field is only visible when record is submitted to the Test Community."
+                    ),
+                    "label": _("Community-Specific Field"),
+                },
             },
             {
                 "field": "cca:program",
@@ -82,8 +93,8 @@ RDM_CUSTOM_FIELDS_UI = [
                     "description": _("Select one of CCA's academic programs"),
                     "icon": "building",
                     "label": _("Academic Program"),
-                    "multiple": False,  # True for selecting multiple values
-                    "placeholder": _("Animation Program"),
+                    "multiple": False,
+                    "placeholder": _("Start typing to search..."),
                 },
             },
             {
@@ -110,7 +121,7 @@ RDM_CUSTOM_FIELDS_UI = [
     }
 ]
 
-RDM_FACETS = {
+RDM_FACETS: dict[str, dict[str, Any]] = {
     **RDM_FACETS,
     "program": {
         "facet": CFTermsFacet(  # backend facet
@@ -123,4 +134,8 @@ RDM_FACETS = {
     },
 }
 
-RDM_SEARCH = {**RDM_SEARCH, "facets": RDM_SEARCH["facets"] + ["program"]}
+# ! This facet does not show up on the search page.
+RDM_SEARCH: dict[str, Any] = {
+    **RDM_SEARCH,
+    "facets": RDM_SEARCH["facets"] + ["program"],
+}

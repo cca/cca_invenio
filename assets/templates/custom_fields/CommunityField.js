@@ -5,7 +5,7 @@ import React, {useState, useEffect} from "react"
 import {useSelector} from "react-redux"
 import {TextField} from "react-invenio-forms"
 
-const CommunityField = ({fieldPath}) => {
+const CommunityField = ({ fieldPath, ...props }) => {
     const {setFieldValue} = useFormikContext()
     const community = useSelector(state => state.deposit.editorState.selectedCommunity?.slug)
     const [active, setActive] = useState(community === 'test')
@@ -14,7 +14,7 @@ const CommunityField = ({fieldPath}) => {
     useEffect(() => {
         console.log("useEffect state", community, active)
         const isActive = (community === 'test')
-        const newKey = `communityfield-${community}`
+        const newKey = `communityfield-${community}` // ! does this do anything?
         if (active !== isActive) {
             setActive(isActive)
             // clear the field value when it becomes inactive
@@ -26,8 +26,8 @@ const CommunityField = ({fieldPath}) => {
         className={active ? "" : "d-none"}
         disabled={!active}
         fieldPath={fieldPath}
-        helpText="This field is only visible when record is submitted to the Test Community."
-        label="Community-specific Field"
+        helpText={props.description}
+        label={props.label}
     />
 }
 
