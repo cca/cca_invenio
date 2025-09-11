@@ -15,4 +15,5 @@ export const overriddenComponents = {
     // ? do we want to retain this actually? Might be useful for Libraries records.
     "InvenioAppRdm.Deposit.AccordionFieldRelatedWorks.container": () => null,
     "InvenioAppRdm.Deposit.AccordionFieldReferences.container": () => null,
+    "InvenioCommunities.CommunityProfileForm.AccordionField.MetadataFunding": () => null
 }
