@@ -9,10 +9,8 @@ const CommunityField = ({ fieldPath, ...props }) => {
     const {setFieldValue} = useFormikContext()
     const community = useSelector(state => state.deposit.editorState.selectedCommunity?.slug)
     const [active, setActive] = useState(community === 'test')
-    console.log("Initial state", community, active)
 
     useEffect(() => {
-        console.log("useEffect state", community, active)
         const isActive = (community === 'test')
         const newKey = `communityfield-${community}` // ! does this do anything?
         if (active !== isActive) {
