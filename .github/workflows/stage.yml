@@ -5,8 +5,6 @@ on:
   push:
     tags:
       - 'stg-build-*'
-      # TODO helm deployment
-      #- 'stg-deploy-*'
 
 env:
   APP: 'invenio'
@@ -15,10 +13,6 @@ env:
   REPOSITORY: 'docker-web'
   SERVICE_ACCOUNT: 'invenio-gh-actions@cca-web-staging.iam.gserviceaccount.com'
   WORKLOAD_IDENTITY_PROVIDER: 'projects/316944295291/locations/global/workloadIdentityPools/github/providers/invenio'
-  # ! below will be used in the k8s deploy steps
-  CLUSTER_LOCATION: 'us-west1-b'
-  CLUSTER_NAME: 'ccaedu-stg'
-  KUBERNETES_NAMESPACE_OVERWRITE: 'invenio-dev'
 
 jobs:
   build:
