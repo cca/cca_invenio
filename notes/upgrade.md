@@ -10,6 +10,84 @@ High-level Invenio upgrade:
 
 The v10 and v11 upgrades below were performed with the "containerized" setup so they're not representative of an upgrade using the local/services setup.
 
+## v13 Upgrade on Staging
+
+- Build new "latest" staging image using v13 code (tag this repo `stg-build-X`)
+- Run upgrade steps on the web pod:
+
+```sh
+# locally execute shell on an app pod, doesn't have to be "web" pod
+POD=$(kubectl -ninvenio-dev get pods -o name -l app.kubernetes.io/component=web)
+kubectl -ninvenio-dev exec ${POD} -it -- /bin/bash
+# these commands are run on the pod
+invenio alembic upgrade
+invenio shell "$(find "${VIRTUAL_ENV}"/lib/*/site-packages/invenio_app_rdm -name migrate_12_0_to_13_0.py)"
+invenio index destroy --yes-i-know # this cmd does not destroy the stats indices
+# weren't these already deleted by `invenio index destroy`?
+invenio index delete --force --yes-i-know "invenio-rdmrecords-records-record-*-percolators"
+invenio index init
+# if you have records custom fields
+invenio rdm-records custom-fields init
+# if you have communities custom fields
+invenio communities custom-fields init
+invenio rdm rebuild-all-indices
+```
+
+For a long time (hours) after the upgrade, requests to the records API continued to fail with a `KeyError` that seemed to relate to statistics aggregation. This was despite the stats queues existing. I also ran `invenio stats events process` and `invenio stats aggregations process`. Perhaps things weren't fixed until those tasks completed in the background? It took a surprisingly long time, though.
+
+<details>
+<summary>Full stacktrace of "image" KeyError</summary>
+
+```log
+[2025-09-16 11:52:57,691] ERROR in app: Exception on /records [GET]
+Traceback (most recent call last):
+  File "/opt/invenio/.venv/lib/python3.12/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/invenio/.venv/lib/python3.12/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/invenio/.venv/lib/python3.12/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/invenio/.venv/lib/python3.12/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/invenio/.venv/lib/python3.12/site-packages/flask_resources/resources.py", line 65, in view
+    return view_meth()
+           ^^^^^^^^^^^
+  File "/opt/invenio/.venv/lib/python3.12/site-packages/flask_resources/content_negotiation.py", line 116, in inner_content_negotiation
+    return f(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^
+  File "/opt/invenio/.venv/lib/python3.12/site-packages/flask_resources/parsers/decorators.py", line 51, in inner
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/invenio/.venv/lib/python3.12/site-packages/flask_resources/parsers/decorators.py", line 51, in inner
+    return f(self, *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/invenio/.venv/lib/python3.12/site-packages/flask_resources/responses.py", line 39, in inner
+    res = f(*args, **kwargs)
+          ^^^^^^^^^^^^^^^^^^
+  File "/opt/invenio/.venv/lib/python3.12/site-packages/invenio_records_resources/resources/records/resource.py", line 86, in search
+    return hits.to_dict(), 200
+           ^^^^^^^^^^^^^^
+  File "/opt/invenio/.venv/lib/python3.12/site-packages/invenio_records_resources/services/records/results.py", line 252, in to_dict
+    if self.aggregations:
+       ^^^^^^^^^^^^^^^^^
+  File "/opt/invenio/.venv/lib/python3.12/site-packages/invenio_records_resources/services/records/results.py", line 194, in aggregations
+    return self._results.labelled_facets.to_dict()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/invenio/.venv/lib/python3.12/site-packages/invenio_records_resources/services/records/facets/response.py", line 81, in labelled_facets
+    self._labelled_facets[name] = facet.get_labelled_values(
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/invenio/.venv/lib/python3.12/site-packages/invenio_records_resources/services/records/facets/facets.py", line 227, in get_labelled_values
+    "label": label_map[key],
+             ~~~~~~~~~^^^^^
+KeyError: 'image'
+```
+
+</details>
+
 ## 13.0.2 upgrade
 
 Change `APP_ALLOWED_HOSTS` to `TRUSTED_HOSTS` in [invenio.cfg](/invenio.cfg).
