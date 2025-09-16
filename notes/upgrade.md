@@ -13,7 +13,8 @@ The v10 and v11 upgrades below were performed with the "containerized" setup so 
 ## v13 Upgrade on Staging
 
 - Build new "latest" staging image using v13 code (tag this repo `stg-build-X`)
-- Run upgrade steps on the web pod:
+- Restart all deployments to pull new images: `kubectl -ninvenio-dev rollout restart deploy -l app.kubernetes.io/name=cca-invenio`
+- Run upgrade steps on an app pod:
 
 ```sh
 # locally execute shell on an app pod, doesn't have to be "web" pod
