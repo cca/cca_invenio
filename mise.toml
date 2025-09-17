@@ -2,7 +2,8 @@
 _.file = ".env"
 PYTHONWARNINGS = "ignore:pkg_resources is deprecated:UserWarning"
 UV_PYTHON = "3.12"
+OBJC_DISABLE_INITIALIZE_FORK_SAFETY = "YES"
 [tools]
 node = "22.18.0"
 # matches pyproject.toml
-python = "3.12.4"
+python = "3.12.11"
