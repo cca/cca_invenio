@@ -2,7 +2,8 @@
 _.file = ".env"
 PYTHONWARNINGS = "ignore:pkg_resources is deprecated:UserWarning"
 UV_PYTHON = "3.12"
-OBJC_DISABLE_INITIALIZE_FORK_SAFETY = "YES"
+# https://github.com/celery/celery/issues/9894
+NOSETPS = "yes"
 [tools]
 node = "22.18.0"
 # matches pyproject.toml
