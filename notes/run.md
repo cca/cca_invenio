@@ -26,14 +26,16 @@ To reset the local instance, run `invenio-cli services setup --force --no-demo-d
 
 ## CLI Usage
 
-The `invenio` command has numerous commands for interacting with different parts of the app. **TODO list common tasks here**
-
-We could also install Graz U Library's [repository-cli](https://github.com/tu-graz-library/repository-cli/). It adds these extra commands:
+The `invenio` command has numerous commands for interacting with different parts of the app. The documentation has a good [Invenio commands reference](https://inveniordm.docs.cern.ch/reference/cli_invenio/). Most are only needed when initializing an instance or during upgrades. Common tasks:
 
 ```sh
-invenio repository users list # list all users
-invenio repository records --help # many commands for manipulating records!
+invenio roles add email@cca.edu role_name
+invenio rdm rebuild-all-indices -o users,records,etc... # bad name, rebuilds specific indices in order
+invenio rdm-records add-to-fixture contributorsroles # update certain vocabs
+invenio shell # run a shell in the app context, can make ad hoc changes
 ```
+
+`invenio vocabularies update/import` should theoretically be useful but in practice I have struggled to update Invenio vocabularies after instance initialization.
 
 ## Search Index Backup
 
@@ -76,10 +78,6 @@ invenio rdm-records fixtures
 # may be necessary after the two commands above?
 invenio rdm-records rebuild-index
 ```
-
-The instructions for setting up with services do not work because the CLI never recognizes that the opensearch container has started. But if you run `invenio-cli services start` first, wait for it to end even if it says search never came online, check the search container and URL (port 9200), then you can run `invenio-cli services setup` to initialize everything and load the demo data.
-
-There was an npm error when running `invenio-cli assets build`, I fixed it by _downgrading_ npm to v6. `invenio-cli check-requirements --development` complains if you have npm > 7.
 
 ## Reset User Password
 

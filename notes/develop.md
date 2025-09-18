@@ -23,8 +23,7 @@ To start the app, ensure Docker is running, spin up the services, and `run` the 
 
 ```sh
 docker desktop start
-invenio-cli services start
-invenio-cli run all
+invenio-cli run
 ```
 
 If rebuilding a local instance, use `invenio-cli install --dev` to recreate the virtualenv. A mere `uv install` won't copy over the configuration and static files to a location inside the venv and the app breaks.

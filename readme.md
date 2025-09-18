@@ -4,7 +4,7 @@ CCA InvenioRDM instance. This is mostly a cookiecutter Invenio project with some
 
 ## Setup
 
-Development requires docker, python, uv, node, and ImageMagick. `invenio-cli check-requirements --development` checks these requirements. See [our mise.toml](mise.toml) file; mise isn't required, but is helpful. To install on an M2 Mac, additional packages are needed: `brew install cairo libffi libxmlsec1 pkg-config`. See [build.md](./notes/build.md) for notes on overcoming build errors.
+Development requires docker, python, uv, node, and ImageMagick. `invenio-cli check-requirements --development` checks these requirements (though it fails if you do not have `pipenv` even though `uv` can replace it). See [our mise.toml](mise.toml) file; mise isn't required, but is helpful. To install on an M2 Mac, additional packages may be needed: `brew install cairo libffi libxmlsec1 pkg-config`. See [build.md](./notes/build.md) for notes on overcoming build errors.
 
 Many configuration values are in Secret Manager; see [configure.md](./notes/configure.md#secret-manager) for details.
 
@@ -26,14 +26,14 @@ invenio-cli install all --dev # creates the virtualenv, install dependencies, & 
 invenio-cli services setup --no-demo-data # sets up db, cache, search, task queue
 uv run invenio files location create gs-invenio-local s3://invenio-local --default # connect to cloud storage
 export ENVIRONMENT=local # if not using `mise` ensure vars from .env exist
-invenio-cli run all # runs the application & celery worker for the task queue
+invenio-cli run
 ```
 
-The services setup enqueues many tasks rather than completing them synchronously, so the first time you `run` the app it takes a while before setup is complete.
+The services setup enqueues many tasks rather than completing them synchronously, so the first time you `run` the app it takes a while before setup is complete. When done, Ctrl + C kills the dev server but `invenio-cli services stop` is needed to stop the db, cache, and search.
 
 ## Overview
 
-Following is an overview of the generated files and folders:
+Project files and folders:
 
 | Name | Description |
 |---|---|
@@ -43,11 +43,9 @@ Following is an overview of the generated files and folders:
 | `app_data` | Application data such as vocabularies. |
 | `assets` | Web assets (CSS, JavaScript, LESS, JSX templates) used in the Webpack build. |
 | `docker` | Example configuration for NGINX, Postgres Admin, and uWSGI. |
-| `docker-compose.full.yml` | Example of a full infrastructure stack. |
 | `docker-compose.yml` | Backend services needed for local development. |
 | `docker-services.yml` | Common services for the Docker Compose files. |
 | `invenio.cfg` | Main configuration file. |
-| `logs` | Log files. |
 | `notes` | CCA's documentation on running & developing the app. |
 | `site` | [Custom site code](https://inveniordm.docs.cern.ch/develop/howtos/custom_code/) and modules. |
 | `static` | Static files that need to be served as-is (e.g. images). |
@@ -55,7 +53,7 @@ Following is an overview of the generated files and folders:
 | `.invenio` | Common file used by Invenio-CLI to be version controlled. |
 | `.invenio.private` | Private file used by Invenio-CLI *not* version controlled. |
 | `.env`, `example.env` | Environment variables automatically loaded with `dotenv` |
-| `mise.toml` | [mise](https://mise.jdx.dev/) manages env vars & installed languages (node, python) |
+| `mise.toml` | [mise](https://mise.jdx.dev/) manages env vars & languages (node, python) |
 
 ## Documentation
 
