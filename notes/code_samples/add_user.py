@@ -13,9 +13,49 @@ users: list[dict[str, Any]] = [
         "username": "library-test-student-1",
         "user_profile": {
             "affiliations": "California College of the Arts",
-            "full_name": "Kylo Ren",
+            "full_name": "Finn 2187",
         },
-    }
+    },
+    {
+        "email": "library-test-student-2@cca.edu",
+        "user_profile": {
+            "full_name": "Rey Skywalker",
+            "affiliations": "California College of the Arts",
+        },
+        "username": "library-test-student-2",
+        "active": True,
+        "confirmed_at": datetime.now(),
+    },
+    {
+        "email": "library-test-faculty-1@cca.edu",
+        "user_profile": {
+            "full_name": "Leia Organa",
+            "affiliations": "California College of the Arts",
+        },
+        "username": "library-test-faculty-1",
+        "active": True,
+        "confirmed_at": datetime.now(),
+    },
+    {
+        "email": "library-test-faculty-2@cca.edu",
+        "user_profile": {
+            "full_name": "Kylo Ren",
+            "affiliations": "California College of the Arts",
+        },
+        "username": "library-test-faculty-2",
+        "active": True,
+        "confirmed_at": datetime.now(),
+    },
+    {
+        "email": "library-test-manager-1@cca.edu",
+        "user_profile": {
+            "full_name": "Admiral Ackbar",
+            "affiliations": "California College of the Arts",
+        },
+        "username": "library-test-manager-1",
+        "active": True,
+        "confirmed_at": datetime.now(),
+    },
 ]
 
 
