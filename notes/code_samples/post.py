@@ -3,8 +3,10 @@ POST record metadata and file to InvenioRDM REST API
 
 See Invenio's example:
 https://github.com/inveniosoftware/docs-invenio-rdm-restapi-example"""
+
 import json
 import os
+
 import requests
 import urllib3
 
@@ -18,11 +20,11 @@ if not token:
     )
 # at least 5 HTTP requests to creating an item with a single attachment:
 # 1) create metadata record as draft
-# 2) for each attachment
-#   a) add file names to draft (could this be combined with the step above?)
-#   b) add file data to draft
-#   c) commit the file to the draft
-# 3) publish the draft
+# 2) create file area & add file names to draft
+# 3) for each attachment
+#   a) add file data to draft
+#   b) commit the file to the draft
+# 4) publish the draft
 
 
 def result(response):

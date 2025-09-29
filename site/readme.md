@@ -6,10 +6,10 @@ https://inveniordm.docs.cern.ch/develop/howtos/custom_code/
 
 ## Courses Data
 
-Run `uv run python site/cca/cli.py` to download courses JSON data and add it to a `courses` OpenSearch index.
+Run `uv run python site/cca/scripts/courses_index.py` to download courses JSON data and add it to a `courses` OpenSearch index.
 
 ```sh
-Usage: cli.py [OPTIONS]
+Usage: courses_index.py [OPTIONS]
 
   Download course JSON from the Integrations bucket, format it for bulk
   addition to OpenSearch, and push it to the "courses" index. By default, the

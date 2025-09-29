@@ -1,7 +1,6 @@
-# usage: python upload_courses.py <bucket_name> <source_blob_name> <destination_file_name> <os_host>
-from datetime import date
 import json
 import os
+from datetime import date
 from typing import Any
 
 import click
@@ -68,6 +67,7 @@ def push_to_opensearch(os_host, bulk_data):
     "--bucket",
     default=lambda: os.getenv("COURSES_BUCKET_NAME", "int_files_source"),
     help="The name of the Google Cloud Storage bucket.",
+    type=click.STRING,
 )
 @click.option(
     "--filename",
@@ -75,22 +75,30 @@ def push_to_opensearch(os_host, bulk_data):
         "COURSES_SOURCE_BLOB_NAME", f"course_section_data_AP_{current_term()}.json"
     ),
     help="The name of the source blob in the bucket.",
+    type=click.STRING,
 )
 @click.option(
     "--destination-filename",
     default=lambda: os.getenv("COURSES_DESTINATION_FILE_NAME", "courses.json"),
     help="Local file name of the downloaded JSON.",
+    type=click.STRING,
 )
 @click.option(
     "--os-host",
     default=lambda: os.getenv("COURSES_OS_HOST", "http://localhost:9200"),
     help="The OpenSearch host URL.",
+    type=click.STRING,
 )
-def main(bucket: str, filename: str, destination_filename: str, os_host: str):
+@click.option("--delete", help="Delete the local course file afterwards", is_flag=True)
+def main(
+    bucket: str, filename: str, destination_filename: str, os_host: str, delete: bool
+):
     """Download course JSON from the Integrations bucket, format it for bulk addition to OpenSearch, and push it to the "courses" index. By default, the bucket name is "int_files_source", the blob name is "course_section_data_AP_<current_term>.json", and the OpenSearch host is "http://localhost:9200"."""
     download_courses(bucket, filename, destination_filename)
     bulk_data: list[dict[str, Any]] = prepare_bulk_data(destination_filename)
     push_to_opensearch(os_host, bulk_data)
+    if delete:
+        os.remove(destination_filename)
 
 
 if __name__ == "__main__":
