@@ -2,8 +2,10 @@
 # ! but we need these in the repo when CI builds an image
 app_data/vocabularies/names.yaml
 app_data/users.yaml
-# Downloaded courses data
+# Downloaded data
 courses.json
+employee_data.json
+student_data.json
 # Secret configuration
 secret.json
 # SAML certs
