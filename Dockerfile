@@ -1,6 +1,6 @@
 # Based on invenio-rdm-starter Dockerfile
 # https://github.com/front-matter/invenio-rdm-starter/blob/ba0269ff0eec036d5d38408d5fa7184f284036b3/Dockerfile
-FROM python:3.12-bookworm AS builder
+FROM python:3.13-bookworm AS builder
 
 ENV ENVIRONMENT=dockerbuild \
     LANG=en_US.UTF-8 \
@@ -64,7 +64,7 @@ RUN --mount=type=cache,target=/root/.cache/uv uv sync --frozen --no-dev --group 
 # Build Javascript assets — `invenio` cmd means we need functional invenio.cfg during build
 RUN --mount=type=cache,target=/var/cache/assets invenio collect --verbose && invenio webpack buildall
 
-FROM python:3.12-slim-bookworm AS runtime
+FROM python:3.13-slim-bookworm AS runtime
 
 ENV LANG=en_US.UTF-8 \
     LANGUAGE=en_US:en
