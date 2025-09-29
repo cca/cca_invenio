@@ -354,8 +354,8 @@ uwsgi = [
 [package.metadata]
 requires-dist = [
     { name = "google-cloud-secret-manager", specifier = "==2.24.0" },
-    { name = "google-cloud-storage", specifier = ">=3.3.0" },
-    { name = "invenio-app-rdm", extras = ["opensearch2", "s3"], specifier = "==13.0.2" },
+    { name = "google-cloud-storage", specifier = "==3.4.0" },
+    { name = "invenio-app-rdm", extras = ["opensearch2", "s3"], specifier = "==13.0.3" },
     { name = "invenio-saml", specifier = "==1.2.0" },
     { name = "invenio-utilities-tuw", specifier = "==2025.1.1" },
     { name = "lxml", specifier = "==5.3.0" },
@@ -1351,7 +1351,7 @@ wheels = [
 
 [[package]]
 name = "google-cloud-storage"
-version = "3.3.0"
+version = "3.4.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "google-api-core" },
@@ -1361,9 +1361,9 @@ dependencies = [
     { name = "google-resumable-media" },
     { name = "requests" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/1e/91/10b9ddd5baacde375dcd7e6716b5024b3f65a22366f74c26926b6aa84e4e/google_cloud_storage-3.3.0.tar.gz", hash = "sha256:ae9d891d53e17d9681d7c4ef1ffeea0cde9bdc53d5b64fa6ff6bf30d1911cf61", size = 7781974, upload-time = "2025-08-12T09:10:36.245Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/4e/a6/6e0a318f70975a3c048c0e1a18aee4f7b6d7dac1e798fdc5353c5248d418/google_cloud_storage-3.4.0.tar.gz", hash = "sha256:4c77ec00c98ccc6428e4c39404926f41e2152f48809b02af29d5116645c3c317", size = 17226847, upload-time = "2025-09-15T10:40:05.045Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/41/9d/2814a2c47429dc2e197e176de25a946d4538422b081ade8638e585e4006f/google_cloud_storage-3.3.0-py3-none-any.whl", hash = "sha256:0338ecd6621b3ecacb108f1cf7513ff0d1bca7f1ff4d58e0220b59f3a725ff23", size = 274270, upload-time = "2025-08-12T09:10:34.793Z" },
+    { url = "https://files.pythonhosted.org/packages/16/12/164a90e4692423ed5532274928b0e19c8cae345ae1aa413d78c6b688231b/google_cloud_storage-3.4.0-py3-none-any.whl", hash = "sha256:16eeca305e4747a6871f8f7627eef3b862fdd365b872ca74d4a89e9841d0f8e8", size = 278423, upload-time = "2025-09-15T10:40:03.349Z" },
 ]
 
 [[package]]
@@ -1633,7 +1633,7 @@ wheels = [
 
 [[package]]
 name = "invenio-app-rdm"
-version = "13.0.2"
+version = "13.0.3"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "cairosvg" },
@@ -1674,9 +1674,9 @@ dependencies = [
     { name = "invenio-theme" },
     { name = "invenio-userprofiles" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/1d/e5/201a246ee2c78ddc6c3ac9972819c8b422a5df7ded70395e0798e08efb3d/invenio_app_rdm-13.0.2.tar.gz", hash = "sha256:27a3cdbd7eab94c138940047b67a9284a8739371cfca051dcc80afc8f4df5a82", size = 728311, upload-time = "2025-08-25T15:43:36.648Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/a5/04/bed7a640462c689679154a4a8db23e8e0a0e6a2578b4d686b326e4d9ccf7/invenio_app_rdm-13.0.3.tar.gz", hash = "sha256:bc616bac5e22eac0d19fdeb29d2f36932512430872a4ae15f573a98b4c04a972", size = 728345, upload-time = "2025-09-25T15:12:09.515Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/71/5a/a53f7d4204b80fb41d12298d3ed302236b3540b4a50c44be897ce56c7cd3/invenio_app_rdm-13.0.2-py2.py3-none-any.whl", hash = "sha256:896e867d266bbd4835f8a8f27fb7c2917b37ffc9997c233e290fe5956642c4db", size = 1147717, upload-time = "2025-08-25T15:43:34.336Z" },
+    { url = "https://files.pythonhosted.org/packages/78/97/625b2777efbd01d184f05e6fb58d3693159c927e7327065d50bb4359215e/invenio_app_rdm-13.0.3-py2.py3-none-any.whl", hash = "sha256:4ed56e902fe4ff345e5bd63ffbc7b4d6af147f0ad2140defb8d2612209bb45b9", size = 1147847, upload-time = "2025-09-25T15:12:07.268Z" },
 ]
 
 [package.optional-dependencies]
