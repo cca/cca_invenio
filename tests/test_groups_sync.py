@@ -15,9 +15,9 @@ spec = importlib.util.spec_from_file_location("groups_sync", str(MODULE_PATH))
 if spec is None or spec.loader is None:
     raise ImportError(f"Could not load module spec from {MODULE_PATH}")
 
-gs = importlib.util.module_from_spec(spec)  # type: ignore[arg-type]
-sys.modules[spec.name] = gs  # type: ignore[attr-defined]
-spec.loader.exec_module(gs)  # type: ignore[attr-defined]
+gs = importlib.util.module_from_spec(spec)
+sys.modules[spec.name] = gs
+spec.loader.exec_module(gs)
 
 
 def test_slugify_examples():
@@ -28,13 +28,28 @@ def test_slugify_examples():
 
 
 def test_process_students_and_employees(monkeypatch):
-    calls = []
+    calls: list[tuple] = []
 
-    def fake_run_cmd(cmd, dry_run):
-        # record the command (list form) and dry_run flag
-        calls.append((tuple(cmd), bool(dry_run)))
+    def fake_create(role, description, ds):
+        calls.append(
+            (
+                "create",
+                role,
+                description,
+            )
+        )
 
-    monkeypatch.setattr(gs, "run_cmd", fake_run_cmd)
+    def fake_add(email, role, ds):
+        calls.append(
+            (
+                "add",
+                email,
+                role,
+            )
+        )
+
+    monkeypatch.setattr(gs, "create_role", fake_create)
+    monkeypatch.setattr(gs, "add_user_to_role", fake_add)
 
     students: list[dict[str, Any]] = [
         # student with minor/concentration
@@ -88,50 +103,24 @@ def test_process_students_and_employees(monkeypatch):
         },
     ]
 
-    gs.process_students(students, create_groups=True, dry_run=False)
+    gs.process_students(students, create_groups=True)
 
-    # flatten commands for easier assertions
-    cmds = [c for c, _ in calls]
+    # flatten commands for easier assertions (calls holds the tuples we need)
 
-    assert (
-        tuple(
-            [
-                "invenio",
-                "roles",
-                "create",
-                "architecture_majors",
-                "-d",
-                "Architecture Majors",
-            ]
-        )
-        in cmds
-    )
-    assert (
-        tuple(["invenio", "roles", "add", "s1@cca.edu", "architecture_majors"]) in cmds
-    )
-    assert (
-        tuple(["invenio", "roles", "create", "design_majors", "-d", "Design Majors"])
-        in cmds
-    )
-    assert tuple(["invenio", "roles", "add", "s2@cca.edu", "design_majors"]) in cmds
+    assert ("create", "architecture_majors", "Architecture Majors") in calls
+    assert ("add", "s1@cca.edu", "architecture_majors") in calls
+    assert ("create", "design_majors", "Design Majors") in calls
+    assert ("add", "s2@cca.edu", "design_majors") in calls
     # double major tests
-    assert (
-        tuple(
-            ["invenio", "roles", "create", "painting_majors", "-d", "Painting Majors"]
-        )
-        in cmds
-    )
-    assert (
-        tuple(["invenio", "roles", "create", "drawing_majors", "-d", "Drawing Majors"])
-        in cmds
-    )
-    assert tuple(["invenio", "roles", "add", "s6@cca.edu", "painting_majors"]) in cmds
-    assert tuple(["invenio", "roles", "add", "s6@cca.edu", "drawing_majors"]) in cmds
+    assert ("create", "painting_majors", "Painting Majors") in calls
+    assert ("create", "drawing_majors", "Drawing Majors") in calls
+    assert ("add", "s6@cca.edu", "painting_majors") in calls
+    assert ("add", "s6@cca.edu", "drawing_majors") in calls
 
     # Clear and test employees
     calls.clear()
 
-    employees = [
+    employees: list[dict[str, Any]] = [
         {"work_email": "f1@cca.edu", "program": "Fine Arts"},
         {"work_email": "f2@cca.edu", "program": "Fine Arts"},
         {"work_email": "no_prog@cca.edu", "program": ""},
@@ -139,21 +128,8 @@ def test_process_students_and_employees(monkeypatch):
         {"work_email": None, "program": "Math"},
     ]
 
-    gs.process_employees(employees, create_groups=True, dry_run=False)
-    cmds = [c for c, _ in calls]
+    gs.process_employees(employees, create_groups=True)
 
-    assert (
-        tuple(
-            [
-                "invenio",
-                "roles",
-                "create",
-                "fine_arts_faculty",
-                "-d",
-                "Fine Arts Faculty",
-            ]
-        )
-        in cmds
-    )
-    assert tuple(["invenio", "roles", "add", "f1@cca.edu", "fine_arts_faculty"]) in cmds
-    assert tuple(["invenio", "roles", "add", "f2@cca.edu", "fine_arts_faculty"]) in cmds
+    assert ("create", "fine_arts_faculty", "Fine Arts Faculty") in calls
+    assert ("add", "f1@cca.edu", "fine_arts_faculty") in calls
+    assert ("add", "f2@cca.edu", "fine_arts_faculty") in calls

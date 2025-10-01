@@ -59,6 +59,7 @@ users: list[dict[str, Any]] = [
 ]
 
 
+# TODO move to site.cca.scripts
 @with_appcontext
 def add_users() -> None:
     for user in users:

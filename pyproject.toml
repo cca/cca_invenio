@@ -36,5 +36,14 @@ uwsgi = [
 build-backend = "setuptools.build_meta"
 requires = ["setuptools>=42", "wheel"]
 
+[project.entry-points."flask.commands"]
+cca = "cca.cli:cca"
+
+[project.scripts]
+cca = "cca.cli:cca"
+
 [tool.setuptools.packages.find]
 where = ["site"]
+
+[tool.uv.sources]
+cca = {path = "./site", editable = true}

@@ -22,3 +22,4 @@ def create_blueprint(app):
 
     # Add URL rules
     return blueprint
+    

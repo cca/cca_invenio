@@ -6,10 +6,10 @@ https://inveniordm.docs.cern.ch/develop/howtos/custom_code/
 
 ## Courses Data
 
-Run `uv run python site/cca/scripts/courses_index.py` to download courses JSON data and add it to a `courses` OpenSearch index.
+Run `uv run invenio cca courses-index` to download courses JSON data and add it to a `courses` OpenSearch index.
 
 ```sh
-Usage: courses_index.py [OPTIONS]
+Usage: invenio cca courses-index [OPTIONS]
 
   Download course JSON from the Integrations bucket, format it for bulk
   addition to OpenSearch, and push it to the "courses" index. By default, the
@@ -32,9 +32,9 @@ There is a CLI to sync students and employees into Invenio role groups: `site/cc
 
 ```sh
 # Dry-run faculty (prints commands, does not download or execute)
-uv run python site/cca/scripts/groups_sync.py --employees --create-groups --dry-run
+uv run invenio cca groups-sync --employees --create-groups --dry-run
 # Real run students (downloads and executes invenio commands):
-uv run python site/cca/scripts/groups_sync.py --students --create-groups --reindex
+uv run invenio cca groups-sync --students --create-groups --reindex
 ```
 
 If we only want students or employees, pass `--students` or `--employees` respectively. Use `--create-groups` to run `invenio roles create ...` before adding members. Use `--reindex` to rebuild group indices after updates.
@@ -46,7 +46,15 @@ The script expects both JSON files to be in our typical Workday format; an objec
 There are pytest unit tests for the groups sync helpers at `tests/test_groups_sync.py`. Run tests from the repository root:
 
 ```sh
-uv run pytest -q
+uv run pytest
 ```
 
 The tests mock command execution and validate that the correct `invenio` commands would be produced for sample input.
+
+## Creating New CLI Commands
+
+- Create file under site/cca/scripts with a typical `@click.command` function. Give the function a meaningful name and not `main`
+- In site/cca/cli.py import the command function and `cca.add_command(function_name)`
+- The command becomes available under `uv run invenio cca function-name`
+
+This works because of pyproject.toml and site/setup.cfg configuration.

@@ -2,17 +2,32 @@ import json
 import os
 import re
 import subprocess
-from sys import stderr
 from typing import Any, Dict, List
 
 import click
+from flask import current_app
+from flask.cli import with_appcontext
 from google.cloud import storage
+from werkzeug.local import LocalProxy
 
-# TODO should `invenio` calls be programmatic instead? It speeds things up greatly.
-# https://inveniordm.docs.cern.ch/operate/customize/authentication/#add-groups
-# from invenio_accounts.proxies import current_datastore
-# current_datastore.create_role(name="ID", description="Group Name")
-# current_datastore.commit() # would still need a reindex afterwards
+
+@click.group()
+def cca():
+    """CCA commands"""
+
+
+class MockDatastore:
+    def add_role_to_user(self, email: str, role: str) -> None:
+        pass
+
+    def commit(self):
+        pass
+
+    def create_role(self, name: str, description: str) -> None:
+        pass
+
+    def get_user(self, email: str):
+        pass
 
 
 def download_blob(bucket_name: str, filename: str, destination_filename: str) -> None:
@@ -35,24 +50,40 @@ def slugify(name: str) -> str:
     return name
 
 
-def run_cmd(cmd: List[str], dry_run: bool) -> None:
-    """Run a command or print it if dry_run is True."""
-    cmd_string = " ".join(cmd)
-
-    print(cmd_string)
-    if dry_run:
-        return
-
+def create_role(role_id: str, description: str, datastore=None) -> None:
+    """Create a role using Invenio internal API when available, otherwise print."""
+    if datastore is None:
+        datastore = MockDatastore()
     try:
-        subprocess.run(cmd, check=True, stderr=subprocess.DEVNULL)
-    except subprocess.CalledProcessError as e:
-        print(
-            f"ERROR {e.returncode} command failed: {cmd_string}\n  exit: ", file=stderr
-        )
+        datastore.create_role(name=role_id, description=description)
+        print(f"Created role {role_id}")
+    except Exception as e:
+        print(f"Failed to create role {role_id}: {e}")
+
+
+def add_user_to_role(
+    email: str,
+    role: str,
+    datastore=None,
+) -> None:
+    """Add a user to a role using Invenio internal API when available, otherwise print."""
+    if datastore is None:
+        datastore = MockDatastore()
+        user = email
+    else:
+        user = datastore.get_user(email)
+    if user:
+        try:
+            datastore.add_role_to_user(email, role)
+            print(f"Added {email} to {role}")
+        except Exception as e:
+            print(f"Failed to add {email} to {role}: {e}")
+    else:
+        print(f"User does not exist: {email}")
 
 
 def process_students(
-    students: List[Dict[str, Any]], create_groups: bool, dry_run: bool
+    students: List[Dict[str, Any]], create_groups: bool, datastore=None
 ) -> None:
     """Create/populate groups for student data.
 
@@ -60,7 +91,7 @@ def process_students(
       - inst_email: student email
       - programs: array of program names (can be empty)
     """
-    groups: Dict[str, str] = {}  # program_name -> group_id
+    groups: set[str] = set()  # program_name -> group_id
 
     for s in students:
         email: str | None = s.get("inst_email")
@@ -78,20 +109,17 @@ def process_students(
             group_name: str = f"{prog['program']} Majors"
 
             if group_id not in groups:
-                groups[group_name] = group_id
+                groups.add(group_id)
                 if create_groups:
-                    run_cmd(
-                        ["invenio", "roles", "create", group_id, "-d", group_name],
-                        dry_run,
-                    )
+                    create_role(group_id, group_name, datastore)
 
             # add the user to the group
-            run_cmd(["invenio", "roles", "add", email, group_id], dry_run)
+            add_user_to_role(email, group_id, datastore)
 
 
 # ! this will not add program admins to faculty group e.g. pacenti
 def process_employees(
-    employees: List[Dict[str, Any]], create_groups: bool, dry_run: bool
+    employees: List[Dict[str, Any]], create_groups: bool, datastore=None
 ) -> None:
     """Create/populate groups for employee (faculty) data. We don't do anything
     with staff accounts yet.
@@ -100,7 +128,7 @@ def process_employees(
       - work_email: employee email
       - program: program name (string, can be null)
     """
-    groups: Dict[str, str] = {}  # program_name -> group_id
+    groups: set[str] = set()
 
     for e in employees:
         email: str | None = e.get("work_email")
@@ -118,17 +146,15 @@ def process_employees(
         group_id: str = f"{slugify(prog)}_faculty"
         group_name: str = f"{prog} Faculty"
 
-        if prog not in groups:
-            groups[prog] = group_id
+        if group_id not in groups:
+            groups.add(group_id)
             if create_groups:
-                run_cmd(
-                    ["invenio", "roles", "create", group_id, "-d", group_name], dry_run
-                )
+                create_role(group_id, group_name, datastore)
 
-        run_cmd(["invenio", "roles", "add", email, group_id], dry_run)
+        add_user_to_role(email, group_id, datastore)
 
 
-@click.command()
+@cca.command()
 @click.help_option("-h", "--help")
 @click.option(
     "--bucket",
@@ -178,7 +204,8 @@ def process_employees(
     is_flag=True,
     help="Print the Invenio commands instead of executing them",
 )
-def main(
+@with_appcontext
+def groups_sync(
     bucket: str,
     employee_blob: str,
     student_blob: str,
@@ -203,6 +230,8 @@ def main(
             "Error: pass either --employees and/or --students flag(s).", err=True
         )
         return exit(1)
+
+    datastore = LocalProxy(lambda: current_app.extensions["security"].datastore)
 
     if employees:
         emp_data = None
@@ -230,7 +259,7 @@ def main(
                 "Employee data is not a list; aborting employees processing", err=True
             )
         else:
-            process_employees(emp_data, create_groups, dry_run)
+            process_employees(emp_data, create_groups, datastore)
 
     if students:
         stu_data = None
@@ -258,11 +287,16 @@ def main(
                 "Student data is not a list; aborting students processing", err=True
             )
         else:
-            process_students(stu_data, create_groups, dry_run)
+            process_students(stu_data, create_groups, datastore)
+
+    datastore.commit()
 
     if reindex:
-        run_cmd(["invenio", "rdm", "rebuild-all-indices", "-o", "groups"], dry_run)
+        subprocess.call(
+            ["invenio", "rdm", "rebuild-all-indices", "-o", "groups"],
+            stderr=subprocess.DEVNULL,
+        )
 
 
 if __name__ == "__main__":
-    main()
+    groups_sync()

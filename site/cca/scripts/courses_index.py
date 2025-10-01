@@ -90,7 +90,7 @@ def push_to_opensearch(os_host, bulk_data):
     type=click.STRING,
 )
 @click.option("--delete", help="Delete the local course file afterwards", is_flag=True)
-def main(
+def courses_index(
     bucket: str, filename: str, destination_filename: str, os_host: str, delete: bool
 ):
     """Download course JSON from the Integrations bucket, format it for bulk addition to OpenSearch, and push it to the "courses" index. By default, the bucket name is "int_files_source", the blob name is "course_section_data_AP_<current_term>.json", and the OpenSearch host is "http://localhost:9200"."""
@@ -102,4 +102,4 @@ def main(
 
 
 if __name__ == "__main__":
-    main()
+    courses_index()

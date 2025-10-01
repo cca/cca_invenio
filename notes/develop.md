@@ -12,7 +12,7 @@ See [Installation docs](https://inveniordm.docs.cern.ch/install/). We recommend 
 
 ```sh
 # to build fresh, answering configuration questions
-invenio-cli init rdm -c 12.1
+invenio-cli init rdm -c 13
 invenio-cli install all --dev
 invenio-cli services setup --no-demo-data
 # if using cloud storage
@@ -84,7 +84,7 @@ Then rebuild the JS assets & restart the app: `invenio-cli assets build && inven
 
 https://inveniordm.docs.cern.ch/develop/howtos/custom_code/
 
-There is a demo of a custom view at `/vocablist` which lists all vocabs and links to their API routes.
+There is a demo of a custom view at `/vocablist` which lists all vocabs and links to their API routes. **NOTE**: the custom view does not work, it broke with version 13 somehow.
 
 ## SAML Authentication
 
