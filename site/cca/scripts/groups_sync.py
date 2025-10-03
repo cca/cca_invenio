@@ -11,11 +11,6 @@ from google.cloud import storage
 from werkzeug.local import LocalProxy
 
 
-@click.group()
-def cca():
-    """CCA commands"""
-
-
 class MockDatastore:
     def add_role_to_user(self, email: str, role: str) -> None:
         pass
@@ -154,7 +149,7 @@ def process_employees(
         add_user_to_role(email, group_id, datastore)
 
 
-@cca.command()
+@click.command()
 @click.help_option("-h", "--help")
 @click.option(
     "--bucket",

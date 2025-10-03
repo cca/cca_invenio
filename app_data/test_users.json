@@ -1,0 +1,47 @@
+[
+    {
+        "active": true,
+        "email": "library-test-student-1@cca.edu",
+        "user_profile": {
+            "affiliations": "California College of the Arts",
+            "full_name": "Finn 2187"
+        },
+        "username": "library-test-student-1"
+    },
+    {
+        "active": true,
+        "email": "library-test-student-2@cca.edu",
+        "user_profile": {
+            "affiliations": "California College of the Arts",
+            "full_name": "Rey Skywalker"
+        },
+        "username": "library-test-student-2"
+    },
+    {
+        "active": true,
+        "email": "library-test-faculty-1@cca.edu",
+        "user_profile": {
+            "affiliations": "California College of the Arts",
+            "full_name": "Leia Organa"
+        },
+        "username": "library-test-faculty-1"
+    },
+    {
+        "active": true,
+        "email": "library-test-faculty-2@cca.edu",
+        "user_profile": {
+            "affiliations": "California College of the Arts",
+            "full_name": "Kylo Ren"
+        },
+        "username": "library-test-faculty-2"
+    },
+    {
+        "active": true,
+        "email": "library-test-manager-1@cca.edu",
+        "user_profile": {
+            "affiliations": "California College of the Arts",
+            "full_name": "Admiral Ackbar"
+        },
+        "username": "library-test-manager-1"
+    }
+]
