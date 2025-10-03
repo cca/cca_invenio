@@ -1,0 +1,41 @@
+# This is not a regular Invenio fixture but data for use with our
+# site/cca/scripts/add_communities.py script
+- slug: libraries
+  access:
+   member_policy: closed
+   record_policy: closed
+   visibility: public
+  metadata:
+    curation_policy: ""
+    description: "The CCA Libraries collections include archival items and various records important to the history of the college."
+    organizations:
+      - id: 01mmcf932
+    title: CCA Libraries
+    type:
+      id: organization
+    website: https://libraries.cca.edu
+# Typical academic program, no description, but has website
+- slug: animation
+  access:
+   member_policy: closed
+   record_policy: open
+   visibility: public
+  metadata:
+    organizations:
+      - id: 01mmcf932
+    title: Animation Program
+    type:
+      id: organization
+    website: https://portal.cca.edu/learning/academic-programs/animation-bfa/
+# Academic program w/o website
+- slug: udist
+  access:
+   member_policy: closed
+   record_policy: open
+   visibility: public
+  metadata:
+    organizations:
+      - id: 01mmcf932
+    title: Upper Division Interdisciplinary Studies
+    type:
+      id: organization

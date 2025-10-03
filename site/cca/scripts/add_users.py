@@ -12,14 +12,14 @@ from pydantic import BaseModel, EmailStr
 
 class UserProfile(BaseModel):
     # we require full_name
-    affiliations: Optional[str]
+    affiliations: Optional[str] = None
     full_name: str
 
 
 class User(BaseModel):
     # we require email & username
-    active: Optional[bool]
-    confirmed_at: Optional[datetime]
+    active: Optional[bool] = None
+    confirmed_at: Optional[datetime] = None
     email: EmailStr
     username: str  # TODO match username regex
     user_profile: UserProfile
