@@ -2,27 +2,12 @@ import json
 import subprocess
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Optional
+from typing import Any
 
 import click
+from cca.models import User
 from flask.cli import with_appcontext
 from invenio_accounts import current_accounts as accounts
-from pydantic import BaseModel, EmailStr
-
-
-class UserProfile(BaseModel):
-    # we require full_name
-    affiliations: Optional[str] = None
-    full_name: str
-
-
-class User(BaseModel):
-    # we require email & username
-    active: Optional[bool] = None
-    confirmed_at: Optional[datetime] = None
-    email: EmailStr
-    username: str  # TODO match username regex
-    user_profile: UserProfile
 
 
 @click.command()

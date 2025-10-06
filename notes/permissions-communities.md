@@ -28,7 +28,7 @@ One community per program. Communities have four roles:
 
 Important community restriction: we cannot add a public record to a restricted community, but we _can_ do vice versa.
 
-**QUESTION**: how do we handle the multiprogram 4D Fine Arts? One INTDS community? I don't like the inconsistency this creates, but it adds many small communities.
+**QUESTION**: how do we handle the multiprogram 4D Fine Arts? One INTDS community? I don't like the inconsistency this creates, but it also adds many small communities.
 
 Additional ad hoc communities such as Libraries.
 
@@ -38,15 +38,16 @@ It's much easier to setup an ad hoc community in Invenio for any use case (e.g. 
 
 Program Communities:
 
+- Membership
+  - Closed (not everyone can join)
+  - Faculty: Reader
+  - Program admins: QUESTION Curator or Manager? Allowing them to manage members frees us up some but might lead to user errors (e.g., student added as Reader, like with manual Moodle enrollments).
 - Privileges
   - Community visibility: Public
   - Members visibility: Members only
 - Review policy
-  - All curators, managers, owners to publish without review
+  - All program faculty can publish without review (`members`)
   - Open submissions (students will not be members of the community)
-- Membership
-  - Program admins: QUESTION Curator or Manager? Allowing them to manage members frees us up some but might lead to user errors (e.g., student added as Reader, like with manual Moodle enrollments).
-  - Faculty: Reader
 
 Libraries: TBD.
 

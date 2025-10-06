@@ -18,7 +18,9 @@
 - slug: animation
   access:
    member_policy: closed
+   members_visibility: restricted
    record_policy: open
+   review_policy: open
    visibility: public
   metadata:
     organizations:
@@ -27,13 +29,16 @@
     type:
       id: organization
     website: https://portal.cca.edu/learning/academic-programs/animation-bfa/
-# Academic program w/o website
+# Academic program w/o website but a description
 - slug: udist
   access:
    member_policy: closed
+   members_visibility: restricted
    record_policy: open
+   review_policy: members
    visibility: public
   metadata:
+    description: "Upper Division Interdisciplinary Studio (UDIST) courses offer opportunities for undergraduate students and instructors to generate interdisciplinary theories, practices, and works within a studio-based format."
     organizations:
       - id: 01mmcf932
     title: Upper Division Interdisciplinary Studies

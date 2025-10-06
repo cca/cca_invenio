@@ -44,10 +44,11 @@ def prepare_bulk_data(file_path):
     with open(file_path, "r") as f:
         courses: list[dict[str, Any]] = json.load(f)
 
+    # TODO validate course data structure with cca.models.Course
+
     bulk_data: list[dict[str, Any]] = []
     for course in courses:
         bulk_data.append(
-            # We want this to KeyError if a course lacks an id
             {"_index": "courses", "_id": course["section_refid"], "_source": course}
         )
     return bulk_data
