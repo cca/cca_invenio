@@ -1,12 +1,17 @@
 from datetime import datetime
 from typing import Literal, Optional
 
-from pydantic import BaseModel, EmailStr, HttpUrl
+from pydantic import BaseModel, ConfigDict, EmailStr, HttpUrl
 
 """These pydantic models of Invenio data types are used for validation only"""
 
 
-class CommunityAccess(BaseModel):
+class StrictBaseModel(BaseModel):
+    # Forbid unknown/extra fields (Pydantic v2)
+    model_config = ConfigDict(extra="forbid")
+
+
+class CommunityAccess(StrictBaseModel):
     # can anyone request to join or do we control membership?
     member_policy: Literal["closed", "open"]
     # can anyone see the list of members or only members?
@@ -18,12 +23,12 @@ class CommunityAccess(BaseModel):
     visibility: Literal["public", "restricted"]
 
 
-class CommunityType(BaseModel):
+class CommunityType(StrictBaseModel):
     id: Literal["event", "organization", "project", "topic"]
     title: Optional[dict[str, str]] = None  # en: English Name
 
 
-class CommunityMetadata(BaseModel):
+class CommunityMetadata(StrictBaseModel):
     curation_policy: Optional[str] = None
     description: Optional[str] = None
     # ROR ID or name string
@@ -33,7 +38,7 @@ class CommunityMetadata(BaseModel):
     website: Optional[HttpUrl] = None
 
 
-class Community(BaseModel):
+class Community(StrictBaseModel):
     access: CommunityAccess
     metadata: CommunityMetadata
     slug: str  # TODO slug validation? no spaces?
