@@ -40,16 +40,18 @@ Project files and folders:
 | `Dockerfile` | Dockerfile used to build your application image. |
 | `pyproject.toml` | Python dependency requirements |
 | `uv.lock` | Locked requirements |
-| `app_data` | Application data such as vocabularies. |
+| `app_data` | [Application data](app_data/readme.md) such as vocabularies. |
 | `assets` | Web assets (CSS, JavaScript, LESS, JSX templates) used in the Webpack build. |
 | `docker` | Example configuration for NGINX, Postgres Admin, and uWSGI. |
 | `docker-compose.yml` | Backend services needed for local development. |
 | `docker-services.yml` | Common services for the Docker Compose files. |
 | `invenio.cfg` | Main configuration file. |
 | `notes` | CCA's documentation on running & developing the app. |
-| `site` | [Custom site code](https://inveniordm.docs.cern.ch/develop/howtos/custom_code/) and modules. |
+| `site` | [Custom site code](site/readme.md) and modules. |
 | `static` | Static files that need to be served as-is (e.g. images). |
 | `templates` | Folder for your Jinja templates. |
+| `tests` | Tests for our custom components |
+| `translations` | Translations for UI strings. |
 | `.invenio` | Common file used by Invenio-CLI to be version controlled. |
 | `.invenio.private` | Private file used by Invenio-CLI *not* version controlled. |
 | `.env`, `example.env` | Environment variables automatically loaded with `dotenv` |

@@ -42,7 +42,7 @@ Create a template in the same path as existing one e.g. /templates/semantic-ui/i
 
 ### Remove fields from upload form
 
-https://inveniordm.docs.cern.ch/develop/howtos/override_components/
+https://inveniordm.docs.cern.ch/operate/customize/look-and-feel/override_components/
 
 - find the field's `Overridable` component on the deposit form https://github.com/inveniosoftware/invenio-app-rdm/blob/master/invenio_app_rdm/theme/assets/semantic-ui/js/invenio_app_rdm/deposit/RDMDepositForm.js
 - copy the `id` attribute
@@ -82,13 +82,11 @@ Then rebuild the JS assets & restart the app: `invenio-cli assets build && inven
 
 ## Custom code & views
 
-https://inveniordm.docs.cern.ch/develop/howtos/custom_code/
-
-There is a demo of a custom view at `/vocablist` which lists all vocabs and links to their API routes. **NOTE**: the custom view does not work, it broke with version 13 somehow.
+See [the site directory's readme](../site/readme.md).
 
 ## SAML Authentication
 
-We want to eventually use [invenio-saml](https://invenio-saml.readthedocs.io/en/latest/) for SSO authentication. The [SAML integration](https://inveniordm.docs.cern.ch/customize/authentication/#saml-integration) section of the Invenio docs seems to have the most specific setup instructions.
+We use [invenio-saml](https://invenio-saml.readthedocs.io/en/latest/) for SSO authentication. The [SAML integration](https://inveniordm.docs.cern.ch/operate/customize/authentication/#saml-integration) section of the Invenio docs has the most specific setup instructions.
 
 ## Invenio Modules
 

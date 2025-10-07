@@ -14,15 +14,15 @@
 
 ## [Documentation](https://inveniordm.docs.cern.ch/)
 
-The most important sections of the documentation are **[Customize](https://inveniordm.docs.cern.ch/customize/)** and **[Reference](https://inveniordm.docs.cern.ch/reference/)**. **[Develop](https://inveniordm.docs.cern.ch/develop/)** is less useful in general (unless we decide to write custom modules or contribute to the main project) but establishes some fundamental concepts and nuances, like how records and communities function.
-
-The documentation for some concepts is spread across multiple sections. For instance, Custom Fields has [a quickstart guide](https://inveniordm.docs.cern.ch/customize/metadata/custom_fields/records/) under Customize, lists of potential field and [UI widgets](https://inveniordm.docs.cern.ch/reference/custom_fields/widgets/) under Reference, and a [how-to guide](https://inveniordm.docs.cern.ch/develop/howtos/custom_fields/) under Develop that goes deeper to cover creating a custom UI widget.
+The most important sections of the documentation are **[Customize](https://inveniordm.docs.cern.ch/operate/customize/)** and **[Reference](https://inveniordm.docs.cern.ch/reference/)**. **[Maintain and Develop](https://inveniordm.docs.cern.ch/maintenance/)** is less useful in general (unless we decide to write custom modules or contribute to the main project) but establishes some fundamental concepts and nuances, like how records and communities function.
 
 ## Roadmap
 
-High-level roadmap: https://inveniosoftware.org/products/rdm/roadmap/
-
 More detailed roadmap with an issue for each feature: https://github.com/inveniosoftware/product-rdm/issues
+
+There are also issue queues on individual modules, especially for bugs. Major features tend to start on the product-rdm repo then transfer to a module when their requirements are defined.
+
+High-level roadmap (less useful): https://inveniosoftware.org/products/rdm/roadmap/
 
 ### Digital Preservation
 
@@ -33,6 +33,8 @@ OCFL is being worked on but right now there is only a tool to export Invenio fil
 │           └── data
 
 #### File Integrity Check
+
+We may not use this feature with cloud storage. It probably conflicts with GSB autoclass, which is going to be a vital cost-saving measure.
 
 The v11 file integrity check report is wonderful, something obviously missing from EQUELLA. It took me some time to figure out what the `CELERY_BEAT_SCHEDULE` settings had to look like (see celery_beat.py in the code_samples dir):
 

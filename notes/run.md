@@ -81,7 +81,7 @@ invenio rdm-records rebuild-index
 
 ## Reset User Password
 
-See [Invenio's instructions](https://inveniordm.docs.cern.ch/customize/vocabularies/users/#change-password). Enter an `invenio shell` and then run:
+See [Invenio's instructions](https://inveniordm.docs.cern.ch/operate/customize/users/#change-password). Enter an `invenio shell` and then run:
 
 ```py
 from flask_security.utils import hash_password

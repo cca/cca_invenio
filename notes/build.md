@@ -40,7 +40,15 @@ print(
 
 When running the app's Linux image we saw a [XML library mismatch error](https://github.com/cca/cca_invenio/issues/39) during `import xmlsec`. However, running `python -c "import xmlsec"` works. The problem only occurs when running the app under the `uwsgi` server. I tried many fixes, noted in the issue, but eventually deduced that `uwsgi` builds with incompatible libraries which somehow filter down to `xmlsec`. The installed versions of the two python packages (whether installed with binary or without) and system libraries do not matter. The `uwsgi` server must be built with the `xml=no` profile override (see [this comment](https://github.com/xmlsec/python-xmlsec/issues/320#issuecomment-2451246797)).
 
-### macOS
+## macOS
+
+Challenges with building or running Invenio locally.
+
+### celery on macOS 26 Tahoe
+
+Issue [celery/celery#9894](https://github.com/celery/celery/issues/9894) causes various background workers to crash continually when running locally. As mentioned on the thread, the solution is to not use the default celery `prefox` pool but anything else, so we set `CELERY_WORKER_POOL = "threads"` in [mise.toml](../mise.toml). The `NOSETPS` env var seemed to improve stability but not stop crashes.
+
+### xmlsec
 
 The new macOS chips & python's SAML/XML libraries don't work well together. In running Invenio locally with `invenio-saml`, the app would crash with an error from the xmlsec dependency:
 
@@ -73,7 +81,7 @@ otool -L .venv/lib/python3.12/site-packages/xmlsec*.so
 uv run python -c "import xmlsec; print(xmlsec.__version__, xmlsec.get_libxml_version(), xmlsec.get_libxml_compiled_version(), xmlsec.get_libxmlsec_version())"
 ```
 
-## uwsgi on macOS
+### uwsgi
 
 If we run Invenio locally with the `invenio-cli run` command, which uses flask's debugging web server, we should not need `uwsgi`. For this reason, `uwsgi` is in a separate dependency group in our [pyproject.toml](../pyproject.toml) and must be synced with `uv sync --group uwsgi`.
 

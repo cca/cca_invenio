@@ -34,6 +34,38 @@ invenio communities custom-fields init
 invenio rdm rebuild-all-indices
 ```
 
+### `invenio-job` Problems
+
+The `invenio-jobs` module was added with v13 but does not exactly work out of the box.
+
+On our helm-managed staging instance, there is no new pod for [the job scheduler](https://inveniordm.docs.cern.ch/operate/customize/jobs/#scheduler). To fix this, we copied the worker-beat deployment template to make a worker-scheduler template.
+
+The index setup commands did not create the job logs index. If yweou view a job run under Admin > Jobs `administration/runs/<uuid>`, we see an error due to the missing index. Niether `invenio index create invenio-job-logs` nor running an Invenio shell and using the`opensearchpy` client to create the index works, because it's a template index that creates data streams only. In the end, using the client to create a data stream eliminates the errors but log entries are still empty ([discord](https://discord.com/channels/692989811736182844/704625518552547329/1425201129104478208)):
+
+```python
+from flask import current_app
+from opensearchpy import OpenSearch
+os_client = OpenSearch(current_app.config['SEARCH_HOSTS'])
+os_client.indices.create_data_stream(name='invenio-job-logs')
+```
+
+<details>
+<summary>Errors</summary>
+
+Error in web server logs when viewing a run: `opensearchpy.exceptions.NotFoundError: NotFoundError(404, 'index_not_found_exception', 'no such index [invenio-job-logs]', invenio-job-logs, index_or_alias).`![alt]( '{"class": "", "title": ""}')`
+
+```python
+# invenio shell trying to create index
+client.indices.create('invenio-job-logs');
+RequestError: RequestError(400, 'illegal_argument_exception', '''cannot create index with name [invenio-job-logs],
+because it matches with template [invenio-job-logs-v1.0.0] that creates data streams only, use create data stream
+api instead''')
+```
+
+</details>
+
+### Image `KeyError`
+
 For a long time (hours) after the upgrade, requests to the records API continued to fail with a `KeyError` that seemed to relate to statistics aggregation. This was despite the stats queues existing. I also ran `invenio stats events process` and `invenio stats aggregations process`. Perhaps things weren't fixed until those tasks completed in the background? It took a surprisingly long time, though.
 
 <details>

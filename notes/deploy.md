@@ -61,7 +61,7 @@ Create a Service Account with the "Secret Manager Secret Accessor" role, see [co
 
 ## Links
 
-https://inveniordm.docs.cern.ch/deploy/
+https://inveniordm.docs.cern.ch/operate/ops/deploy/
 
 https://github.com/inveniosoftware/helm-invenio
 

@@ -10,7 +10,7 @@ When an invenio.cfg setting changes, the dev server reloads with the new value. 
 
 If a fixture in app_data changes, then the whole app needs to be rebuilt. See `./notes/code-samples/rebuild`. This deletes the database and search indices.
 
-## [Vocabularies](https://inveniordm.docs.cern.ch/customize/vocabularies/)
+## [Vocabularies](https://inveniordm.docs.cern.ch/operate/customize/vocabularies/#vocabularies)
 
 Much of the work creating these is in the [migration repo](https://github.com/cca/vault_migration).
 
@@ -80,7 +80,7 @@ Finally, when installing our helm chart we set a `GSM_CREDENTIALS` environment v
 
 ## Security, Users
 
-Users are created by app_data/[users.yaml](https://inveniordm.docs.cern.ch/customize/vocabularies/users/). We create a default "archives@cca.edu" superadmin with password "password". Passwords can also be defined in invenio.cfg by `RDM_RECORDS_USER_FIXTURE_PASSWORDS`. Passwords in the setting override passwords in users.yaml.
+Users are created by app_data/[users.yaml](https://inveniordm.docs.cern.ch/operate/customize/users/). We create a default "archives@cca.edu" superadmin with password "password". Passwords can also be defined in invenio.cfg by `RDM_RECORDS_USER_FIXTURE_PASSWORDS`. Passwords in the setting override passwords in users.yaml.
 
 We set `ACCOUNTS_LOCAL_LOGIN_ENABLED = True` during local dev but it's `False` when we're using SSO.
 
@@ -128,13 +128,13 @@ APP_DEFAULT_SECURE_HEADERS["content_security_policy"]["default-src"].append(
 
 Finally, Invenio might not initialize the correct files location by default. We can run `invenio files location create gs-invenio-local s3://invenio-local --default` to create a new default location pointing to the storage bucket.
 
-The .invenio file also has `file_storage = S3` but that file might only be used when invenio-cli bootstraps a new instance. When we choose S3 storage during `invenio-cli init`, we get a [Minio](https://github.com/minio/minio) service, too. We must [follow the steps](https://inveniordm.docs.cern.ch/customize/s3/#set-your-minio-credentials) to change the admin account credentials and hook it up to GSB.
+The .invenio file also has `file_storage = S3` but that file might only be used when invenio-cli bootstraps a new instance. When we choose S3 storage during `invenio-cli init`, we get a [Minio](https://github.com/minio/minio) service too, but it is not necessary to use it to use cloud storage.
 
 ## Custom Fields
 
-- Simplest: https://inveniordm.docs.cern.ch/customize/custom_fields/records/
-- Reference: https://inveniordm.docs.cern.ch/reference/widgets/#autocompletedropdown
-- Build your own: https://inveniordm.docs.cern.ch/develop/howtos/custom_fields/
+- Simplest: https://inveniordm.docs.cern.ch/operate/customize/metadata/custom_fields/records/
+- Reference: https://inveniordm.docs.cern.ch/operate/customize/metadata/custom_fields/widgets/
+- Build your own: https://inveniordm.docs.cern.ch/operate/customize/metadata/custom_fields/custom_fields/
 
 Managed to build a custom "Academic Programs" field that uses a vocabulary, autocompletes on the form, and has a custom display template linking to search results sharing the same value (similar to how we do it in VAULT). The only thing that did not work is that the search facet does not appear, but the indexing clearly works because the hyperlinked search returns results. One other disappointment is that, though I defined a bunch of properties for each term in the related programs vocab, it only records the `id` and `title` in the record.
 
