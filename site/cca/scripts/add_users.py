@@ -38,6 +38,13 @@ def add_users(file: Path, reindex: bool) -> None:
             user["confirmed_at"] = datetime.now()
             User(**user)  # validate user data before creating
             # this method returns the user if we need to do something with it
+            account = accounts.datastore.get_user(user["email"])
+            if account:
+                click.echo(
+                    f"WARNING: user {user['email']} already exists, skipping",
+                    err=True,
+                )
+                continue
             accounts.datastore.create_user(**user)
         accounts.datastore.commit()
 
