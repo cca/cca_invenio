@@ -4,19 +4,54 @@ An outline of our user account and community policies.
 
 Helpful analogy: EQUELLA Collections = Invenio Communities | Invenio Collections = EQUELLA Hierarchies.
 
+Paragraphs prefixed **QUESTION** are policy decisions whereas **RESEARCH** means testing in Invenio.
+
+## High-level Goals
+
+VAULT became difficult to manage because of the proliferation of roles, collections, and exceptions to our default configuration.
+
+- Make few exceptions or empower users to manage exceptions (e.g. a community enforces its own record standards)
+- Keep the number of _objects_ (Groups, Communities, Collections) minimal
+- A default configuration which is understandable and easy to describe to end users
+- Retain the important features of VAULT
+
 ## Groups
+
+Roles/groups are the same thing. Invenio commands references roles `invenio roles create ...` but the UI says Groups. We will call them Groups to match the UI and disambiguate with Community roles. Records can be shared with individual users or groups.
+
+Groups can be automatically added to communities, whereas users must accept an invitation. However, there are two available workarounds: 1) we could write a script or 2) we can impersonate a user and accept the invitation.
+
+_There is no way to view a group's membership_ not even in the Admin UI or the REST API. The `invenio_accounts` module has an admin view for roles so maybe this will be possible in a future version. A `user` object has a `has_role` method and `role` object has a `users` queryset.
+
+```python
+from invenio_accounts import current_accounts
+ds = current_accounts.datastore
+user = ds.get_user("ephetteplace@cca.edu") # users typically referred to by their email
+role = ds.find_role("test_accounts")
+user.has_role("test_accounts") # False
+for u in role.users.all():
+  print(u.email)
+# test-account-1@cca.edu
+# test-account-2@cca.edu ...
+```
+
+### CCA Group Policies
 
 Students are placed in a group for their major.
 
 Faculty are placed in a group for their program.
 
-**QUESTION**: what about for the programs they teach in? This was the VAULT practice and it was additive (we did not remove faculty from groups after they stopped teaching for a program). We could use course listings as well as user data to populate groups.
+Staff groups managed on an ad hoc basis as needed. For instance, `library` group for Library Staff to manage CCA/C Archives community.
 
-**QUESTION**: do we need groups for program administration? Chairs, co-chairs, PMs, Deans, etc. Programmatically identifying program leadership is a challenge. We _know_ program leadership will complain if they are not included in the faculty groups.
+**QUESTION**: should we add faculty to the groups for the programs they teach in? This was the VAULT practice and it was additive (we did not remove faculty from groups after they stopped teaching for a program). We could use course listings as well as user data to populate groups.
+
+**QUESTION**: do we need groups for program administration? Chairs, co-chairs, PMs, Deans, etc. Programmatically identifying program leadership is a challenge. We know program leadership will probably want to be included in their faculty groups.
 
 ## [Communities](https://inveniordm.docs.cern.ch/use/communities/)
 
-One community per program. Communities have four roles:
+Communities show a subset of records and add a moderation flow to manage submissions. Communities have a few branding fields (URL, description) and permissions policies.
+
+There are four community roles:
 
 > **Reader**: Can view restricted records within the community.
 >
@@ -26,17 +61,30 @@ One community per program. Communities have four roles:
 >
 > **Owner**: Has full administrative access to the entire community, including all settings and permissions.
 
-Important community restriction: we cannot add a public record to a restricted community, but we _can_ do vice versa.
+We use "Curators+" to refer to all users in a Curator or greater (Manager, Owner) role. This is a useful shorthand because one of the review policy options allows Curators+ to publish without review.
 
-**QUESTION**: how do we handle the multiprogram 4D Fine Arts? One INTDS community? I don't like the inconsistency this creates, but it also adds many small communities.
+Important restriction: we cannot add a public record to a restricted community, but we _can_ do vice versa.
 
-Additional ad hoc communities such as Libraries.
+A Community can have nested subcommunities if they [are enabled](#enabling-subcommunities). There is only one level of subcommunities; there are no grandchild communities. Parent community roles do not trickle down to subcommunities; a record submitted to a subcommunity is reviewed by its roles and if approved then added to _both_ communities.
 
-It's much easier to setup an ad hoc community in Invenio for any use case (e.g. MarComm, Campus Planning) because we don't have to redesign the submission form and record display from scratch each time. The builtin roles and community settings support many use cases.
+[Curation Checks](https://inveniordm.docs.cern.ch/operate/customize/curation-checks/) give us the power to enforce metadata constraints on community submissions. We might be able to force program community submissions to be associated with a course from that program, for instance.
 
-**QUESTION**: a community per CCA/C Archives subcollections (Mudflats, Sinel, etc.) or collections? Need to investigate the collections feature further to determine the tradeoffs. Subcommunities are also an option but [they are difficult to create](#enabling-subcommunities).
+### CCA Community Policies
 
-Program Communities:
+It's much easier to setup an ad hoc community in Invenio for any use case (e.g. MarComm, Campus Planning) because we don't have to redesign the submission form and record display from scratch each time. The builtin roles and community settings support many use cases. It is _harder_ to set up nuanced exceptions. For instance, some programs had EQUELLA workflows whereby specific accounts would review specific _types_ of submissions; that won't be possible without straying too far from Invenio's defaults.
+
+#### Academic Programs
+
+One community per program.
+
+**QUESTION**: how do we handle the multiprogram 4D Fine Arts? One INTDS community? Add programs to INTDS as subcommunities? Maybe the answer will be clearer after Spring when we see how Senior Projects sections are structured.
+
+| # Comms | Pros | Cons |
+| ------- | ---- | ---- |
+| One | Fewer roles to manage. | Less intuitive for students to find community they're submitting to. |
+| Many | Obvious link between course department code and community. | Small, rarely used communities clog up the UI. More roles to manage. |
+
+Program Community Configuration:
 
 - Membership
   - Closed (not everyone can join)
@@ -49,15 +97,51 @@ Program Communities:
   - All program faculty can publish without review (`members`)
   - Open submissions (students will not be members of the community)
 
-Libraries: TBD.
+#### Libraries and CCA/C Archives
 
-Syllabus: TBD. Add former Syllabus Viewers as Readers. We could make the community restricted so folks cannot submit to it? One thing from VAULT it will be difficult to replicate is how program admins can see their own syllabi.
+**QUESTION**: are CCA/C Archives subcollections (Mudflats, Sinel, etc.) their own top-level communities, sub-communities of CCA/C Archives, or collections? Subcommunities might be the best way to create a visual hierarchy similar to VAULT. Note the grandchildren restriction means our Archives subcommunities cannot have their own subcommunities, but they could use collections.
 
-[Curation Checks](https://inveniordm.docs.cern.ch/operate/customize/curation-checks/) gives us the power to enforce metadata constraints on community submissions. We might be able to force program community submissions to be associated with a course from that program, for instance.
+**RESEARCH**: how can we handle "visible to all CCA" records? There doesn't appear to be a "logged in user" role. We might need to override a permissions policy for a particular community. Very large groups like "all staff", "all students", "all accounts" seem difficult to maintain.
+
+#### Syllabus
+
+Reader community role is perfect for VAULT Syllabus Viewers. We can use closed submissions to prevent users from submitting directly to the community. We will need to write a Portal module to push syllabi to Invenio, but this is straightforward.
+
+A non-member can own records inside a restricted community, but they have no means of discovering those records. They can't see the community and the records are not listed on their uploads page. However, a non-member can own specific records in a public community. The owned records appear under the community and their uploads. If the community's submissions are closed, they cannot manually add further records to the community.
+
+**RESEARCH** how can program admins can see their program's syllabi? This may be difficult. We can manually share records with a program admins group. There could be a task which regularly checks new syllabi and shares them with the requisite groups.
+
+- Membership
+  - Closed
+  - Syllabus Viewers: Reader
+- Privileges
+  - Community visibility: Public
+  - Members visibility: Members only
+- Review policy
+  - Curators+ can publish without review (`open`)
+  - Closed submissions (redundant with Restricted visibility)
+
+### Enabling Subcommunities
+
+See [Discord](https://discord.com/channels/692989811736182844/704625518552547329/1423350740801421372), we have to run `invenio shell`, set `parent-community.children.allow` to `True`, and then navigate to `/communities/parent-community/subcommunities/new` which isn't linked anywhere in the UI (though we could override a template to add it somewhere). We should not plan on using this feature heavily until there is an easier path for these steps.
+
+```python
+from invenio_db import db
+from invenio_records_resources.proxies import current_service_registry
+
+community_service = current_service_registry.get("communities")
+parent = community_service.record_cls.pid.resolve("parent-community")
+parent.children.allow = True
+parent.commit()
+db.session.commit()
+community_service.indexer.index_by_id(parent.id)
+```
+
+The subcommunity can be a pre-existing community or we can build one on the spot. If we choose an existing community, it becomes a request to the parent community for inclusion.
 
 ## [Collections](https://inveniordm.docs.cern.ch/operate/customize/collections/)
 
-Collections are a WIP for Invenio and we should wait before using them. For instance, their UI is not pleasant (yet it displays _before_ Subcommunities) and collections have to be managed entirely in `invenio shell` code (see below).
+Collections are a WIP for Invenio and we should wait before using them. For instance, their UI is not pleasant (yet it displays _above_ Subcommunities) and collections have to be managed entirely with `invenio shell` code (see below).
 
 Collections must be scoped to a community (v13 limitation). Collections are similar to hyperlinks to specific OpenSearch queries. [The search help page](https://inveniordm.web.cern.ch/help/search) is useful in constructing their queries. You can nest collections within collections and there is no depth limit. Icons can be added to (only top-level?) collections by placing icons in /static/images/collections/slug.jpg where `slug` is the collection's slug (and not the full path with parent slugs).
 
@@ -108,21 +192,3 @@ college_life_subcoll = collections.service.add(
     title="College Life",
 )
 ```
-
-## Enabling Subcommunities
-
-See [Discord](https://discord.com/channels/692989811736182844/704625518552547329/1423350740801421372), we have to run `invenio shell`, set `parent-community.children.allow` to `True`, and then navigate to `/communities/parent-community/subcommunities/new` which isn't linked anywhere in the UI (though we could override a template to add it somewhere). We should not plan on using this feature heavily until there is an easier path for these steps.
-
-```python
-from invenio_db import db
-from invenio_records_resources.proxies import current_service_registry
-
-community_service = current_service_registry.get("communities")
-parent = community_service.record_cls.pid.resolve("parent-community")
-parent.children.allow = True
-parent.commit()
-db.session.commit()
-community_service.indexer.index_by_id(parent.id)
-```
-
-The subcommunity can be a pre-existing community or we can build one on the spot. If we choose an existing community, it becomes a request to the parent community for inclusion.
