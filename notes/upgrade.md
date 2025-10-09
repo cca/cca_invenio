@@ -38,9 +38,9 @@ invenio rdm rebuild-all-indices
 
 The `invenio-jobs` module was added with v13 but does not exactly work out of the box.
 
-On our helm-managed staging instance, there is no new pod for [the job scheduler](https://inveniordm.docs.cern.ch/operate/customize/jobs/#scheduler). To fix this, we copied the worker-beat deployment template to make a worker-scheduler template.
+On our helm-managed staging instance, there is no new pod for [the job scheduler](https://inveniordm.docs.cern.ch/operate/customize/jobs/#scheduler). To fix this, we copied the worker-beat deployment template to make a worker-scheduler template. The worker and worker-beat celery commands also need a `--queues celery,low` flag now, which is missing in helm.
 
-The index setup commands did not create the job logs index. If yweou view a job run under Admin > Jobs `administration/runs/<uuid>`, we see an error due to the missing index. Niether `invenio index create invenio-job-logs` nor running an Invenio shell and using the`opensearchpy` client to create the index works, because it's a template index that creates data streams only. In the end, using the client to create a data stream eliminates the errors but log entries are still empty ([discord](https://discord.com/channels/692989811736182844/704625518552547329/1425201129104478208)):
+The index setup commands did not create the job logs index. If we view a job run under Admin > Jobs `administration/runs/<uuid>`, we see an error due to the missing index. Niether `invenio index create invenio-job-logs` nor running an Invenio shell and using the`opensearchpy` client to create the index works, because it's a template index that creates data streams only. In the end, using the client to create a data stream eliminates the errors but log entries are still empty ([discord](https://discord.com/channels/692989811736182844/1425516450671628390)). This is maybe unnecessary and fixed by `invenio-logging` 4.1.1.
 
 ```python
 from flask import current_app
