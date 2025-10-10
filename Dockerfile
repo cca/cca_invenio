@@ -20,6 +20,9 @@ RUN --mount=type=cache,sharing=locked,target=/var/cache/apt \
         pkg-config \
         python3-dev
 
+# https://github.com/hadolint/hadolint/wiki/DL4006
+# /bin/sh -> dash which doesn't allow pipefail, use bash instead
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 # Install Node.js 22.x
 RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash - && \
     apt-get install -y nodejs --no-install-recommends && apt-get clean
@@ -82,7 +85,8 @@ RUN --mount=type=cache,sharing=locked,target=/var/cache/apt apt-get update -y --
         libcairo2 \
         libxml2 \
         libxmlsec1 \
-    && apt-get clean
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 ENV INVENIO_INSTANCE_PATH=/opt/invenio/var/instance \
     PATH="/opt/invenio/.venv/bin:$PATH" \
