@@ -1,3 +1,6 @@
 {# ! if we have APP_DEFAULT_SECURE_HEADERS["content_security_policy"]["default-src"]["script-src"] if will need "'unsafe-inline'" for this script to work #}
 {# TODO add tracking code #}
 <script>console.log('tracking code goes here')</script>
+{% if config.ENVIRONMENT in ("local", "staging") %}
+<script src="/static/js/dev_api_link.js"></script>
+{% endif %}
