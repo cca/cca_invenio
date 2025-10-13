@@ -1,0 +1,9 @@
+.item.logo {
+    margin: 0;
+    width: 100px;
+}
+
+.rdm-logo {
+    max-height: none;
+    width: inherit;
+}

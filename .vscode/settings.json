@@ -1,0 +1,18 @@
+{
+    "files.associations": {
+        "*.html": "jinja",
+        ".invenio": "ini",
+        "invenio.cfg": "python",
+        "site.overrides": "less",
+        "site.variables": "less",
+        "theme.config": "less"
+    },
+    "markdownlint.config": {
+        "MD033": {
+            "allowed_elements": [
+                "details",
+                "summary"
+            ]
+        }
+    }
+}
