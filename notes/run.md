@@ -94,6 +94,17 @@ current_datastore.activate_user(user)
 db.session.commit()
 ```
 
-## Change Record Owner
+## CCA CLI Utilities
 
-See our [change_owner.py](./code_samples/change_owner.py) script: `invenio shell notes/code_samples/change_owner.py record_id email@cca.edu`.
+See the [CCA site](../site/readme.md) for details on our custom CLI utilities which can perform actions such as changing the owner of a record or adding a record to a community.
+
+## CSV Download
+
+API records requests with an `Accept: application/vnd.inveniordm.v1.full+csv` header will download a CSV of record results. Below are examples using a local test server.
+
+```sh
+# no access token; download all public records
+curl -k --header "Accept: application/vnd.inveniordm.v1.full+csv" https://127.0.0.1:5000/api/records > public_records.csv
+# provide a user's access token to download records they can view
+curl -k --header "Authorization: Bearer $TOKEN" --header "Accept: application/vnd.inveniordm.v1.full+csv" https://127.0.0.1:5000/api/records > all_records.csv
+```

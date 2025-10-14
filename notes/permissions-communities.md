@@ -67,8 +67,6 @@ Important restriction: we cannot add a public record to a restricted community, 
 
 A Community can have nested subcommunities if they [are enabled](#enabling-subcommunities). There is only one level of subcommunities; there are no grandchild communities. Parent community roles do not trickle down to subcommunities; a record submitted to a subcommunity is reviewed by its roles and if approved then added to _both_ communities.
 
-[Curation Checks](https://inveniordm.docs.cern.ch/operate/customize/curation-checks/) give us the power to enforce metadata constraints on community submissions. We might be able to force program community submissions to be associated with a course from that program, for instance.
-
 ### CCA Community Policies
 
 It's much easier to setup an ad hoc community in Invenio for any use case (e.g. MarComm, Campus Planning) because we don't have to redesign the submission form and record display from scratch each time. The builtin roles and community settings support many use cases. It is _harder_ to set up nuanced exceptions. For instance, some programs had EQUELLA workflows whereby specific accounts would review specific _types_ of submissions; that won't be possible without straying too far from Invenio's defaults.
@@ -138,6 +136,12 @@ community_service.indexer.index_by_id(parent.id)
 ```
 
 The subcommunity can be a pre-existing community or we can build one on the spot. If we choose an existing community, it becomes a request to the parent community for inclusion.
+
+### Curation Checks
+
+[Curation Checks](https://inveniordm.docs.cern.ch/operate/customize/curation-checks/) give us the power to enforce metadata constraints on community submissions. We might be able to force program community submissions to be associated with a course from that program, for instance. We may want to wait for these to be easier to utilize.
+
+[Zenodo has a curation check script](https://github.com/zenodo/zenodo-rdm/blob/992ab55b451df9f719b77967258dfaced80449ad/scripts/ec_create_checks.py) we could reference.
 
 ## [Collections](https://inveniordm.docs.cern.ch/operate/customize/collections/)
 
