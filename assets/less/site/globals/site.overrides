@@ -7,3 +7,8 @@
     max-height: none;
     width: inherit;
 }
+
+// <body> just for specificity
+body .invenio-administration .rdm-logo {
+    width: 100px;
+}
