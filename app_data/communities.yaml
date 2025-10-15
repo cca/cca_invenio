@@ -5,6 +5,8 @@
    member_policy: closed
    record_policy: closed
    visibility: public
+  children:
+    allow: true
   metadata:
     curation_policy: ""
     description: "The CCA Libraries collections include archival items and various records important to the history of the college."

@@ -40,6 +40,7 @@ class CommunityMetadata(StrictBaseModel):
 
 class Community(StrictBaseModel):
     access: CommunityAccess
+    children: Optional[dict[Literal["allow"], bool]] = None
     metadata: CommunityMetadata
     slug: str  # TODO slug validation? no spaces?
 
