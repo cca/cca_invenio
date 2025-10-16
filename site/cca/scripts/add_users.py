@@ -1,3 +1,7 @@
+# Next version (v14) of Invenio might support POST /api/users
+# which would allow us to create users via the REST API instead.
+# Better to use that (can run outside app, more stable API).
+# https://github.com/inveniosoftware/invenio-users-resources/pull/146
 import json
 import subprocess
 from datetime import datetime
