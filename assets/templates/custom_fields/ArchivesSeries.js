@@ -5,7 +5,8 @@ import {Grid} from "semantic-ui-react"
 
 // Archives Series is a hierarchical controlled vocab
 // selection of first one determines options for second one
-// TODO fill out vocab, blocked by arph's work on sections of it
+// TODO fill out vocab using CCA/C Archives Box List sheet
+// TODO https://github.com/cca/cca_invenio/issues/63
 const archivesSeries = {
     "I. Administrative Materials": [
         "2. Accreditation and Licensing Materials",

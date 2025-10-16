@@ -71,6 +71,8 @@ A Community can have nested subcommunities if they [are enabled](#enabling-subco
 
 It's much easier to setup an ad hoc community in Invenio for any use case (e.g. MarComm, Campus Planning) because we don't have to redesign the submission form and record display from scratch each time. The builtin roles and community settings support many use cases. It is _harder_ to set up nuanced exceptions. For instance, some programs had EQUELLA workflows whereby specific accounts would review specific _types_ of submissions; that won't be possible without straying too far from Invenio's defaults.
 
+**RESEARCH**: how difficult is it to _remove_ a subcommunity from its parent? Do the records stay in the parent community?
+
 #### Academic Programs
 
 One community per program.
@@ -97,7 +99,27 @@ Program Community Configuration:
 
 #### Libraries and CCA/C Archives
 
-**QUESTION**: are CCA/C Archives subcollections (Mudflats, Sinel, etc.) their own top-level communities, sub-communities of CCA/C Archives, or collections? Subcommunities might be the best way to create a visual hierarchy similar to VAULT. Note the grandchildren restriction means our Archives subcommunities cannot have their own subcommunities, but they could use collections.
+CCA Libraries will be a parent community to more focused subcommunities, much like the Libraries collection in EQUELLA houses subcollections. Our community hierarchy will be:
+
+- CCA Libraries
+  - Art Collection
+  - Artists Books
+  - Capp Street Project Archive
+  - Hamaguchi Print Collection
+  - Robert Sommer Mudflats Collection
+- Open Access
+  - Design Book Review
+  - Faculty Research (open submissions)
+
+Generally, library staff will be full owners or managers of communities and membership will be closed. Our other setting defaults are:
+
+- Privileges
+  - Community visibility: Public
+  - Members visibility: Public
+- Submission policy
+  - Review policy: Allow Curators+ to published without view (`open`)
+  - Records submission policy: Closed
+    - Exception: Open for Faculty Research
 
 **RESEARCH**: how can we handle "visible to all CCA" records? There doesn't appear to be a "logged in user" role. We might need to override a permissions policy for a particular community. Very large groups like "all staff", "all students", "all accounts" seem difficult to maintain.
 

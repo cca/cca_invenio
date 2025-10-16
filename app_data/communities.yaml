@@ -5,6 +5,7 @@
    member_policy: closed
    record_policy: closed
    visibility: public
+  # libraries will have children like Mudflats & Art Collection
   children:
     allow: true
   metadata:
@@ -16,6 +17,7 @@
     type:
       id: organization
     website: https://libraries.cca.edu
+# TODO scaffold for all libraries subcommunities
 # Typical academic program, no description, but has website
 - slug: animation
   access:
