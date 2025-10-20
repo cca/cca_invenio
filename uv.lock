@@ -340,6 +340,7 @@ version = "0.1.0"
 source = { editable = "." }
 dependencies = [
     { name = "email-validator" },
+    { name = "flask-security-invenio" },
     { name = "google-cloud-secret-manager" },
     { name = "google-cloud-storage" },
     { name = "invenio-app-rdm", extra = ["opensearch2", "s3"] },
@@ -366,6 +367,7 @@ uwsgi = [
 [package.metadata]
 requires-dist = [
     { name = "email-validator", specifier = "==2.3" },
+    { name = "flask-security-invenio", specifier = "==3.7.0" },
     { name = "google-cloud-secret-manager", specifier = "==2.24.0" },
     { name = "google-cloud-storage", specifier = "==3.4.0" },
     { name = "invenio-app-rdm", extras = ["opensearch2", "s3"], specifier = "==13.0.3" },

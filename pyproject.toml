@@ -9,6 +9,7 @@ requires-python = ">=3.12,<3.13"
 license = "ECL-2.0"
 dependencies = [
     "email-validator==2.3",
+    "flask-security-invenio==3.7.0",
     "google-cloud-secret-manager==2.24.0",
     "google-cloud-storage==3.4.0",
     "invenio-app-rdm[opensearch2, s3]==13.0.3",
