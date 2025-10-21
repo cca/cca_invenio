@@ -11,7 +11,7 @@
 | CERN Document Server | https://repository.cern/ | https://github.com/CERNDocumentServer/cds-rdm | bleeding edge v12 |
 | Zenodo | https://zenodo.org/ | https://github.com/zenodo/zenodo-rdm | useful [cli commands](https://github.com/zenodo/zenodo-rdm/blob/master/site/zenodo_rdm/cli.py) |
 | Northwestern Medicine | https://prism.northwestern.edu/ | no github repo? | |
-| BIG-MAP Archive | https://archive-capex.energy.dtu.dk/ | https://github.com/team-capex/big-map-archive |
+| BIG-MAP Archive | https://archive-capex.energy.dtu.dk/ | https://github.com/team-capex/big-map-archive ||
 | Knowledge Commons | https://works.hcommons.org/ | https://github.com/MESH-Research/knowledge-commons-works | great [dev docs](https://github.com/MESH-Research/knowledge-commons-works/tree/main/docs/source/developing) |
 
 ## [Documentation](https://inveniordm.docs.cern.ch/)

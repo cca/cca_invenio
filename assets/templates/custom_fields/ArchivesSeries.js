@@ -33,7 +33,7 @@ const archivesSeries = {
         "2. Admin Departments",
         "3. Other"
     ],
-    "V. Exhibits and the CCA Collection": [
+    "V. Exhibits and the CCA Art Collection": [
         "1. Collection and Administration",
         "2. Exhibits",
         "3. Gallery Management Class"
