@@ -7,15 +7,18 @@ updates:
     directory: /
     schedule:
       interval: weekly
+    target-branch: dev
   - package-ecosystem: github-actions
     commit-message:
       prefix: "chore"
     directory: /
     schedule:
       interval: weekly
+    target-branch: dev
   - package-ecosystem: "uv"
     commit-message:
       prefix: "chore"
     directory: "/"
     schedule:
       interval: "weekly"
+    target-branch: dev
