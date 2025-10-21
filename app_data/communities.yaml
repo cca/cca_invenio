@@ -9,15 +9,127 @@
   children:
     allow: true
   metadata:
-    curation_policy: ""
-    description: "The CCA Libraries collections include archival items and various records important to the history of the college."
+    curation_policy: "Items are selected by the CCA Libraries staff for inclusion in this community. Please contact the Libraries if you have works of historical value."
+    description: "The CCA Libraries community includes archival items and various records important to the history of the college."
     organizations:
       - id: 01mmcf932
     title: CCA Libraries
     type:
       id: organization
     website: https://libraries.cca.edu
-# TODO scaffold for all libraries subcommunities
+- slug: art-collection
+  access:
+   member_policy: closed
+   record_policy: closed
+   visibility: public
+  metadata:
+    curation_policy: ""
+    description: "Art works owned by California College of the Arts."
+    organizations:
+      - id: 01mmcf932
+    title: Art Collection
+    type:
+      id: topic
+- slug: artists-books
+  access:
+   member_policy: closed
+   record_policy: closed
+   visibility: public
+  metadata:
+    curation_policy: "Works are added to the Artists' Books collection by library staff. Please contact the Libraries if you have an artists book you would like to donate or recommend for purchase."
+    description: "Excerpts of Artists' Books digitized by the CCA Libraries."
+    organizations:
+      - id: 01mmcf932
+    title: Artists Books
+    type:
+      id: topic
+    website: https://library.cca.edu/cgi-bin/koha/opac-search.pl?idx=&q=mc-loc%3A%22ARTIST%22
+- slug: capp-street
+  access:
+   member_policy: closed
+   record_policy: closed
+   visibility: public
+  metadata:
+    curation_policy: ""
+    description: "The Capp Street Project Archive documents the process, intention, and realization of installations and temporary projects sponsored by the Capp Street Project, 1983-1998."
+    organizations:
+      - id: 01mmcf932
+    title: Capp Street Project Archive
+    type:
+      id: project
+    website: https://libraries.cca.edu/collections/special-collections/archives/capp-street-project-archive/
+- slug: hamaguchi
+  access:
+   member_policy: closed
+   record_policy: closed
+   visibility: public
+  metadata:
+    curation_policy: ""
+    description: "Nearly 800 prints selected for their pedagogical value in the study of printmaking, design, and history. The collection contains examples of a wide variety of printmaking techniques, including intaglio, lithographs, and relief prints."
+    organizations:
+      - id: 01mmcf932
+    title: Hamaguchi Study Print Collection
+    type:
+      id: project
+- slug: mudflats
+  access:
+   member_policy: closed
+   record_policy: closed
+   visibility: public
+  metadata:
+    curation_policy: ""
+    description: "A collection of materials documenting the public artworks created in the Emeryville Mudflats during the 1960s, 70s, and 80s. Comprised of the Robert Sommer Collection, photographs and ephemera, and the Mudflats Oral Histories, interviews of creators."
+    organizations:
+      - id: 01mmcf932
+    title: Robert Sommer Mudflats Collection
+    type:
+      id: project
+    website: https://libraries.cca.edu/collections/special-collections/archives/mudflats/
+- slug: open-access
+  access:
+   member_policy: closed
+   record_policy: closed
+   visibility: public
+  children:
+    allow: true
+  metadata:
+    curation_policy: ""
+    description: "This parent community houses multiple Open Access collections of materials, such as freely accessible research authored by CCA Faculty and links to digitized print publications."
+    organizations:
+      - id: 01mmcf932
+    title: Open Access
+    type:
+      id: topic
+# DBR & Faculty Research must be manually added as subcommunities of OA
+# at {INVENIO_HOST}/communities/open-access/subcommunities/new
+- slug: design-book-review
+  access:
+   member_policy: closed
+   record_policy: closed
+   visibility: public
+  metadata:
+    curation_policy: ""
+    description: "In the closing decades of the 20th century, Design Book Review was the preeminent journal dedicated to reviewing architecture and design books in the United States. CCA published Design Book Review from 1997 until publication ceased in 2001."
+    organizations:
+      - id: 01mmcf932
+    title: Design Book Review
+    type:
+      id: project
+    website: https://libraries.cca.edu/collections/special-collections/books/design-book-review/
+- slug: faculty-research
+  access:
+   member_policy: closed
+   record_policy: open # open submissions unlike other Libraries communities
+   review_policy: members
+   visibility: public
+  metadata:
+    curation_policy: "This community allows open submissions from all CCA faculty and staff. We review works to ensure they're appropriate and we have the necessary rights to host them online."
+    description: "The Faculty Research Community contains open access works authored by CCA faculty and staff. We encourage anyone who has published pieces elsewhere to submit work to this community, too."
+    organizations:
+      - id: 01mmcf932
+    title: Faculty Research
+    type:
+      id: project
 # Typical academic program, no description, but has website
 - slug: animation
   access:

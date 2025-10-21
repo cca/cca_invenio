@@ -1,7 +1,7 @@
 from datetime import datetime
-from typing import Literal, Optional
+from typing import Annotated, Literal, Optional
 
-from pydantic import BaseModel, ConfigDict, EmailStr, HttpUrl
+from pydantic import BaseModel, ConfigDict, EmailStr, Field, HttpUrl
 
 """These pydantic models of Invenio data types are used for validation only"""
 
@@ -16,10 +16,11 @@ class CommunityAccess(StrictBaseModel):
     member_policy: Literal["closed", "open"]
     # can anyone see the list of members or only members?
     members_visibility: Optional[Literal["public", "restricted"]] = None
-    # closed really means "all records are restricted", closed comm cannot have public record
+    # who can submit, members only or everyone?
     record_policy: Literal["closed", "open"]
-    # who can publish without review? Closed=no one, Open=Curators & up, Members=all members
+    # who can publish without review? Closed=no one, Open=Curators+, Members=all members
     review_policy: Optional[Literal["closed", "members", "open"]] = None
+    # restricted = "all records are restricted", restricted community cannot have public records
     visibility: Literal["public", "restricted"]
 
 
@@ -30,7 +31,7 @@ class CommunityType(StrictBaseModel):
 
 class CommunityMetadata(StrictBaseModel):
     curation_policy: Optional[str] = None
-    description: Optional[str] = None
+    description: Optional[Annotated[str, Field(max_length=250)]] = None
     # ROR ID or name string
     organizations: Optional[list[dict[Literal["id", "name"], str]]] = None
     title: str
@@ -42,7 +43,7 @@ class Community(StrictBaseModel):
     access: CommunityAccess
     children: Optional[dict[Literal["allow"], bool]] = None
     metadata: CommunityMetadata
-    slug: str  # TODO slug validation? no spaces?
+    slug: Annotated[str, Field(max_length=100, pattern=r"^[a-z0-9_-]+$")]
 
 
 # TODO Course model for course custom-field
