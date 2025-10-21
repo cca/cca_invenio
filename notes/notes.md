@@ -4,13 +4,15 @@
 
 | Site | URL | Repos | Notes |
 |------|-----|-------|-------|
-| CalTech | https://data.caltech.edu/ | https://github.com/caltechlibrary/caltechdata | see their [scripts](https://github.com/caltechlibrary/caltechdata/tree/main/scripts) & [api](https://github.com/caltechlibrary/caltechdata_api/) |
+| CalTech Data | https://data.caltech.edu/ | https://github.com/caltechlibrary/caltechdata | see their [scripts](https://github.com/caltechlibrary/caltechdata/tree/main/scripts) & [api](https://github.com/caltechlibrary/caltechdata_api/) |
+| CalTech Authors | https://authors.library.caltech.edu/ | https://github.com/caltechlibrary/caltechauthors | |
 | TU Wien | https://researchdata.tuwien.ac.at/ | https://gitlab.tuwien.ac.at/fairdata/invenio-theme-tuw | |
 | TU Graz | https://repository.tugraz.at/ | https://github.com/tu-graz-library/invenio-theme-tugraz | |
-| ITAM | https://invenio.itam.cas.cz/ | | |
-| CERN Document Server | not live yet | https://github.com/CERNDocumentServer/cds-rdm | bleeding edge v12 |
-| Zenodo | not live yet? | https://github.com/zenodo/zenodo-rdm | bleeding edge v12, useful [cli commands](https://github.com/zenodo/zenodo-rdm/blob/master/site/zenodo_rdm/cli.py) |
+| CERN Document Server | https://repository.cern/ | https://github.com/CERNDocumentServer/cds-rdm | bleeding edge v12 |
+| Zenodo | https://zenodo.org/ | https://github.com/zenodo/zenodo-rdm | useful [cli commands](https://github.com/zenodo/zenodo-rdm/blob/master/site/zenodo_rdm/cli.py) |
 | Northwestern Medicine | https://prism.northwestern.edu/ | no github repo? | |
+| BIG-MAP Archive | https://archive-capex.energy.dtu.dk/ | https://github.com/team-capex/big-map-archive |
+| Knowledge Commons | https://works.hcommons.org/ | https://github.com/MESH-Research/knowledge-commons-works | great [dev docs](https://github.com/MESH-Research/knowledge-commons-works/tree/main/docs/source/developing) |
 
 ## [Documentation](https://inveniordm.docs.cern.ch/)
 
