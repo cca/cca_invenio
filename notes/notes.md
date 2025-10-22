@@ -6,7 +6,7 @@
 |------|-----|-------|-------|
 | CalTech Data | https://data.caltech.edu/ | https://github.com/caltechlibrary/caltechdata | see their [scripts](https://github.com/caltechlibrary/caltechdata/tree/main/scripts) & [api](https://github.com/caltechlibrary/caltechdata_api/) |
 | CalTech Authors | https://authors.library.caltech.edu/ | https://github.com/caltechlibrary/caltechauthors | |
-| TU Wien | https://researchdata.tuwien.ac.at/ | https://gitlab.tuwien.ac.at/fairdata/invenio-theme-tuw | |
+| TU Wien | https://researchdata.tuwien.ac.at/ | https://gitlab.tuwien.ac.at/fairdata/invenio-theme-tuw | see their [config](https://gitlab.tuwien.ac.at/crdm/invenio-config-tuw) and [CLI utilities](https://gitlab.tuwien.ac.at/crdm/invenio-utilities-tuw) |
 | TU Graz | https://repository.tugraz.at/ | https://github.com/tu-graz-library/invenio-theme-tugraz | |
 | CERN Document Server | https://repository.cern/ | https://github.com/CERNDocumentServer/cds-rdm | bleeding edge v12 |
 | Zenodo | https://zenodo.org/ | https://github.com/zenodo/zenodo-rdm | useful [cli commands](https://github.com/zenodo/zenodo-rdm/blob/master/site/zenodo_rdm/cli.py) |
