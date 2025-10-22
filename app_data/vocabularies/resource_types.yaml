@@ -163,6 +163,10 @@
     type: image
   title:
     en: Image
+  # ? should we make this an unusable parent-only type? maybe after migration?
+  tags:
+    - depositable
+    - linkable
 - id: image-map
   icon: map marker alternate
   props:
