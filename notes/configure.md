@@ -90,6 +90,20 @@ To give an account admin permissions, run: `uv run invenio roles add <email> adm
 
 See the [SAML Integration](https://inveniordm.docs.cern.ch/operate/customize/authentication/#saml-integration) documentation.
 
+## Translations
+
+To change the text in the user interface, we create a translation which maps the default to our text. Edit the [messages.po](../translations/en/LC_MESSAGES/messages.po) file:
+
+```pot
+#: invenio_app_rdm/records_ui/templates/semantic-ui/invenio_app_rdm/records/detail.html:223
+msgid "Published"
+msgstr "Created"
+```
+
+The `msgid` is the original string while `msgstr` is our translation. The `#` comment above helps identify where the text is used in code. Then we use the `invenio-cli` [translations](https://inveniordm.docs.cern.ch/reference/cli/#translations-commands) command `invenio-cli translations compile` to compile binary message catalogs and symlink them into the app instance.
+
+Not sure what a string is? Most are referenced in [the invenio-app-rdm translations](https://github.com/inveniosoftware/invenio-app-rdm/blob/master/invenio_app_rdm/translations/messages.pot), but we can also `invenio-cli translations extract` to find translated strings in Invenio code. We can verify a compiled messages.mo file has the text we want with the `msgunfmt` utility by running `msgunfmt translations/en/LC_MESSAGES/messages.mo`.
+
 ## Storage
 
 Invenio works with Amazon S3. We use a Google Storage Bucket with some interoperability considerations.
