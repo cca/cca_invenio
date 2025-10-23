@@ -12,7 +12,7 @@ export const overriddenComponents = {
     "InvenioAppRdm.Deposit.VersionField.container": () => null,
     "InvenioAppRdm.Deposit.PublisherField.container": () => null,
     "InvenioAppRdm.Deposit.AccordionFieldAlternateIdentifiers.container": () => null,
-    // ? do we want to retain this actually? Might be useful for Libraries records.
+    // TODO look into conditional container that shows this for Libraries community records
     "InvenioAppRdm.Deposit.AccordionFieldRelatedWorks.container": () => null,
     "InvenioAppRdm.Deposit.AccordionFieldReferences.container": () => null,
     "InvenioCommunities.CommunityProfileForm.AccordionField.MetadataFunding": () => null
