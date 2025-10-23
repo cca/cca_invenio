@@ -21,9 +21,9 @@ datetypes:
 licenses:
   pid-type: lic
   data-file: vocabularies/licenses.csv
-relationtypes:
-  pid-type: rlt
-  data-file: vocabularies/relation_types.yaml
+# debated using a smaller list but since related works is hidden in the deposit form
+# we do not customize long list of relation types
+# https://github.com/inveniosoftware/invenio-rdm-records/blob/master/invenio_rdm_records/fixtures/data/vocabularies/relation_types.yaml
 resourcetypes:
   pid-type: rsrct
   data-file: vocabularies/resource_types.yaml
