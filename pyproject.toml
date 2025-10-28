@@ -1,5 +1,5 @@
 [project]
-name = "cca_invenio"
+name = "cca"
 version = "0.1.0"
 description = "CCA's InvenioRDM instance."
 authors = [{name = "Eric Phetteplace", email = "ephetteplace@cca.edu"}]
@@ -37,9 +37,6 @@ uwsgi = [
 [build-system]
 build-backend = "setuptools.build_meta"
 requires = ["setuptools>=42", "wheel"]
-
-[project.entry-points."flask.commands"]
-cca = "cca.cli:cca"
 
 [project.scripts]
 cca = "cca.cli:cca"
