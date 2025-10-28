@@ -51,7 +51,3 @@ titletypes:
 names:
   pid-type: names
   data-file: vocabularies/names.yaml
-# demo of a custom vocab
-programs:
-  pid-type: prog
-  data-file: vocabularies/programs.yaml
