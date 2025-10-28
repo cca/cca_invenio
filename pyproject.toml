@@ -33,12 +33,21 @@ uwsgi = [
     "uwsgitop==0.12",
 ]
 
+[project.entry-points."invenio_assets.webpack"]
+cca_theme = "cca.webpack:theme"
+
+[project.entry-points."invenio_base.blueprints"]
+cca_views = "cca.views:create_blueprint"
+
+[project.entry-points."invenio_celery.tasks"]
+cca_tasks = "cca.tasks"
+
+[project.entry-points."invenio_jobs.jobs"]
+test_job = "cca.jobs:TestJob"
+
 [build-system]
 build-backend = "setuptools.build_meta"
 requires = ["setuptools>=42", "wheel"]
-
-[project.scripts]
-cca = "cca.cli:cca"
 
 [tool.setuptools.packages.find]
 where = ["site"]

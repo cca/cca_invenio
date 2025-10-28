@@ -14,7 +14,6 @@ def create_blueprint(app):
         template_folder="./templates",
     )
 
-    # ! This doesn't seem to work anymore?
     blueprint.add_url_rule(
         "/vocablist",
         view_func=VocabListView.as_view("vocablist"),
@@ -22,4 +21,3 @@ def create_blueprint(app):
 
     # Add URL rules
     return blueprint
-    
