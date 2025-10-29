@@ -86,8 +86,10 @@ See [the site directory's readme](../site/readme.md).
 
 ## Jobs / Celery Tasks
 
-Jobs let us run recurring maintenance tasks on a schedule. Possible uses:
+Jobs let us run recurring maintenance tasks on a schedule. Possible uses (\* = required):
 
+- Update courses index\*
+- Update user groups\*
 - Auto-share records to certain users/groups depending on metadata values
 - Retention processes
 - Update subject vocabularies (see `invenio_vocabularies` jobs)

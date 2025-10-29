@@ -71,8 +71,6 @@ A Community can have nested subcommunities if they [are enabled](#enabling-subco
 
 It's much easier to setup an ad hoc community in Invenio for any use case (e.g. MarComm, Campus Planning) because we don't have to redesign the submission form and record display from scratch each time. The builtin roles and community settings support many use cases. It is _harder_ to set up nuanced exceptions. For instance, some programs had EQUELLA workflows whereby specific accounts would review specific _types_ of submissions; that won't be possible without straying too far from Invenio's defaults.
 
-**RESEARCH**: how difficult is it to _remove_ a subcommunity from its parent? Do the records stay in the parent community?
-
 #### Academic Programs
 
 One community per program.
@@ -129,7 +127,7 @@ Reader community role is perfect for VAULT Syllabus Viewers. We can use closed s
 
 A non-member can own records inside a restricted community, but they have no means of discovering those records. They can't see the community and the records are not listed on their uploads page. However, a non-member can own specific records in a public community. The owned records appear under the community and their uploads. If the community's submissions are closed, they cannot manually add further records to the community.
 
-**RESEARCH** how can program admins can see their program's syllabi? This may be difficult. We can manually share records with a program admins group. There could be a task which regularly checks new syllabi and shares them with the requisite groups.
+**RESEARCH** how can program admins can see their program's syllabi? This may be difficult. We can manually share records with a program admins group. There could be a task which regularly checks new syllabi and shares them with the requisite groups. **QUESTION** could we give all program chairs full Reader access to the community?
 
 - Membership
   - Closed
@@ -158,6 +156,19 @@ community_service.indexer.index_by_id(parent.id)
 ```
 
 The subcommunity can be a pre-existing community or we can build one on the spot. If we choose an existing community, it becomes a request to the parent community for inclusion.
+
+It is possible to _remove_ a subcommunity from its parent, but not straightforward. In an `invenio shell`, run the following commands:
+
+```python
+from invenio_access.permissions import system_identity
+from invenio_communities.proxies import current_communities as communities
+from invenio_db import db
+subcommunity = communities.service.read(system_identity, id_="subcom-slug")
+communities.service.update(system_identity, subcommunity.id, data={**subcommunity.data, "parent": None})
+db.session.commit()
+```
+
+It may be necessary to reindex communities and/or records afterwards.
 
 ### Curation Checks
 

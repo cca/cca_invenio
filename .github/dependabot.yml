@@ -15,6 +15,8 @@ updates:
     schedule:
       interval: weekly
     target-branch: dev
+  # ! uv updates are broken https://github.com/cca/cca_invenio/actions
+  # maybe because of the site folder?
   - package-ecosystem: "uv"
     commit-message:
       prefix: "chore"
