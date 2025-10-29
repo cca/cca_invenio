@@ -84,6 +84,21 @@ Then rebuild the JS assets & restart the app: `invenio-cli assets build && inven
 
 See [the site directory's readme](../site/readme.md).
 
+## Jobs / Celery Tasks
+
+Jobs let us run recurring maintenance tasks on a schedule. Possible uses:
+
+- Auto-share records to certain users/groups depending on metadata values
+- Retention processes
+- Update subject vocabularies (see `invenio_vocabularies` jobs)
+- Copy a syllabus to colocated sections
+
+See the [architecture](https://inveniordm.docs.cern.ch/maintenance/internals/jobs/) and [how to](https://inveniordm.docs.cern.ch/operate/customize/jobs/#how-to-create-a-new-job) docs. We have example code in site.cca.jobs and tasks, which are listed in its setup.cfg. Our code is probably a better starting place; the official docs do not work due to field validation errors.
+
+If we edit a job's argument validation, the local dev server restarts and we can test. But if we edit a task's business logic, we must stop and restart the workers `invenio-cli run worker`. Jobs are run on the workers and they do not auto-reload when code changes.
+
+Jobs listed here become available to create in [the admin side](https://127.0.0.1:5000/administration/jobs). There is [a GET REST API for jobs](https://127.0.0.1:5000/api/jobs) but no documentation. It's not clear if we can run jobs via the API.
+
 ## SAML Authentication
 
 We use [invenio-saml](https://invenio-saml.readthedocs.io/en/latest/) for SSO authentication. The [SAML integration](https://inveniordm.docs.cern.ch/operate/customize/authentication/#saml-integration) section of the Invenio docs has the most specific setup instructions.
