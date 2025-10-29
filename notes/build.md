@@ -2,6 +2,8 @@
 
 Meaning both the docker build but also creating a local virtual environment with all the correct python requirements.
 
+To build a staging image and push it to Artifact Registry [with Github Actions](../.github/workflows/stage.yml), tag any commit like `stg-build-*`.
+
 This document is mostly about errors you might encounter and resolving them.
 
 ## invenio-saml, python-xmlsec, uwsgi, & C libraries
