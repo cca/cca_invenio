@@ -159,3 +159,5 @@ Our `ArchivesSeriesCF` is a custom field with our own structure (dictionary) and
 We have two demo custom fields `ConditionalField` and `CommunityField` which demonstrate conditional inputs that only show on the deposit form some of the time. `ConditionalField` checks if another metadata field has a particular value and disables the field if the condition is not met. `CommunityField` is analogous and shows only for submissions to a specific community.
 
 The `props` passed to a custom field React components represent only the initial state of the record (e.g. they only have data for drafts or new versions being edited). In order to access the current and mutable state of the form, we have to use Formik and Redux.
+
+If a custom field is removed from our configuration, it is removed from all records. Changing an existing custom field has not been tested, but presumably should be avoided.
