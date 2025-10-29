@@ -64,6 +64,10 @@ COPY ./invenio.cfg ${INVENIO_INSTANCE_PATH}
 # Install Python dependencies including local "site" module
 RUN --mount=type=cache,target=/root/.cache/uv uv sync --frozen --no-dev --group uwsgi
 
+# Fewer extraneous npm messages
+ENV NPM_CONFIG_AUDIT=false \
+    NPM_CONFIG_FUND=false
+
 # Build Javascript assets — `invenio` cmd means we need functional invenio.cfg during build
 RUN --mount=type=cache,target=/var/cache/assets invenio collect --verbose && invenio webpack buildall
 
