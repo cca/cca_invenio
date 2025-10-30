@@ -16,8 +16,11 @@ contributorsroles:
 datetypes:
   pid-type: dat
   data-file: vocabularies/date_types.yaml
-# we do not customize description types
+# Just to rename "Other" dt to "Note"
 # https://github.com/inveniosoftware/invenio-rdm-records/blob/master/invenio_rdm_records/fixtures/data/vocabularies/description_types.yaml
+descriptiontypes:
+  pid-type: dty
+  data-file: vocabularies/description_types.yaml
 licenses:
   pid-type: lic
   data-file: vocabularies/licenses.csv
