@@ -1,7 +1,6 @@
 [cli]
 flavour = RDM
 javascript_package_manager = pnpm
-logfile = /Users/ephetteplace/Code/invenio/logs/invenio-cli.log
 python_package_manager = uv
 
 [cookiecutter]
