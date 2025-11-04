@@ -40,7 +40,7 @@ names:
         update: true
 ```
 
-There is also an `invenio rdm-records add-to-fixture` command as of v12. This uses the vocabularies.yaml file but I'm not sure which vocabularies it's capable of updating.
+There is also an `invenio rdm-records add-to-fixture` command as of v12. This uses the vocabularies.yaml file but I'm not sure which vocabularies it's capable of updating. It will say `skipping creation of $VOCAB_TYPE, already existing` in its output, but that doesn't mean it didn't create new terms.
 
 ## Secret Manager
 
