@@ -4,6 +4,8 @@
  * https://github.com/zenodo/zenodo-rdm/blob/master/assets/js/invenio_app_rdm/overridableRegistry/mapping.js#L3
  * Find the names of overridable components in RDMDepositForm.js:
  * https://github.com/inveniosoftware/invenio-app-rdm/blob/master/invenio_app_rdm/theme/assets/semantic-ui/js/invenio_app_rdm/deposit/RDMDepositForm.js
+ * TODO we need to find a way to include the invenio_app_rdm default override (TimelineFeedHeader)
+ * It's not in a JS package, is copying a bunch of files the only way?
  */
 
 export const overriddenComponents = {
