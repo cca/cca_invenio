@@ -1,6 +1,6 @@
 [project]
 name = "cca"
-version = "0.2.0"
+version = "0.3.0"
 description = "CCA's InvenioRDM instance."
 authors = [{name = "Eric Phetteplace", email = "ephetteplace@cca.edu"}]
 readme = "readme.md"
