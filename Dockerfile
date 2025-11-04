@@ -1,6 +1,6 @@
 # Based on invenio-rdm-starter Dockerfile
 # https://github.com/front-matter/invenio-rdm-starter/blob/ba0269ff0eec036d5d38408d5fa7184f284036b3/Dockerfile
-FROM python:3.12-bookworm AS builder
+FROM python:3.14-bookworm AS builder
 
 ENV ENVIRONMENT=dockerbuild \
     LANG=en_US.UTF-8 \
@@ -79,7 +79,7 @@ COPY assets/js/invenio_app_rdm/overridableRegistry/mapping.js ${VIRTUAL_ENV}/lib
 # Build Javascript assets — `invenio` cmds mean we need functional invenio.cfg during build
 RUN --mount=type=cache,target=/var/cache/assets invenio collect && invenio webpack buildall
 
-FROM python:3.12-slim-bookworm AS runtime
+FROM python:3.14-slim-bookworm AS runtime
 
 ENV LANG=en_US.UTF-8 \
     LANGUAGE=en_US:en
