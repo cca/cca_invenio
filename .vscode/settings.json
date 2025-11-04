@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "*.html": "jinja",
+        ".env": "dotenv",
         ".invenio": "ini",
         "invenio.cfg": "python",
         "site.overrides": "less",

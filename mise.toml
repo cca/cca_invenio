@@ -1,9 +1,16 @@
 [env]
+# load env secrets from file
 _.file = ".env"
-PYTHONWARNINGS = "ignore:pkg_resources is deprecated:UserWarning"
-UV_PYTHON = "3.12"
+# These work around a boto/gcp bug https://github.com/inveniosoftware/invenio-s3/issues/35
+AWS_REQUEST_CHECKSUM_CALCULATION="WHEN_REQUIRED"
+AWS_RESPONSE_CHECKSUM_VALIDATION="WHEN_REQUIRED"
 # https://github.com/celery/celery/issues/9894
 CELERY_WORKER_POOL = "threads"
+FLASK_DEBUG = "1"
+PYTHONWARNINGS = "ignore:pkg_resources is deprecated:UserWarning"
+UV_PYTHON = "3.12"
+# Experimental, build JS assets with rspack
+WEBPACKEXT_PROJECT= "invenio_assets.webpack:rspack_project"
 [tools]
 node = "22.18.0"
 # matches pyproject.toml
