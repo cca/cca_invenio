@@ -15,6 +15,8 @@ VAULT became difficult to manage because of the proliferation of roles, collecti
 - A default configuration which is understandable and easy to describe to end users
 - Retain the important features of VAULT
 
+We have a pseudo-fixture [communities.yaml](../app_data/communities.yaml) which can be fed to our [add_communities.py](../site/readme.md#add-communities) script to bulk create communities.
+
 ## Groups
 
 Roles/groups are the same thing. Invenio commands references roles `invenio roles create ...` but the UI says Groups. We will call them Groups to match the UI and disambiguate with Community roles. Records can be shared with individual users or groups.
@@ -87,13 +89,13 @@ Program Community Configuration:
 - Membership
   - Closed (not everyone can join)
   - Faculty: Reader
-  - Program admins: QUESTION Curator or Manager? Allowing them to manage members frees us up some but might lead to user errors (e.g., student added as Reader, like with manual Moodle enrollments).
+  - Program admins: Curator
 - Privileges
   - Community visibility: Public
   - Members visibility: Members only
 - Review policy
   - All program faculty can publish without review (`members`)
-  - Open submissions (students will not be members of the community)
+  - Open submissions (students need to submit without being members)
 
 #### Libraries and CCA/C Archives
 
@@ -109,7 +111,7 @@ CCA Libraries will be a parent community to more focused subcommunities, much li
   - Design Book Review
   - Faculty Research (open submissions)
 
-Generally, library staff will be full owners or managers of communities and membership will be closed. Our other setting defaults are:
+Generally, library staff will be owners or managers of communities and membership will be closed. Our other default settings are:
 
 - Privileges
   - Community visibility: Public

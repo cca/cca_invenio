@@ -85,6 +85,30 @@ Options:
   -h, --help  Show this message and exit.
 ```
 
+## Add Communities
+
+Create communities from a YAML file using the REST API.
+
+```sh
+Usage: python site/cca/scripts/add_communities.py [OPTIONS]
+
+  Create communities from a YAML file. Requires an Invenio personal access
+  token, which it looks for in the TOKEN or INVENIO_TOKEN env vars. The
+  domain of the Invenio instance can be specified with the --host flag or
+  using HOST or INVENIO_HOST env vars.
+
+Options:
+  -h, --help            Show this message and exit.
+  -f, --file PATH       YAML file of communities (default:
+                        app_data/communities.yaml).
+  --host TEXT           Hostname of Invenio instance (e.g. invenio-
+                        dev.cca.edu)
+  -n, --no-verify       Disable SSL verification (use during local testing).
+  -t, --token TEXT      Administrator personal access token.
+```
+
+See [the communities.yaml](../app_data/communities.yaml) for the expected data format. Since this uses the REST API to create communities, it does not need to be run in the Flask app context and thus is not available under the `invenio cca` commands.
+
 ## Creating New CLI Commands
 
 - Create file under site/cca/scripts with a typical `@click.command` function. Give the function a meaningful name and not `main`
