@@ -10,12 +10,12 @@ license = "ECL-2.0"
 dependencies = [
     "email-validator==2.3",
     "google-cloud-secret-manager==2.25.0",
-    "google-cloud-storage==3.4.1",
+    "google-cloud-storage==3.5.0",
     "invenio-app-rdm[opensearch2,s3]==13.0.5",
     "invenio-saml==1.2.1",
     # see notes/build.md on lxml, xmlsec, & uwsgi deps
     "lxml==5.3.0",
-    "pydantic==2.12.3",
+    "pydantic==2.12.4",
     "python-dotenv==1.2.1",
     "xmlsec==1.3.14",
 ]
@@ -28,7 +28,7 @@ dev = [
 ]
 # these are only needed if uwsgi is the server, not locally
 uwsgi = [
-    "uwsgi==2.0.30",
+    "uwsgi==2.0.31",
     "uwsgi-tools==1.1.1",
     "uwsgitop==0.12",
 ]
