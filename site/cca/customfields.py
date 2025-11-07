@@ -1,7 +1,12 @@
 from typing import Any
 
 from invenio_i18n import lazy_gettext as _
-from invenio_records_resources.services.custom_fields import BaseCF, TextCF
+from invenio_rdm_records.contrib.journal import (
+    JOURNAL_CUSTOM_FIELDS,
+    JOURNAL_CUSTOM_FIELDS_UI,
+    JOURNAL_NAMESPACE,
+)
+from invenio_records_resources.services.custom_fields import BaseCF
 from marshmallow import fields
 from marshmallow_utils.fields import SanitizedUnicode
 
@@ -37,42 +42,24 @@ class ArchivesSeriesCF(BaseCF):
         }
 
 
-RDM_NAMESPACES: dict[str, str] = {
+# We also use journal custom fields for OA & DBR records
+# https://inveniordm.docs.cern.ch/reference/metadata/#journal
+
+RDM_NAMESPACES: dict[str, str | None] = {
     "cca": "https://libraries.cca.edu/",
+    **JOURNAL_NAMESPACE,
 }
 
 RDM_CUSTOM_FIELDS: list[BaseCF] = [
     ArchivesSeriesCF(name="cca:archives_series"),
-    TextCF(name="cca:community_field"),
-    TextCF(name="cca:conditional_field"),
+    *JOURNAL_CUSTOM_FIELDS,
 ]
 
 RDM_CUSTOM_FIELDS_UI: list[dict[str, Any]] = [
+    JOURNAL_CUSTOM_FIELDS_UI,
     {
-        "section": _("CCA Custom Fields"),
+        "section": _("CCA Fields"),
         "fields": [
-            {
-                "field": "cca:conditional_field",
-                "template": "conditionalfield.html",
-                "ui_widget": "ConditionalField",
-                "props": {
-                    "description": _(
-                        "Enter the publication title. This field only appears for publication resources."
-                    ),
-                    "label": _("Publication Title"),
-                },
-            },
-            {
-                "field": "cca:community_field",
-                "template": "communityfield.html",
-                "ui_widget": "CommunityField",
-                "props": {
-                    "description": _(
-                        "This field is only visible when record is submitted to the Test Community."
-                    ),
-                    "label": _("Community-Specific Field"),
-                },
-            },
             {
                 "field": "cca:archives_series",
                 "template": "archivesseries.html",
@@ -94,7 +81,7 @@ RDM_CUSTOM_FIELDS_UI: list[dict[str, Any]] = [
                 },
             },
         ],
-    }
+    },
 ]
 
 # TODO do we want to expose facets?
