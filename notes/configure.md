@@ -146,17 +146,27 @@ The .invenio file also has `file_storage = S3` but that file might only be used 
 
 ## Custom Fields
 
+### Archives Series
+
+Our `ArchivesSeriesCF` is a custom field with our own structure (dictionary) and deposit form widget. We can build custom fields that do almost anything with this approach, which is not limited to the few types of custom fields Invenio provides. The biggest challenge is writing the React form widget. Helpful reference points are [Semantic UI React](https://react.semantic-ui.com/) and [react-invenio-forms](https://github.com/inveniosoftware/react-invenio-forms), specifically the [forms components](https://github.com/inveniosoftware/react-invenio-forms/tree/master/src/lib/forms). Sometimes limitations in one component force us to use a lower level one. Read the source code of components to understand how they work and what props they accept. For instance, `Dropdown` does not support change handlers, but it is a wrapper around `SelectField` which does.
+
+The archive series two-tier hierarchical vocabulary is an object in the custom field's deposit form widget. It should be identical with the archives_series.json used in the migration project. The field validation is purposefully loose; any dict is accepted and the series in a record may not exist in the vocab. The migration project prints a warning when an item uses values not in the vocab, but does not reject them. There are several Mudflats items which do not adhere to the structure.
+
+### Journal
+
+We use the built-in [journal](https://inveniordm.docs.cern.ch/reference/metadata/#journal) custom fields. Datacite cannot represent journal articles well (lacks structured volume/issue, would have to stuff them into extent, etc.) without these.
+
+### Building & Demos
+
 - Simplest: https://inveniordm.docs.cern.ch/operate/customize/metadata/custom_fields/records/
 - Reference: https://inveniordm.docs.cern.ch/operate/customize/metadata/custom_fields/widgets/
 - Build your own: https://inveniordm.docs.cern.ch/operate/customize/metadata/custom_fields/custom_fields/
 
-Managed to build a custom "Academic Programs" field that uses a vocabulary, autocompletes on the form, and has a custom display template linking to search results sharing the same value (similar to how we do it in VAULT). The only thing that did not work is that the search facet does not appear, but the indexing clearly works because the hyperlinked search returns results. One other disappointment is that, though I defined a bunch of properties for each term in the related programs vocab, it only records the `id` and `title` in the record.
+I built a custom "Academic Programs" field that uses a programs vocabulary, autocompletes on the form, and has a custom display template linking to search results sharing the same value (similar to how we do it in VAULT). The only thing that did not work is that the search facet does not appear, but the indexing clearly works because the hyperlinked search returns results. One other disappointment is that, though I defined a bunch of properties for each term in the related programs vocab, it only records the `id` and `title` in the record.
 
-Our `ArchivesSeriesCF` is a custom field with our own structure (dictionary) and deposit form widget. We can build custom fields that do almost anything with this approach, which is not limited to the few types of custom fields Invenio provides. The biggest challenge is writing the React form widget. Helpful reference points are [Semantic UI React](https://react.semantic-ui.com/) and [react-invenio-forms](https://github.com/inveniosoftware/react-invenio-forms), specifically the [forms components](https://github.com/inveniosoftware/react-invenio-forms/tree/master/src/lib/forms). Sometimes limitations in one component force us to use a lower level one. Read the source code of components to understand how they work and what props they accept. For instance, `Dropdown` does not support change handlers, but it is a wrapper around `SelectField` which does.
+We have two demo custom fields `ConditionalField` and `CommunityField` which demonstrate conditional inputs that only show on the deposit form some of the time. These fields are were removed in [8b84aee](https://github.com/cca/cca_invenio/commit/8b84aee7c4aeb2537be5dd71cb9ad442ab9d92c0) but their JS is still here under [assets/templates/custom_fields](../assets/templates/custom_fields/). `ConditionalField` checks if another metadata field has a particular value and disables the field if the condition is not met. `CommunityField` is analogous and shows only for submissions to a specific community.
 
-[Formik](https://formik.org/docs/overview) is used for form state management and validation. You can `useFormikContext` in a functional React component to access the deposit form's current values, which allows you to make conditional fields.
-
-We have two demo custom fields `ConditionalField` and `CommunityField` which demonstrate conditional inputs that only show on the deposit form some of the time. `ConditionalField` checks if another metadata field has a particular value and disables the field if the condition is not met. `CommunityField` is analogous and shows only for submissions to a specific community.
+[Formik](https://formik.org/docs/overview) is used for form state management and validation. We can `useFormikContext` in a functional React component to access the deposit form's current values, which allows us to make conditional fields.
 
 The `props` passed to a custom field React components represent only the initial state of the record (e.g. they only have data for drafts or new versions being edited). In order to access the current and mutable state of the form, we have to use Formik and Redux.
 
