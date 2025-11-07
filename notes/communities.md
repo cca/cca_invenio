@@ -45,9 +45,11 @@ Faculty are placed in a group for their program.
 
 Staff groups managed on an ad hoc basis as needed. For instance, `library` group for Library Staff to manage CCA/C Archives community.
 
-**QUESTION**: should we add faculty to the groups for the programs they teach in? This was the VAULT practice and it was additive (we did not remove faculty from groups after they stopped teaching for a program). We could use course listings as well as user data to populate groups.
+One `program_faculty` group per program. Faculty are added to the faculty groups for the programs they teach in and it was additive (we do not remove faculty from groups after they stop teaching for a program). We may need a mapping between course codes and `AU`s to the logical groupings CCA stakeholders expect (Critical Studies, Interdisciplinary).
 
-**QUESTION**: do we need groups for program administration? Chairs, co-chairs, PMs, Deans, etc. Programmatically identifying program leadership is a challenge. We know program leadership will probably want to be included in their faculty groups.
+We will need groups for program administration, too. Chairs, co-chairs, PMs, Deans, etc. Programmatically identifying program leadership is a challenge. We know program leadership will want to be included in their faculty groups. I emailed AIS asking about the possibility of Workday JSON report.
+
+These faculty and chair groups will be added the program communities. A group is automatically added to a community without a "request" that requires approval which makes them convenient management units.
 
 ## [Communities](https://inveniordm.docs.cern.ch/use/communities/)
 
@@ -77,7 +79,7 @@ It's much easier to setup an ad hoc community in Invenio for any use case (e.g. 
 
 One community per program.
 
-**QUESTION**: how do we handle the multiprogram 4D Fine Arts? One INTDS community? Add programs to INTDS as subcommunities? Maybe the answer will be clearer after Spring when we see how Senior Projects sections are structured.
+We will have only one program for the Interdisciplinary BFA (INTDS) umbrella that houses a few programs (Sculpture, Textiles, Furniture, Printmedia, Ceramics).
 
 | # Comms | Pros | Cons |
 | ------- | ---- | ---- |
@@ -129,7 +131,7 @@ Reader community role is perfect for VAULT Syllabus Viewers. We can use closed s
 
 A non-member can own records inside a restricted community, but they have no means of discovering those records. They can't see the community and the records are not listed on their uploads page. However, a non-member can own specific records in a public community. The owned records appear under the community and their uploads. If the community's submissions are closed, they cannot manually add further records to the community.
 
-**RESEARCH** how can program admins can see their program's syllabi? This may be difficult. We can manually share records with a program admins group. There could be a task which regularly checks new syllabi and shares them with the requisite groups. **QUESTION** could we give all program chairs full Reader access to the community?
+**RESEARCH** how program admins can see their program's syllabi. This may be difficult. We can manually share records with a program admins group. There could be a task which regularly checks new syllabi and shares them with the requisite groups. **QUESTION** could we give all program chairs full Reader access to the community?
 
 - Membership
   - Closed

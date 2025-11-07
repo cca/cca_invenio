@@ -199,6 +199,7 @@ def process_employees(
     is_flag=True,
     help="Print the Invenio commands instead of executing them",
 )
+# TODO sync faculty groups from a courses JSON file, too
 @with_appcontext
 def groups_sync(
     bucket: str,
