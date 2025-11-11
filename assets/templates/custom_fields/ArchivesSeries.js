@@ -55,7 +55,7 @@ const archivesSeries = {
     ],
     "VIII. Periodicals and Other Publications": [
         "1. College",
-        "2. Students",
+        "2. Student",
         "3. Alumni",
         "4. Yearbooks",
         "5. Issued an ISBN/ISSN",
