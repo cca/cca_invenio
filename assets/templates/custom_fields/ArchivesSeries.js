@@ -11,7 +11,7 @@ const archivesSeries = {
         "1. Academic Council",
         "2. Accreditation and Licensing Materials",
         "3. Board of Directors",
-        "4. Faculty Assembly / Faculty Senate",
+        "4. Faculty Assembly and Faculty Senate",
         "5. Faculty and Staff Files",
         "6. Finance and Development",
         "7. General Admin Files",
