@@ -6,6 +6,7 @@ AWS_REQUEST_CHECKSUM_CALCULATION="WHEN_REQUIRED"
 AWS_RESPONSE_CHECKSUM_VALIDATION="WHEN_REQUIRED"
 # https://github.com/celery/celery/issues/9894
 CELERY_WORKER_POOL = "threads"
+ENVIRONMENT = "local"
 FLASK_DEBUG = "1"
 PYTHONWARNINGS = "ignore:pkg_resources is deprecated:UserWarning"
 UV_PYTHON = "3.12"
