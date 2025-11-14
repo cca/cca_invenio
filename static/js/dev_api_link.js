@@ -1,4 +1,5 @@
 // link to API representation of current page
-const qs = location.search ? "?" + location.search : ""
-const html = `<div class="item"><a href="/api${location.pathname}${qs}">API</a></div>`
-$('#invenio-menu > .item').not('.right').last().after(html)
+const apiUrl = "/api" + location.pathname + location.search
+const $apiDiv = $('<div class="item"><a></a></div>')
+$apiDiv.find('a').attr('href', apiUrl).text('API')
+$('#invenio-menu > .item').not('.right').last().after($apiDiv)
