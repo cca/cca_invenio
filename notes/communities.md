@@ -1,10 +1,8 @@
-# Permissions & Communities
+# Communities and Groups
 
 An outline of our user account and community policies.
 
 Helpful analogy: EQUELLA Collections = Invenio Communities | Invenio Collections = EQUELLA Hierarchies.
-
-Paragraphs prefixed **QUESTION** are policy decisions whereas **RESEARCH** means testing in Invenio.
 
 ## High-level Goals
 
@@ -123,15 +121,13 @@ Generally, library staff will be owners or managers of communities and membershi
   - Records submission policy: Closed
     - Exception: Open for Faculty Research
 
-**RESEARCH**: how can we handle "visible to all CCA" records? There doesn't appear to be a "logged in user" role. We might need to override a permissions policy for a particular community. Very large groups like "all staff", "all students", "all accounts" seem difficult to maintain.
-
 #### Syllabus
 
 Reader community role is perfect for VAULT Syllabus Viewers. We can use closed submissions to prevent users from submitting directly to the community. We will need to write a Portal module to push syllabi to Invenio, but this is straightforward.
 
 A non-member can own records inside a restricted community, but they have no means of discovering those records. They can't see the community and the records are not listed on their uploads page. However, a non-member can own specific records in a public community. The owned records appear under the community and their uploads. If the community's submissions are closed, they cannot manually add further records to the community.
 
-**RESEARCH** how program admins can see their program's syllabi. This may be difficult. We can manually share records with a program admins group. There could be a task which regularly checks new syllabi and shares them with the requisite groups. **QUESTION** could we give all program chairs full Reader access to the community?
+**TBD**: program admin access to syllabi, see [#70](https://github.com/cca/cca_invenio/issues/70).
 
 - Membership
   - Closed
