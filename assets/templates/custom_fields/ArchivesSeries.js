@@ -16,7 +16,7 @@ const archivesSeries = {
         "6. Finance and Development",
         "7. General Admin Files",
         "8. Partnerships and Affiliations",
-        "9. Presidents Office"
+        "9. President's Office"
     ],
     "II. Alumni Society Materials": [
         "1. Alumni Files",
@@ -61,6 +61,7 @@ const archivesSeries = {
         "5. Issued an ISBN/ISSN",
         "6. Catalogs/ Schedule of classes"
     ],
+    // TODO XI. Undergraduate & Graduate Theses
     "X. Buildings and Grounds": [
         "1. Berkeley",
         "2. Oakland",
