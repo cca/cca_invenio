@@ -1,0 +1,192 @@
+- id: ab2775ee-89b3-534f-be22-b6d8380060cb
+  scheme: place
+  subject: 1111 8th St., San Francisco, CA
+- id: da71e67e-c227-5113-ac9c-947e7fba86cc
+  scheme: place
+  subject: 1700 17th St., San Francisco, CA
+- id: 9eee6b8b-d761-593a-80e9-4c66cc1fb1e9
+  scheme: place
+  subject: 188 Hooper St., San Francisco, CA
+- id: ad5b41ff-7f80-56ad-b4ec-27192b4ef4c2
+  scheme: place
+  subject: 2119 Allston Way, Berkeley, CA
+- id: d58383dd-f787-5aa8-995f-ef5d202fc3a3
+  scheme: place
+  subject: 350 Kansas St, San Francisco, CA
+- id: 04821db0-8dc1-5c2c-893f-8654f35351c9
+  scheme: place
+  subject: 80 Carolina St., San Francisco, CA
+- id: a686035a-90c1-5fef-a246-c12e1e14a6f6
+  scheme: place
+  subject: A2 Cafe
+- id: d746a035-b32c-5f3d-b46c-5c9fb957559d
+  scheme: place
+  subject: Amici Cafe
+- id: 9cca7b47-80dc-5c45-8090-15f8e9082020
+  scheme: place
+  subject: Archives
+- id: bfba1747-b75d-5a3f-976f-5a5dbc40f81f
+  scheme: place
+  subject: B Building
+- id: f02729cc-f12d-5ca1-a890-1a6f1875a723
+  scheme: place
+  subject: Barclay Simpson Sculpture Studio
+- id: http://vocab.getty.edu/page/tgn/7013386
+  scheme: place
+  subject: Berkeley (Calif.)
+- id: 6e257e9c-75da-515b-b3d9-8c027b0d45f7
+  scheme: place
+  subject: Emerson Elementary School (Berkeley, CA)
+- id: 7ef5f22f-9b4a-5008-9ea5-9f0d6b7426cf
+  scheme: place
+  subject: Blattner Print Studio
+- id: f57e58dc-dbb6-5de0-b27a-b9ac7d7ca0a2
+  scheme: place
+  subject: C.C.A.C. Gallery 5283 Broadway, San Francisco, CA
+- id: http://vocab.getty.edu/page/tgn/7007157
+  scheme: place
+  subject: California
+- id: 24051b13-99f1-555b-a6d3-7eda5e161fa2
+  scheme: place
+  subject: California College of Arts and Crafts
+- id: http://vocab.getty.edu/page/ulan/500290095
+  scheme: place
+  subject: California College Of The Arts
+- id: bbc0e72a-dba4-5dd0-a34e-3637b01a8ba3
+  scheme: place
+  subject: Carriage House
+- id: 929251c7-add7-5d66-b038-ef4a3d44216c
+  scheme: place
+  subject: CCA Hubbell Street Galleries
+- id: ea5bfcd3-16af-5d06-861b-b6dc514fcc02
+  scheme: place
+  subject: CCA/C Archives
+- id: 0ed24508-0439-530b-a564-6c7804caf62a
+  scheme: place
+  subject: CCA/C Annex
+- id: http://vocab.getty.edu/page/tgn/2011247
+  scheme: place
+  subject: Emeryville (Calif.)
+- id: http://vocab.getty.edu/page/tgn/7366018
+  scheme: place
+  subject: "Erongar\xEDcuaro (Mexico)"
+- id: 320c1504-b0bd-5d96-ad50-20a4ca758f93
+  scheme: place
+  subject: Founders Hall
+- id: 571dd5fc-70b7-5082-b12c-f5f2eea42138
+  scheme: place
+  subject: Guild Hall (Oakland, Calif.)
+- id: 2bfe9554-1b38-5566-bb7b-95ceb63e2141
+  scheme: place
+  subject: Irwin Student Center
+- id: 80e66052-324f-52c6-a5f7-ad929bd31c09
+  scheme: place
+  subject: Isabelle Percy West Gallery
+- id: https://www.wikidata.org/wiki/Q1833634
+  scheme: place
+  subject: Jack London Square
+- id: e4d41c75-9d62-5605-b083-95cb8f20dd7e
+  scheme: place
+  subject: Macky Hall
+- id: ed21fd45-b297-5fcd-9c74-51a7ce6486e2
+  scheme: place
+  subject: Martinez Annex
+- id: f216b860-fd23-593a-8700-05bafc3c9640
+  scheme: place
+  subject: Martinez Hall
+- id: ef4a04c3-05ca-5ec6-abf5-2fd0dae0a8f8
+  scheme: place
+  subject: Martinez Hall Mural Wall
+- id: bf6f8774-db8a-5520-a601-53c908dd1d8a
+  scheme: place
+  subject: Materials Library (San Francisco, Calif.)
+- id: http://vocab.getty.edu/page/tgn/7005560
+  scheme: place
+  subject: Mexico
+- id: e8b43238-883c-5ed0-b282-c3eff40f0b14
+  scheme: place
+  subject: Meyer Library
+- id: 205d9c1a-1fe8-5822-a24d-c577359df16d
+  scheme: place
+  subject: Nahl Hall
+- id: a6c4712f-cfc9-50d6-abe8-cf09f4df8824
+  scheme: place
+  subject: Noni Eccles Treadwell Ceramic Arts Center
+- id: http://vocab.getty.edu/page/tgn/7014250
+  scheme: place
+  subject: Oakland (Calif.)
+- id: https://www.wikidata.org/wiki/Q1090829
+  scheme: place
+  subject: Oakland Public Library (Calif.)
+- id: 51c24db8-fa2b-5307-9eb7-52b23119e117
+  scheme: place
+  subject: Oliver Art Center
+- id: https://www.wikidata.org/wiki/Q14683611
+  scheme: place
+  subject: Paramount Theater
+- id: http://vocab.getty.edu/page/tgn/1017976
+  scheme: place
+  subject: "P\xE1tzcuaro (Mexico)"
+- id: http://vocab.getty.edu/page/tgn/7014408
+  scheme: place
+  subject: Piedmont (Calif.)
+- id: e23ab105-d80d-5a24-a5e2-3ff308516965
+  scheme: place
+  subject: Raleigh And Claire Shaklee Building
+- id: b36a081f-ecbe-5734-bd60-dfb3ab952f6e
+  scheme: place
+  subject: Ralls Painting Studio
+- id: http://vocab.getty.edu/page/tgn/7014456
+  scheme: place
+  subject: San Francisco
+- id: 0fc9478b-e735-5003-a986-a0ba0390263d
+  scheme: place
+  subject: School of the California Guild of Arts and Crafts
+- id: 6a7098da-3235-5e36-8bb5-175e6f83226c
+  scheme: place
+  subject: Simpson Library
+- id: abe15835-a4f8-572d-86f2-cc39d2c70d58
+  scheme: place
+  subject: Sundial (Oakland, Calif.)
+- id: 936d484f-db4e-523c-93ea-5d08603deb53
+  scheme: place
+  subject: Tecoah Bruce Gallery
+- id: 806e71c5-3955-5efb-8eb6-79b2bc142caf
+  scheme: place
+  subject: Treadwell Mansion
+- id: 8beb0ccf-5ae8-5537-a3e7-73c890323194
+  scheme: place
+  subject: Woodworking Shop (Oakland, Calif.)
+- id: https://www.wikidata.org/wiki/Q72855590
+  scheme: place
+  subject: Braunstein/Quay Gallery
+- id: https://www.wikidata.org/wiki/Q6672317
+  scheme: place
+  subject: Long Beach Museum Of Art
+- id: https://www.wikidata.org/wiki/Q18325671
+  scheme: place
+  subject: Mills College Art Museum
+- id: https://www.wikidata.org/wiki/Q6971963
+  scheme: place
+  subject: National Council on Education for the Ceramic Arts
+- id: https://www.wikidata.org/wiki/Q1030172
+  scheme: place
+  subject: Osaka University Of Arts
+- id: https://www.wikidata.org/wiki/Q100965444
+  scheme: place
+  subject: Richmond Art Center
+- id: http://vocab.getty.edu/page/ulan/500264108
+  scheme: place
+  subject: San Francisco Museum Of Modern Art
+- id: 8568865b-8ebb-52d7-8098-c10991b45347
+  scheme: place
+  subject: Studio Building (Berkeley, Calif.)
+- id: http://vocab.getty.edu/page/ulan/500217689
+  scheme: place
+  subject: University of Illinois at Chicago
+- id: https://www.wikidata.org/wiki/Q7974967
+  scheme: place
+  subject: Wattis Institute for Contemporary Arts
+- id: https://www.wikidata.org/wiki/Q213205
+  scheme: place
+  subject: San Francisco Bay Area

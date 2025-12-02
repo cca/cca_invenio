@@ -29,19 +29,28 @@ subjects:
   pid-type: sub
   schemes:
     # https://github.com/inveniosoftware/invenio-app-rdm/issues/2660
-    # id is used in the "suggest from" dropdown menu on the upload form it must be human readable
-    - id: CCA
-      data-file: vocabularies/cca_local.yaml
-      name: CCA Local Authority
-      # TODO CCA local vocab github repo
+    # subject scheme id is used in "suggest from"on deposit form so it must be human readable
+    # mainly AAT
+    - id: form
+      data-file: vocabularies/subject_form.yaml
+      name: Forms and Genres
       uri: https://www.cca.edu
-    - id: LC
-      data-file: vocabularies/lc.yaml
-      name: Library of Congress Authorities
-      uri: https://id.loc.gov/authorities/
-    - id: TIME
+    # mainly ULAN
+    - id: name
+      data-file: vocabularies/subject_name.yaml
+      name: Names of People & Organizations
+    # mainly TGN
+    - id: place
+      data-file: vocabularies/subject_place.yaml
+      name: Geographic Names
+    # mainly AAT
+    - id: topic
+      data-file: vocabularies/subject_topic.yaml
+      name: Topics
+    # our local time periods vocab
+    - id: time
       data-file: vocabularies/temporal.yaml
-      name: Temporal
+      name: Time Periods
       uri: https://www.loc.gov/standards/datetime/
 titletypes:
   pid-type: ttyp

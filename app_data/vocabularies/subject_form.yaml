@@ -1,0 +1,447 @@
+- id: https://www.wikidata.org/wiki/Q4026292
+  scheme: form
+  subject: Action
+- id: http://vocab.getty.edu/page/aat/300404112
+  scheme: form
+  subject: Activities
+- id: https://www.wikidata.org/wiki/Q867242
+  scheme: form
+  subject: Comics Anthology
+- id: http://vocab.getty.edu/page/aat/300027268
+  scheme: form
+  subject: Administrative Reports
+- id: https://www.wikidata.org/wiki/Q181275
+  scheme: form
+  subject: Autobiographical Comics
+- id: https://www.wikidata.org/wiki/Q838368
+  scheme: form
+  subject: Black-and-white
+- id: https://www.wikidata.org/wiki/Q3381576
+  scheme: form
+  subject: Black-and-white Photography
+- id: https://www.wikidata.org/wiki/Q10282327
+  scheme: form
+  subject: Black-and-white Cinema
+- id: https://www.wikidata.org/wiki/Q23013372
+  scheme: form
+  subject: Body Positivity Movement
+- id: http://vocab.getty.edu/page/tgn/7005685
+  scheme: form
+  subject: Canada
+- id: http://vocab.getty.edu/page/aat/300027630
+  scheme: form
+  subject: Collective Labor Agreements
+- id: http://vocab.getty.edu/page/aat/300055911
+  scheme: form
+  subject: Comedy
+- id: http://vocab.getty.edu/page/aat/300015635
+  scheme: form
+  subject: Comics
+- id: http://vocab.getty.edu/page/aat/300297857
+  scheme: form
+  subject: Bildungsromans
+- id: http://vocab.getty.edu/page/aat/300027649
+  scheme: form
+  subject: Contracts
+- id: https://www.wikidata.org/wiki/Q20669574
+  scheme: form
+  subject: Creative Non-Fiction
+- id: https://www.wikidata.org/wiki/Q16911265
+  scheme: form
+  subject: Curriculum Development
+- id: https://www.wikidata.org/wiki/Q174526
+  scheme: form
+  subject: Cyberpunk
+- id: http://vocab.getty.edu/page/aat/300027112
+  scheme: form
+  subject: Diaries
+- id: http://vocab.getty.edu/page/aat/300417554
+  scheme: form
+  subject: Drama
+- id: https://www.wikidata.org/wiki/Q15062348
+  scheme: form
+  subject: Dystopian fiction
+- id: https://www.wikidata.org/wiki/Q2367164
+  scheme: form
+  subject: Epic
+- id: f1bba5b3-af8b-591b-bd3a-bdab5631f78e
+  scheme: form
+  subject: External Review
+- id: http://vocab.getty.edu/page/aat/300055918
+  scheme: form
+  subject: Fiction
+- id: http://vocab.getty.edu/page/aat/300265568
+  scheme: form
+  subject: Graphic Novels
+- id: https://www.wikidata.org/wiki/Q603291
+  scheme: form
+  subject: Historical Fantasy
+- id: https://www.wikidata.org/wiki/Q1196408
+  scheme: form
+  subject: Historical Fiction
+- id: https://www.wikidata.org/wiki/Q16575965
+  scheme: form
+  subject: Horror Fiction
+- id: http://vocab.getty.edu/page/aat/300375154
+  scheme: form
+  subject: Horror Film
+- id: https://www.wikidata.org/wiki/Q224700
+  scheme: form
+  subject: Comedy Horror
+- id: http://vocab.getty.edu/page/aat/300015578
+  scheme: form
+  subject: Illustrations
+- id: http://vocab.getty.edu/page/aat/300054354
+  scheme: form
+  subject: Journalism
+- id: http://vocab.getty.edu/page/aat/300026879
+  scheme: form
+  subject: Letter
+- id: http://vocab.getty.edu/page/aat/300417585
+  scheme: form
+  subject: Literature
+- id: https://www.wikidata.org/wiki/Q147516
+  scheme: form
+  subject: Magical Realism
+- id: http://vocab.getty.edu/page/aat/300266680
+  scheme: form
+  subject: Manga
+- id: http://vocab.getty.edu/page/aat/300202559
+  scheme: form
+  subject: Memoirs
+- id: https://www.wikidata.org/wiki/Q6822429
+  scheme: form
+  subject: Metacomic
+- id: http://vocab.getty.edu/page/aat/300163347
+  scheme: form
+  subject: Mixed Media
+- id: http://vocab.getty.edu/page/aat/300136900
+  scheme: form
+  subject: Motion Pictures
+- id: https://www.wikidata.org/wiki/Q6585139
+  scheme: form
+  subject: Mystery Fiction
+- id: http://vocab.getty.edu/page/aat/300055985
+  scheme: form
+  subject: Mythology
+- id: http://vocab.getty.edu/page/aat/300263339
+  scheme: form
+  subject: Young Adult Fiction
+- id: http://vocab.getty.edu/page/aat/300163411
+  scheme: form
+  subject: Nonfiction
+- id: http://vocab.getty.edu/page/aat/300053343
+  scheme: form
+  subject: Painting Techniques
+- id: http://vocab.getty.edu/page/aat/300220572
+  scheme: form
+  subject: Pamphlets
+- id: http://vocab.getty.edu/page/aat/300055828
+  scheme: form
+  subject: Parody
+- id: http://vocab.getty.edu/page/aat/300055931
+  scheme: form
+  subject: Poetry
+- id: https://homosaurus.org/v3/homoit0001596
+  scheme: form
+  subject: Queer Romance Fiction
+- id: http://vocab.getty.edu/page/aat/300255278
+  scheme: form
+  subject: Romance fiction
+- id: http://vocab.getty.edu/page/aat/300251297
+  scheme: form
+  subject: Satire
+- id: http://vocab.getty.edu/page/aat/300055919
+  scheme: form
+  subject: Science Fiction
+- id: https://www.wikidata.org/wiki/Q2561438
+  scheme: form
+  subject: Slice of Life
+- id: https://www.wikidata.org/wiki/Q7643432
+  scheme: form
+  subject: Superhero Fiction
+- id: http://vocab.getty.edu/page/aat/300055314
+  scheme: form
+  subject: Wars
+- id: http://vocab.getty.edu/page/aat/300026673
+  scheme: form
+  subject: Lectures
+- id: http://vocab.getty.edu/page/aat/300411663
+  scheme: form
+  subject: Animations
+- id: http://vocab.getty.edu/page/aat/300026707
+  scheme: form
+  subject: Announcements
+- id: http://vocab.getty.edu/page/aat/300343615
+  scheme: form
+  subject: Architectural Documents
+- id: http://vocab.getty.edu/page/aat/300034787
+  scheme: form
+  subject: Architectural Drawings
+- id: http://vocab.getty.edu/page/aat/300379505
+  scheme: form
+  subject: Archival Materials
+- id: http://vocab.getty.edu/page/aat/300128234
+  scheme: form
+  subject: Pigment Prints
+- id: http://vocab.getty.edu/page/aat/300048715
+  scheme: form
+  subject: Articles
+- id: http://vocab.getty.edu/page/aat/300192825
+  scheme: form
+  subject: Artists' Statements
+- id: http://vocab.getty.edu/page/aat/300123016
+  scheme: form
+  subject: Artists' books
+- id: http://vocab.getty.edu/page/aat/300028633
+  scheme: form
+  subject: Sound Recordings
+- id: http://vocab.getty.edu/page/aat/300128347
+  scheme: form
+  subject: Black-and-white Photographs
+- id: http://vocab.getty.edu/page/aat/300161638
+  scheme: form
+  subject: Black-and-white Prints
+- id: http://vocab.getty.edu/page/aat/300128374
+  scheme: form
+  subject: Black-and-white Slides
+- id: http://vocab.getty.edu/page/aat/300265722
+  scheme: form
+  subject: Blogs
+- id: http://vocab.getty.edu/page/aat/300028051
+  scheme: form
+  subject: Books
+- id: http://vocab.getty.edu/page/aat/300311679
+  scheme: form
+  subject: Bulletins
+- id: http://vocab.getty.edu/page/aat/300418056
+  scheme: form
+  subject: Computer-aided Designs
+- id: http://vocab.getty.edu/page/aat/300033963
+  scheme: form
+  subject: Collages
+- id: http://vocab.getty.edu/page/aat/300128359
+  scheme: form
+  subject: Color Photographs
+- id: http://vocab.getty.edu/page/aat/300128366
+  scheme: form
+  subject: Color Slides
+- id: http://vocab.getty.edu/page/aat/300054789
+  scheme: form
+  subject: Conferences
+- id: http://vocab.getty.edu/page/aat/300127183
+  scheme: form
+  subject: Contact Sheets
+- id: http://vocab.getty.edu/page/aat/300026877
+  scheme: form
+  subject: Correspondence
+- id: http://vocab.getty.edu/page/aat/300015387
+  scheme: form
+  subject: Diagrams
+- id: http://vocab.getty.edu/page/aat/300312248
+  scheme: form
+  subject: Laser Prints
+- id: http://vocab.getty.edu/page/aat/300312222
+  scheme: form
+  subject: Digital Prints
+- id: http://vocab.getty.edu/page/aat/300026030
+  scheme: form
+  subject: Documents
+- id: http://vocab.getty.edu/page/aat/300033973
+  scheme: form
+  subject: Drawings
+- id: http://vocab.getty.edu/page/aat/300034065
+  scheme: form
+  subject: Elevations
+- id: http://vocab.getty.edu/page/aat/300053773
+  scheme: form
+  subject: Enameling
+- id: http://vocab.getty.edu/page/aat/300053829
+  scheme: form
+  subject: Engraving
+- id: http://vocab.getty.edu/page/aat/300028881
+  scheme: form
+  subject: Ephemera
+- id: http://vocab.getty.edu/page/aat/300041365
+  scheme: form
+  subject: Etchings
+- id: http://vocab.getty.edu/page/aat/300054766
+  scheme: form
+  subject: Exhibitions
+- id: http://vocab.getty.edu/page/aat/300162391
+  scheme: form
+  subject: Cloth
+- id: http://vocab.getty.edu/page/aat/300266639
+  scheme: form
+  subject: Clothing
+- id: http://vocab.getty.edu/page/aat/300081053
+  scheme: form
+  subject: Studies
+- id: http://vocab.getty.edu/page/aat/300037680
+  scheme: form
+  subject: Furniture
+- id: http://vocab.getty.edu/page/aat/300010797
+  scheme: form
+  subject: Glass
+- id: http://vocab.getty.edu/page/aat/300393160
+  scheme: form
+  subject: Glass Plate Negatives
+- id: http://vocab.getty.edu/page/aat/300266210
+  scheme: form
+  subject: Icons
+- id: http://vocab.getty.edu/page/aat/300054200
+  scheme: form
+  subject: Illustration
+- id: http://vocab.getty.edu/page/aat/300047896
+  scheme: form
+  subject: Installations
+- id: http://vocab.getty.edu/page/aat/300041338
+  scheme: form
+  subject: Intaglio Prints
+- id: http://vocab.getty.edu/page/aat/300027590
+  scheme: form
+  subject: Legal Documents
+- id: http://vocab.getty.edu/page/aat/300041379
+  scheme: form
+  subject: Lithographs
+- id: http://vocab.getty.edu/page/aat/300027440
+  scheme: form
+  subject: Minutes
+- id: http://vocab.getty.edu/page/aat/300163347
+  scheme: form
+  subject: Mixed Media
+- id: http://vocab.getty.edu/page/aat/300247279
+  scheme: form
+  subject: Model
+- id: http://vocab.getty.edu/page/aat/300233433
+  scheme: form
+  subject: Mold-blown Glass
+- id: http://vocab.getty.edu/page/aat/300310077
+  scheme: form
+  subject: Monoprints
+- id: http://vocab.getty.edu/page/aat/300041538
+  scheme: form
+  subject: Monotypes
+- id: http://vocab.getty.edu/page/aat/300047910
+  scheme: form
+  subject: Multimedia Works
+- id: http://vocab.getty.edu/page/aat/300033644
+  scheme: form
+  subject: Mural Painting
+- id: http://vocab.getty.edu/page/aat/300202595
+  scheme: form
+  subject: Oral Histories
+- id: http://vocab.getty.edu/page/aat/300194222
+  scheme: form
+  subject: Pages
+- id: http://vocab.getty.edu/page/aat/300054216
+  scheme: form
+  subject: Painting
+- id: http://vocab.getty.edu/page/aat/300054698
+  scheme: form
+  subject: Writing
+- id: http://vocab.getty.edu/page/aat/300121445
+  scheme: form
+  subject: Performance Art
+- id: http://vocab.getty.edu/page/aat/300056340
+  scheme: form
+  subject: Perspective
+- id: http://vocab.getty.edu/page/aat/300046300
+  scheme: form
+  subject: Photographs
+- id: http://vocab.getty.edu/page/aat/300069748
+  scheme: form
+  subject: Plan
+- id: http://vocab.getty.edu/page/aat/300027221
+  scheme: form
+  subject: Posters
+- id: http://vocab.getty.edu/page/aat/300026437
+  scheme: form
+  subject: Press Releases
+- id: http://vocab.getty.edu/page/aat/300041273
+  scheme: form
+  subject: Prints
+- id: http://vocab.getty.edu/page/aat/300027240
+  scheme: form
+  subject: Programs (documents)
+- id: http://vocab.getty.edu/page/aat/300166391
+  scheme: form
+  subject: Prototypes
+- id: http://vocab.getty.edu/page/aat/300265419
+  scheme: form
+  subject: Realia
+- id: http://vocab.getty.edu/page/aat/300041391
+  scheme: form
+  subject: Relief Prints
+- id: http://vocab.getty.edu/page/aat/300053195
+  scheme: form
+  subject: Rendering
+- id: http://vocab.getty.edu/page/aat/300027267
+  scheme: form
+  subject: Reports
+- id: http://vocab.getty.edu/page/aat/300254807
+  scheme: form
+  subject: Research
+- id: http://vocab.getty.edu/page/aat/300053031
+  scheme: form
+  subject: Sandblasting
+- id: http://vocab.getty.edu/page/aat/300053119
+  scheme: form
+  subject: Sand Casting
+- id: http://vocab.getty.edu/page/aat/300178688
+  scheme: form
+  subject: Screen Prints
+- id: http://vocab.getty.edu/page/aat/300047090
+  scheme: form
+  subject: Sculpture
+- id: http://vocab.getty.edu/page/aat/300449110
+  scheme: form
+  subject: Sections (architectural components)
+- id: http://vocab.getty.edu/page/aat/300034342
+  scheme: form
+  subject: Sectional Perspectives
+- id: http://vocab.getty.edu/page/aat/300026642
+  scheme: form
+  subject: Serials (publications)
+- id: http://vocab.getty.edu/page/aat/300128695
+  scheme: form
+  subject: Gelatin Silver Prints
+- id: http://vocab.getty.edu/page/aat/300034122
+  scheme: form
+  subject: Site Plans
+- id: http://vocab.getty.edu/page/aat/300193298
+  scheme: form
+  subject: Site-specific Works
+- id: http://vocab.getty.edu/page/aat/300027354
+  scheme: form
+  subject: Sketchbooks
+- id: https://www.wikidata.org/wiki/Q4300498
+  scheme: form
+  subject: Slumping
+- id: http://vocab.getty.edu/page/aat/300026671
+  scheme: form
+  subject: Speeches
+- id: http://vocab.getty.edu/page/aat/300053378
+  scheme: form
+  subject: Stippling
+- id: http://vocab.getty.edu/page/aat/300055878
+  scheme: form
+  subject: Symbols
+- id: http://vocab.getty.edu/page/aat/300386843
+  scheme: form
+  subject: Textile Art
+- id: http://vocab.getty.edu/page/aat/300194389
+  scheme: form
+  subject: Typefaces
+- id: http://vocab.getty.edu/page/aat/300312095
+  scheme: form
+  subject: Webcomics
+- id: http://vocab.getty.edu/page/aat/300265431
+  scheme: form
+  subject: Web sites
+- id: http://vocab.getty.edu/page/aat/300189331
+  scheme: form
+  subject: Work Prints (photographic prints)
+- id: http://vocab.getty.edu/page/aat/300069765
+  scheme: form
+  subject: Workshops (seminars)

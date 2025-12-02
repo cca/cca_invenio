@@ -1,0 +1,198 @@
+- id: http://vocab.getty.edu/page/aat/300222725
+  scheme: topic
+  subject: Sports
+- id: http://vocab.getty.edu/page/aat/300008090
+  scheme: topic
+  subject: Gardens
+- id: https://www.wikidata.org/wiki/Q81068910
+  scheme: topic
+  subject: COVID-19 Pandemic
+- id: https://www.wikidata.org/wiki/Q49085
+  scheme: topic
+  subject: African Americans
+- id: http://vocab.getty.edu/page/aat/300054156
+  scheme: topic
+  subject: Architecture
+- id: http://vocab.getty.edu/page/ulan/500234449
+  scheme: topic
+  subject: Batey & Mack
+- id: https://www.wikidata.org/wiki/Q19600530
+  scheme: topic
+  subject: Black Lives Matter
+- id: https://www.wikidata.org/wiki/Q189150
+  scheme: topic
+  subject: Black Panther Party
+- id: http://vocab.getty.edu/page/aat/300343391
+  scheme: topic
+  subject: Branch Libraries
+- id: 33e9ce1f-4697-574e-bef3-59bdc8c08feb
+  scheme: topic
+  subject: California School of Arts and Crafts
+- id: c6dddd5a-dacf-5c2b-8dfd-96304c8128ff
+  scheme: topic
+  subject: Campus Planning
+- id: e5b9029e-9b0e-552d-adb3-5967c3a4d066
+  scheme: topic
+  subject: Campus Unification
+- id: https://www.wikidata.org/wiki/Q5036103
+  scheme: topic
+  subject: Capp Street Project
+- id: 92f4b91e-e6a2-539c-9db9-b29f308352cc
+  scheme: topic
+  subject: Ceramics Department
+- id: http://vocab.getty.edu/page/aat/300056130
+  scheme: topic
+  subject: Color
+- id: http://vocab.getty.edu/page/aat/300069091
+  scheme: topic
+  subject: Commencements
+- id: http://vocab.getty.edu/page/aat/300027798
+  scheme: topic
+  subject: Copyright Certificates
+- id: 03e509e9-ae27-5060-8abb-48c5350edbda
+  scheme: topic
+  subject: Critical Ethnic Studies
+- id: e3e1f41c-f477-5fee-886e-99bc04589f14
+  scheme: topic
+  subject: Diversity Studies
+- id: 5c9144ab-1795-535a-a6a6-9680de6d407d
+  scheme: topic
+  subject: Ethnic Studies Department
+- id: http://vocab.getty.edu/page/aat/300069084
+  scheme: topic
+  subject: Events
+- id: 6ff06d46-7c92-5a19-85c6-f54071312e5a
+  scheme: topic
+  subject: Executive Committee (EC)
+- id: http://vocab.getty.edu/page/aat/300054766
+  scheme: topic
+  subject: Exhibitions
+- id: a42c9f54-3882-536b-a0d5-5da7f628dd33
+  scheme: topic
+  subject: Faculty Senate
+- id: http://vocab.getty.edu/page/aat/300055786
+  scheme: topic
+  subject: Feminism
+- id: https://www.wikidata.org/wiki/Q51404
+  scheme: topic
+  subject: Pride Parade
+- id: 56f76a13-1929-5a80-ad88-135c101b5f9d
+  scheme: topic
+  subject: Glass Program
+- id: https://www.wikidata.org/wiki/Q5467169
+  scheme: topic
+  subject: Human Resources
+- id: e8fb071e-3d5e-56c5-8e88-87984e9149d3
+  scheme: topic
+  subject: Jewelry / Metal Arts Program
+- id: https://www.wikidata.org/wiki/Q178790
+  scheme: topic
+  subject: Labor Unions
+- id: http://vocab.getty.edu/page/aat/300312241
+  scheme: topic
+  subject: Libraries
+- id: http://vocab.getty.edu/page/aat/300417777
+  scheme: topic
+  subject: Library Catalogs
+- id: http://vocab.getty.edu/page/aat/300015336
+  scheme: topic
+  subject: Metalwork
+- id: 8ac7939d-ffd9-518c-a790-3b1388a6928a
+  scheme: topic
+  subject: Oakland Campus Legacy
+- id: 4c201782-c6fe-5235-8f44-ee063a8e96e0
+  scheme: topic
+  subject: Painting/Drawing Program
+- id: 262ba808-0fd6-5e11-8319-ea4ac30e2556
+  scheme: topic
+  subject: Printmedia Program
+- id: http://vocab.getty.edu/page/aat/300196293
+  scheme: topic
+  subject: Scales (Weighing Devices)
+- id: b4b6eecd-b335-5f43-bf89-294504ed7b24
+  scheme: topic
+  subject: Sculpture Program
+- id: eb7e26fb-0177-5c90-8c5c-95a124793f2d
+  scheme: topic
+  subject: SEIU Local 1021
+- id: http://vocab.getty.edu/page/aat/300451572
+  scheme: topic
+  subject: Shadow Plays
+- id: http://vocab.getty.edu/page/aat/300202607
+  scheme: topic
+  subject: Short Stories
+- id: https://www.wikidata.org/wiki/Q9326077
+  scheme: topic
+  subject: Speculative Fiction
+- id: http://vocab.getty.edu/page/aat/300419414
+  scheme: topic
+  subject: College Students
+- id: 9b2cca17-27e6-51d5-badb-356aa980bd4b
+  scheme: topic
+  subject: Student Work
+- id: http://vocab.getty.edu/page/aat/300069743
+  scheme: topic
+  subject: Teaching
+- id: http://vocab.getty.edu/page/aat/300386333
+  scheme: topic
+  subject: Textile Artists
+- id: 25dabd1d-c52b-59b0-b6e3-07222cb25436
+  scheme: topic
+  subject: Textile Program
+- id: https://www.wikidata.org/wiki/Q136531369
+  scheme: topic
+  subject: Transgender College Students.
+- id: http://vocab.getty.edu/page/aat/300132410
+  scheme: topic
+  subject: Trees
+- id: https://www.wikidata.org/wiki/Q8740
+  scheme: topic
+  subject: Vietnam War
+- id: https://www.wikidata.org/wiki/Q120644836
+  scheme: topic
+  subject: Protest Movements
+- id: https://www.wikidata.org/wiki/Q52
+  scheme: topic
+  subject: Wikipedia
+- id: 5cecdb63-4bf1-5b10-a3b1-ca37891236d3
+  scheme: topic
+  subject: 'School of the California Guild of Arts and Crafts '
+- id: https://www.wikidata.org/wiki/Q104857047
+  scheme: topic
+  subject: Black Lives Matter art
+- id: https://www.wikidata.org/wiki/Q598406
+  scheme: topic
+  subject: Ohlone People
+- id: http://vocab.getty.edu/page/aat/300027806
+  scheme: topic
+  subject: Executive orders
+- id: http://vocab.getty.edu/page/aat/300069835
+  scheme: topic
+  subject: Fund Raising
+- id: http://vocab.getty.edu/page/aat/300161596
+  scheme: topic
+  subject: Interior decoration
+- id: http://vocab.getty.edu/page/aat/300054183
+  scheme: topic
+  subject: Industrial design
+- id: http://vocab.getty.edu/page/aat/300266718
+  scheme: topic
+  subject: Branding
+- id: http://vocab.getty.edu/page/aat/300027425
+  scheme: topic
+  subject: Administrative Records
+- id: https://www.wikidata.org/wiki/Q508719
+  scheme: topic
+  subject: Alumni
+- id: https://www.wikidata.org/wiki/Q209465
+  scheme: topic
+  subject: Campus
+- id: https://www.wikidata.org/wiki/Q740777
+  scheme: topic
+  subject: Merchandise
+- id: 0aa38fd9-69b4-5579-ae61-a0744caa4ec3
+  scheme: topic
+  subject: Alumni Works
+- id: fa72e261-ee15-5c46-af12-4744d275d100
+  scheme: topic
+  subject: Faculty Works
