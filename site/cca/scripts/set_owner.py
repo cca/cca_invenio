@@ -21,6 +21,7 @@ def set_record_owner(record, owner) -> None:
 @click.help_option("-h", "--help")
 @click.argument("record_id", type=click.STRING, required=True)
 @click.argument("email", type=click.STRING, required=False)
+# TODO update id-map.json passed with --map-file flag
 @with_appcontext
 def set_owner(record_id: str, email: str) -> None:
     """Set the owner of a record. Expects a record ID (e.g. b3nb9-3cz11). If no email is provided, the email of the first creator in the metadata is used."""
