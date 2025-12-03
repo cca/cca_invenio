@@ -49,7 +49,7 @@ subjects:
       name: Topics
     # our local time periods vocab
     - id: time
-      data-file: vocabularies/temporal.yaml
+      data-file: vocabularies/subject_time.yaml
       name: Time Periods
       uri: https://www.loc.gov/standards/datetime/
 titletypes:
