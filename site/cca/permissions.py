@@ -17,7 +17,8 @@ class LibraryStaffIfArchives(Generator):
             return [RoleNeed("library")]
         # "record" is actually a community, no better way to identify it?
         # we could write different generator for comm perm policy
-        if "communities" in record.get("$schema"):
+        schema = record.get("$schema")
+        if schema and "communities" in schema:
             return [RoleNeed("library")]
         return []
 

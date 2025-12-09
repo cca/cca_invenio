@@ -3,6 +3,8 @@ import pathlib
 import sys
 from typing import Any
 
+import pytest
+
 # Import the module by path so pytest can run from the repo root
 MODULE_PATH = (
     pathlib.Path(__file__).resolve().parents[1]
@@ -20,6 +22,7 @@ sys.modules[spec.name] = gs
 spec.loader.exec_module(gs)
 
 
+@pytest.mark.unit
 def test_slugify_examples():
     assert gs.slugify("Fine Art") == "fine_art"
     assert gs.slugify("CS&IT") == "cs_it"
@@ -27,6 +30,7 @@ def test_slugify_examples():
     assert gs.slugify("  A  B  ") == "a_b"
 
 
+@pytest.mark.unit
 def test_process_students_and_employees(monkeypatch):
     calls: list[tuple] = []
 
