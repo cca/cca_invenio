@@ -176,6 +176,48 @@ It may be necessary to reindex communities and/or records afterwards.
 
 [Zenodo has a curation check script](https://github.com/zenodo/zenodo-rdm/blob/992ab55b451df9f719b77967258dfaced80449ad/scripts/ec_create_checks.py) we could reference.
 
+```python
+from invenio_access.permissions import system_identity
+from invenio_checks.models import CheckConfig, Severity
+from invenio_communities.proxies import current_communities as communities
+from invenio_db import db
+
+slug = 'artists-books'
+community = communities.service.read(id_=slug, identity=system_identity)
+
+check_config = CheckConfig(
+    community_id=community.id,
+    check_id="metadata", # metadata or file_formats
+    # https://inveniordm.docs.cern.ch/maintenance/architecture/curation/#rule-configuration
+    params={
+        "id": "has_artists_books_subject",
+        "title": "Artists' Book Subject",
+        "message": "Add the artists' books subject to your record and submit again.",
+        "description": "All records in the Artists' Books community must have the \"Artists' books\" subject.",
+        # Some examples have level=error but I think those should use "failure"?
+        "level": "failure",
+        # "condition": {}
+        "checks": [
+            {
+                "type": "list",
+                "operator": "any",
+                "path": "metadata.subjects",
+                "predicate": {
+                  "type": "comparison",
+                  "left": {"type": "field", "path": "id"},
+                  "operator": "==",
+                  "right": "http://vocab.getty.edu/page/aat/300123016",
+                }
+            }
+        ]
+    },
+    severity=Severity.FAIL,
+    enabled=True,
+)
+db.session.add(check_config)
+db.session.commit()
+```
+
 ## [Collections](https://inveniordm.docs.cern.ch/operate/customize/collections/)
 
 Collections are a WIP for Invenio and we should wait before using them. For instance, their UI is not pleasant (yet it displays _above_ Subcommunities) and collections have to be managed entirely with `invenio shell` code (see below).
