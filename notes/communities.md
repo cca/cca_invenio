@@ -176,6 +176,8 @@ It may be necessary to reindex communities and/or records afterwards.
 
 [Zenodo has a curation check script](https://github.com/zenodo/zenodo-rdm/blob/992ab55b451df9f719b77967258dfaced80449ad/scripts/ec_create_checks.py) we could reference.
 
+The check below fails when run manually against records without the subject, but in the UI it always passes (show a green check).
+
 ```python
 from invenio_access.permissions import system_identity
 from invenio_checks.models import CheckConfig, Severity
@@ -187,27 +189,35 @@ community = communities.service.read(id_=slug, identity=system_identity)
 
 check_config = CheckConfig(
     community_id=community.id,
-    check_id="metadata", # metadata or file_formats
-    # https://inveniordm.docs.cern.ch/maintenance/architecture/curation/#rule-configuration
+    check_id="metadata",
     params={
-        "id": "has_artists_books_subject",
-        "title": "Artists' Book Subject",
-        "message": "Add the artists' books subject to your record and submit again.",
-        "description": "All records in the Artists' Books community must have the \"Artists' books\" subject.",
-        # Some examples have level=error but I think those should use "failure"?
-        "level": "failure",
-        # "condition": {}
-        "checks": [
+        "rules": [
             {
-                "type": "list",
-                "operator": "any",
-                "path": "metadata.subjects",
-                "predicate": {
-                  "type": "comparison",
-                  "left": {"type": "field", "path": "id"},
-                  "operator": "==",
-                  "right": "http://vocab.getty.edu/page/aat/300123016",
-                }
+                "id": "metadata:subjects:artists_books",
+                "title": "Artists' Book Subject",
+                "message": 'Ensure your record has the "(form) artists\' books" subject',
+                "description": "All records in the Artists' Books community must have the \"Artists' books\" subject. If it is missing, go to the Record tab > Edit > add the subject > Save Draft.",
+                "level": "failure",  # failure, warning, or info
+                # "condition": {} # Optional, when to run the checks
+                "checks": [  # Array of expressions to evaluate
+                    { # do we need to check the list exists first?
+                        "type": "list",
+                        "path": "metadata.subjects",
+                        "operator": "exists",
+                        "predicate": {},
+                    },
+                    {
+                        "type": "list",
+                        "operator": "any",
+                        "path": "metadata.subjects",
+                        "predicate": {
+                            "type": "comparison",
+                            "left": {"type": "field", "path": "id"},
+                            "operator": "==",
+                            "right": "http://vocab.getty.edu/page/aat/300123016",
+                        }
+                    }
+                ]
             }
         ]
     },
@@ -216,6 +226,64 @@ check_config = CheckConfig(
 )
 db.session.add(check_config)
 db.session.commit()
+```
+
+To modify an existing check: retrieve it using a model query, modify it, and commit the db session.
+
+```python
+from invenio_access.permissions import system_identity
+from invenio_checks.models import CheckConfig
+from invenio_communities.proxies import current_communities as communities
+from invenio_db import db
+from sqlalchemy.orm.attributes import flag_modified
+
+slug = 'artists-books'
+community = communities.service.read(id_=slug, identity=system_identity)
+# use any query filter to find the one we want
+check_config = CheckConfig.query.filter_by(
+    community_id=community.id,
+    check_id="metadata"
+).first()
+
+# Modify the configuration or change other fields
+check_config.params = { "rules": ['...'] }
+check_config.enabled = False
+# Need to tell sql alchemy about changes to JSON fields like params
+flag_modified(check_config, "params")
+db.session.add(check_config)
+db.session.commit()
+
+# To delete a CheckConfig:
+# db.session.delete(check_config)
+# db.session.commit()
+```
+
+To run a check in `invenio shell`:
+
+```python
+from invenio_access.permissions import system_identity
+from invenio_checks.models import CheckConfig
+from invenio_communities.proxies import current_communities as communities
+from invenio_records_resources.proxies import current_service_registry
+
+records_service = current_service_registry.get("records")
+record = records_service.read(system_identity, id_="INSERT_ID")
+
+# Get the check config
+slug = 'artists-books'
+community = communities.service.read(id_=slug, identity=system_identity)
+check_config = CheckConfig.query.filter_by(
+    community_id=community.id,
+    check_id="metadata"
+).first()
+
+# Manually run the check
+check_instance = check_config.check_cls()
+result = check_instance.run(record._record, check_config)
+
+print("Check success:", result.success)
+print("Rule results:", result.rule_results)
+print("Errors:", result.errors)
 ```
 
 ## [Collections](https://inveniordm.docs.cern.ch/operate/customize/collections/)
