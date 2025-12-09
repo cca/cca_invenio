@@ -12,7 +12,7 @@
 # - DB: (PostgresSQL/MySQL) (exposed port: 5432 or 3306)
 # - Message queue: RabbitMQ (exposed ports: 5672, 15672)
 # - Search - Opensearch (exposed ports: 9200, 9300)
-# - Kibana (view ES indexes) (exposed ports: 5601)
+# - Opensearch Dashboard (exposed ports: 5601)
 # - Postgres admin
 #
 version: '2.2'

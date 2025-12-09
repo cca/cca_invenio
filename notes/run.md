@@ -10,9 +10,9 @@ This document is about managing a running Invenio instance. See **Getting Starte
 | API | https://127.0.0.1:5000/api/records | same port as app if running locally |
 | RabbitMQ admin interface | http://localhost:15672 | credentials "guest/guest" |
 | Opensearch | http://localhost:9200/_cat/indices?v | |
+| OS Dashboards | http://localhost:5601 | disabled in docker-compose.yml |
 | Postgres db | localhost:5432 | username, password, & db name are all "invenio", run `./notes/code-samples/dbconnect` |
 | pgAdmin (db) | http://127.0.0.1:5050/login | credentials "ephetteplace@cca.edu/invenio" or look in docker-services.yml |
-| Minio | http://localhost:9001/browser | if used, credentials "CHANGE_ME/CHANGE_ME" |
 
 Postgres is another service but is not exposed, use pgAdmin to interact with it. OpenSearch Dashboard is disabled in docker-services.yml but could be added.
 

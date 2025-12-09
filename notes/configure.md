@@ -142,7 +142,7 @@ APP_DEFAULT_SECURE_HEADERS["content_security_policy"]["default-src"].append(
 
 Finally, Invenio might not initialize the correct files location by default. We can run `invenio files location create gs-invenio-local s3://invenio-local --default` to create a new default location pointing to the storage bucket.
 
-The .invenio file also has `file_storage = S3` but that file might only be used when invenio-cli bootstraps a new instance. When we choose S3 storage during `invenio-cli init`, we get a [Minio](https://github.com/minio/minio) service too, but it is not necessary to use it to use cloud storage.
+The .invenio file also has `file_storage = S3` but that might only be used when invenio-cli bootstraps a new instance.
 
 ## Custom Fields
 
