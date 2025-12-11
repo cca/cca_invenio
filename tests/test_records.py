@@ -2,8 +2,6 @@
 
 import pytest
 
-from tests.utils import get_tombstone_data
-
 
 @pytest.fixture
 def records_service(app):
@@ -14,7 +12,9 @@ def records_service(app):
 
 
 @pytest.mark.integration
-def test_create_minimal_record(app, identity, records_service, minimal_record):
+def test_create_minimal_record(
+    app, identity, records_service, minimal_record, tombstone
+):
     """Test creating a minimal record."""
     # Create draft
     draft = records_service.create(identity, minimal_record)
@@ -29,19 +29,21 @@ def test_create_minimal_record(app, identity, records_service, minimal_record):
     assert record["is_published"] is True
 
     # Clean up
-    records_service.delete_record(identity, record.id, data=get_tombstone_data())
+    records_service.delete_record(identity, record.id, data=tombstone)
 
 
 @pytest.mark.integration
 def test_create_record_with_archives_series(
-    app, identity, records_service, record_with_archives_series
+    app, identity, records_service, record_with_archives_series, tombstone
 ):
     """Test creating a record with archives_series custom field."""
     # Create draft with custom field
     draft = records_service.create(identity, record_with_archives_series)
     assert draft is not None
     assert "cca:archives_series" in draft["custom_fields"]
-    assert draft["custom_fields"]["cca:archives_series"]["series"] == "II. College Life"
+    assert (
+        draft["custom_fields"]["cca:archives_series"]["series"] == "III. College Life"
+    )
     assert draft["custom_fields"]["cca:archives_series"]["subseries"] == "3. Events"
 
     # Publish the record
@@ -50,11 +52,11 @@ def test_create_record_with_archives_series(
     assert "cca:archives_series" in record["custom_fields"]
 
     # Clean up
-    records_service.delete_record(identity, record.id, data=get_tombstone_data())
+    records_service.delete_record(identity, record.id, data=tombstone)
 
 
 @pytest.mark.integration
-def test_update_record(app, identity, records_service, minimal_record):
+def test_update_record(app, identity, records_service, minimal_record, tombstone):
     """Test updating an existing record."""
     # Create and publish
     draft = records_service.create(identity, minimal_record)
@@ -73,13 +75,13 @@ def test_update_record(app, identity, records_service, minimal_record):
     assert updated_record["metadata"]["title"] == "Updated Test Record"
 
     # Clean up
-    records_service.delete_record(
-        identity, updated_record.id, data=get_tombstone_data()
-    )
+    records_service.delete_record(identity, updated_record.id, data=tombstone)
 
 
 @pytest.mark.integration
-def test_record_with_subjects(app, identity, records_service, minimal_record):
+def test_record_with_subjects(
+    app, identity, records_service, minimal_record, tombstone
+):
     """Test creating a record with subjects."""
     minimal_record["metadata"]["subjects"] = [
         {
@@ -105,7 +107,7 @@ def test_record_with_subjects(app, identity, records_service, minimal_record):
     assert len(record["metadata"]["subjects"]) == 2
 
     # Clean up
-    records_service.delete_record(identity, record.id, data=get_tombstone_data())
+    records_service.delete_record(identity, record.id, data=tombstone)
 
 
 @pytest.mark.integration

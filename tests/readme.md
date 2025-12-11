@@ -24,9 +24,6 @@ invenio-cli run
 - **`test_records.py`** - Tests for creating, updating, and managing records
 - **`test_search.py`** - Tests for search functionality including filters and pagination
 - **`test_views.py`** - Tests for custom views and API endpoints
-- **`utils.py`** - Testing utilities and helper functions
-  - `get_tombstone_data()` - Standard tombstone data for test cleanup
-  - `wait_for_index()` - Wait for OpenSearch indexing
 
 ## Running Tests
 
@@ -56,7 +53,7 @@ When adding new functionality to CCA InvenioRDM:
 4. Use descriptive test names that explain what is being tested
 5. Add docstrings to test functions explaining the test purpose
 
-Generally, tests should have a `@pytest.mark` annotation of either `unit` (services not required)or `integration`.
+Generally, tests should have a `@pytest.mark` annotation of either `unit` (services not required) or `integration`.
 
 ## Alternative: Isolated Unit Tests (Future Work)
 

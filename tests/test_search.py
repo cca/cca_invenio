@@ -1,15 +1,24 @@
 """Tests for search functionality."""
 
+import time
+
 import pytest
 from invenio_records_resources.proxies import current_service_registry
-
-from tests.utils import get_tombstone_data, wait_for_index
 
 
 @pytest.fixture
 def records_service(app):
-    """Get records service."""
+    """Get current records service."""
     return current_service_registry.get("records")
+
+
+def wait_for_index(seconds=1) -> None:
+    """Wait for OpenSearch to index records. No return value.
+
+    Args:
+        seconds: Number of seconds to wait (default: 1)
+    """
+    time.sleep(seconds)
 
 
 @pytest.mark.integration
@@ -22,16 +31,14 @@ def test_search_all_records(app, identity, records_service):
 
 @pytest.mark.integration
 @pytest.mark.slow
-def test_search_by_title(app, identity, records_service, minimal_record):
+def test_search_by_title(app, identity, records_service, minimal_record, tombstone):
     """Test searching records by title."""
     # Create a record with unique title
     unique_title = "Unique Test Record for Search 12345"
     minimal_record["metadata"]["title"] = unique_title
-
     draft = records_service.create(identity, minimal_record)
     record = records_service.publish(identity, draft.id)
-
-    # Search may need time for indexing
+    records_service.indexer.index(record._record)
     wait_for_index()
 
     # Search for the record
@@ -43,44 +50,41 @@ def test_search_by_title(app, identity, records_service, minimal_record):
     assert any(h["metadata"]["title"] == unique_title for h in hits)
 
     # Clean up
-    records_service.delete_record(identity, record.id, data=get_tombstone_data())
+    records_service.delete_record(identity, record.id, data=tombstone)
 
 
-# ! this test is failing
 @pytest.mark.integration
 @pytest.mark.slow
-def test_search_with_filters(app, identity, records_service, minimal_record):
+def test_search_with_filters(app, identity, records_service, minimal_record, tombstone):
     """Test searching with resource type filter."""
     # Create a photograph record
     minimal_record["metadata"]["resource_type"] = {"id": "image-photo"}
     draft = records_service.create(identity, minimal_record)
     record = records_service.publish(identity, draft.id)
-
+    records_service.indexer.index(record._record)
     wait_for_index()
 
     # Search with resource type filter
     results = records_service.search(
-        identity, params={"q": "resource_type.id:image-photo"}
+        identity, params={"q": "metadata.resource_type.id:image-photo"}
     )
-    hits = results.to_dict()["hits"]["hits"]
-
     # Should find at least our record
-    assert len(hits) >= 1
+    assert results.total >= 1
 
     # Clean up
-    records_service.delete_record(identity, record.id, data=get_tombstone_data())
+    records_service.delete_record(identity, record.id, data=tombstone)
 
 
 @pytest.mark.integration
 @pytest.mark.slow
 def test_search_archives_series(
-    app, identity, records_service, record_with_archives_series
+    app, identity, records_service, record_with_archives_series, tombstone
 ):
     """Test searching for records with archives series custom field."""
     # Create record with archives series
     draft = records_service.create(identity, record_with_archives_series)
     record = records_service.publish(identity, draft.id)
-
+    records_service.indexer.index(record._record)
     wait_for_index()
 
     # Search for records with archives series
@@ -105,21 +109,20 @@ def test_search_archives_series(
     assert found, "Record with archives series not found in search results"
 
     # Clean up
-    records_service.delete_record(identity, record.id, data=get_tombstone_data())
+    records_service.delete_record(identity, record.id, data=tombstone)
 
 
 @pytest.mark.integration
 @pytest.mark.slow
-def test_search_by_creator(app, identity, records_service, minimal_record):
+def test_search_by_creator(app, identity, records_service, minimal_record, tombstone):
     """Test searching records by creator name."""
     # Use a unique creator name
     minimal_record["metadata"]["creators"][0]["person_or_org"]["family_name"] = (
         "UniqueLastName123"
     )
-
     draft = records_service.create(identity, minimal_record)
     record = records_service.publish(identity, draft.id)
-
+    records_service.indexer.index(record._record)
     wait_for_index()
 
     # Search for records by creator
@@ -130,7 +133,7 @@ def test_search_by_creator(app, identity, records_service, minimal_record):
     assert any("UniqueLastName123" in str(h["metadata"]["creators"]) for h in hits)
 
     # Clean up
-    records_service.delete_record(identity, record.id, data=get_tombstone_data())
+    records_service.delete_record(identity, record.id, data=tombstone)
 
 
 @pytest.mark.integration

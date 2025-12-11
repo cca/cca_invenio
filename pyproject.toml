@@ -55,39 +55,18 @@ where = ["site"]
 [tool.uv.sources]
 cca = {path = "./site", editable = true}
 
+# pytest configuration
 [tool.pytest.ini_options]
-# Pytest configuration for InvenioRDM tests
 testpaths = ["tests"]
-python_files = "test_*.py"
-python_classes = "Test*"
-python_functions = "test_*"
-pythonpath = "."
-
-# Show summary of all test outcomes
 addopts = [
-    "-ra",
-    "--strict-markers",
+    "-ra", # show summary of all test outcomes
+    "--strict-markers", # error on unknown markers
     "--disable-warnings",
+    "-v", # verbose output
 ]
-
 # Markers for organizing tests
 markers = [
     "slow: marks tests as slow (deselect with '-m \"not slow\"')",
     "integration: marks tests that require running InvenioRDM instance",
     "unit: marks tests that don't require external services",
-]
-
-# Ignore these paths during test collection
-norecursedirs = [
-    ".git",
-    ".venv",
-    "__pycache__",
-    "build",
-    "dist",
-    "*.egg-info",
-    "node_modules",
-    "static",
-    "assets",
-    "instance",
-    "docker",
 ]

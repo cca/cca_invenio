@@ -7,9 +7,12 @@ Make sure your development instance is running before executing tests:
 """
 
 import sys
+from datetime import date
 from pathlib import Path
+from typing import Any
 
 import pytest
+from flask_principal import Identity
 
 # Add the site directory to Python path so we can import cca module
 site_path = Path(__file__).parent.parent / "site"
@@ -51,7 +54,7 @@ def client(app):
 
 
 @pytest.fixture(scope="session")
-def identity():
+def identity() -> Identity:
     """Return system identity for tests."""
     from invenio_access.permissions import system_identity
 
@@ -59,30 +62,29 @@ def identity():
 
 
 @pytest.fixture
-def minimal_record():
+def minimal_record() -> dict[str, Any]:
     """Return minimal valid record metadata."""
     return {
         "files": {"enabled": False},  # metadata-only record
         "metadata": {
-            "resource_type": {"id": "image-photo"},
+            "resource_type": {"id": "publication"},
             "creators": [
                 {
                     "person_or_org": {
                         "type": "personal",
-                        "family_name": "Doe",
-                        "given_name": "John",
+                        "family_name": "Kahlo",
+                        "given_name": "Frida",
                     }
                 }
             ],
+            "publication_date": date.today().isoformat(),
             "title": "Test Record",
-            "publication_date": "2024-01-01",
-            "publisher": "Test Publisher",
         },
     }
 
 
 @pytest.fixture
-def record_with_archives_series():
+def record_with_archives_series() -> dict[str, Any]:
     """Return record with archives series custom field."""
     return {
         "files": {"enabled": False},  # metadata-only record
@@ -97,14 +99,30 @@ def record_with_archives_series():
                     }
                 }
             ],
+            "publication_date": date.today().isoformat(),
+            "publisher": "California College of the Arts",
             "title": "Test Archives Record",
-            "publication_date": "1975-01-01",
-            "publisher": "CCA/C",
         },
         "custom_fields": {
             "cca:archives_series": {
-                "series": "II. College Life",
+                "series": "III. College Life",
                 "subseries": "3. Events",
             }
         },
+    }
+
+
+@pytest.fixture
+def tombstone() -> dict[str, bool | str]:
+    """Return standard tombstone data for test record cleanup.
+
+    Args:
+        note: Optional note explaining the deletion reason
+
+    Returns:
+        dict: Tombstone data structure for delete_record calls
+    """
+    return {
+        "note": "Test Cleanup",
+        "is_visible": False,
     }
