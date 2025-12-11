@@ -2,6 +2,8 @@
 version: 2
 updates:
   - package-ecosystem: docker
+    cooldown:
+      default-days: 7
     commit-message:
       prefix: "chore"
     directory: /
@@ -9,15 +11,17 @@ updates:
       interval: weekly
     target-branch: dev
   - package-ecosystem: github-actions
+    cooldown:
+      default-days: 7
     commit-message:
       prefix: "chore"
     directory: /
     schedule:
       interval: weekly
     target-branch: dev
-  # ! uv updates are broken https://github.com/cca/cca_invenio/actions
-  # maybe because of the site folder?
   - package-ecosystem: "uv"
+    cooldown:
+      default-days: 7
     commit-message:
       prefix: "chore"
     directory: "/"
