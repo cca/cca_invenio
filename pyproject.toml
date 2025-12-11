@@ -1,6 +1,6 @@
 [project]
 name = "cca"
-version = "0.3.0"
+version = "0.3.1"
 description = "CCA's InvenioRDM instance."
 authors = [{name = "Eric Phetteplace", email = "ephetteplace@cca.edu"}]
 readme = "readme.md"
@@ -11,7 +11,7 @@ dependencies = [
     "email-validator==2.3",
     "google-cloud-secret-manager==2.25.0",
     "google-cloud-storage==3.6.0",
-    "invenio-app-rdm[opensearch2,s3]==13.0.5",
+    "invenio-app-rdm[opensearch2,s3]==13.0.6",
     "invenio-saml==1.2.1",
     # see notes/build.md on lxml, xmlsec, & uwsgi deps
     "lxml==5.3.0",
