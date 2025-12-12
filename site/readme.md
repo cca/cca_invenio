@@ -129,17 +129,43 @@ See [site/cca/scripts/id_map_utils.py](./cca/scripts/id_map_utils.py) for utilit
 
 ## Set Owner
 
-Change the owner of a record.
+Set the owner of record(s). Supports two modes:
+
+1. **Single mode**: Set owner of one record
+2. **Batch mode**: Process all pending owners from a migration id-map file
 
 ```sh
-Usage: invenio cca set-owner [OPTIONS] RECORD_ID [EMAIL]
+Usage: invenio cca set-owner [OPTIONS] [RECORD_ID] [EMAIL]
 
-  Set the owner of a record. Expects a record ID (e.g. b3nb9-3cz11). If no
-  email is provided, the email of the first creator in the metadata is used.
+  Set the owner of record(s).
+
+  Single record mode (record_id required):
+    Sets owner to the provided email or, if no email given, to the email
+    of the first creator in the metadata.
+
+  Batch mode (--map-file required, no record_id):
+    Processes all records in the id-map that have an owner listed but
+    no corresponding set_owner event.
+
+  Examples:
+    # Set owner from creator metadata
+    invenio cca set-owner abc12-xyz34
+
+    # Set owner to specific email
+    invenio cca set-owner abc12-xyz34 user@example.com
+
+    # Batch mode - process all pending owners
+    invenio cca set-owner --map-file migration/id-map.json
 
 Options:
-  -h, --help  Show this message and exit.
+  --map-file PATH  Path to id-map.json file; processes all pending owners if
+                   no record_id given
+  -h, --help       Show this message and exit.
 ```
+
+### Batch Mode for Owners
+
+Similar to `add-editor`, batch mode processes records that have an `owner` field in the id-map but no `set_owner` event recorded. The command looks up owners by username (trying both the exact value and `{username}@cca.edu`) and records a `set_owner` event in the map file when successful.
 
 ## Add Communities
 

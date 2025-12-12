@@ -76,19 +76,22 @@ def get_entry_by_record_id(
     return (None, None)
 
 
-def record_collaborator_event(
-    map_file: str | Path, record_id: str, email: str, permission: str = "manage"
+def record_event(
+    map_file: str | Path,
+    record_id: str,
+    event_name: str,
+    event_data: dict[str, Any],
 ) -> None:
-    """Record that a collaborator was added to a record.
+    """Record an event for a record in the id-map.
 
-    Adds an event to the events array for the record to track that the
-    collaborator was successfully added as an editor in Invenio.
+    Adds an event to the events array for the record to track operations
+    performed on it in Invenio.
 
     Args:
         map_file: Path to the id-map.json file
         record_id: The new Invenio record ID
-        email: Email address of the collaborator
-        permission: Permission level granted
+        event_name: Name of the event (e.g., "add_collaborator", "set_owner")
+        event_data: Dictionary of event-specific data
 
     Raises:
         FileNotFoundError: If the file doesn't exist
@@ -106,10 +109,10 @@ def record_collaborator_event(
     if "events" not in entry:
         entry["events"] = []
 
-    # Add the collaborator event
+    # Add the event
     event: dict[str, Any] = {
-        "name": "add_collaborator",
-        "data": {"email": email},
+        "name": event_name,
+        "data": event_data,
         "time": datetime.now(timezone.utc).isoformat(),
     }
     entry["events"].append(event)
@@ -177,6 +180,61 @@ def get_pending_collaborators(map_file: str | Path) -> list[dict[str, Any]]:
                 {
                     "record_id": record_id,
                     "collaborators": pending_collabs,
+                    "title": entry.get("title", ""),
+                }
+            )
+
+    return pending
+
+
+def has_owner_event(entry: dict[str, Any]) -> bool:
+    """Check if a record has a set_owner event.
+
+    Args:
+        entry: The map entry dictionary
+
+    Returns:
+        True if a set_owner event exists for this record
+    """
+    events: list[dict[str, Any]] = entry.get("events", [])
+    for event in events:
+        if event.get("name") == "set_owner":
+            return True
+    return False
+
+
+def get_pending_owners(map_file: str | Path) -> list[dict[str, Any]]:
+    """Get all records with owners that haven't been set yet.
+
+    Returns a list of records that have an owner listed but no
+    corresponding set_owner event.
+
+    Args:
+        map_file: Path to the id-map.json file
+
+    Returns:
+        List of dicts with keys: record_id, owner (email or username), title
+
+    Raises:
+        FileNotFoundError: If the file doesn't exist
+        json.JSONDecodeError: If the file is not valid JSON
+    """
+    data: dict[str, Any] = load_id_map(map_file)
+    pending: list[dict[str, Any]] = []
+
+    for entry in data.values():
+        record_id: str | None = entry.get("id")
+        owner: str | None = entry.get("owner")
+
+        if not record_id or not owner:
+            continue
+
+        # Check if owner has been set
+        if not has_owner_event(entry):
+            pending.append(
+                {
+                    "record_id": record_id,
+                    "owner": owner,
                     "title": entry.get("title", ""),
                 }
             )

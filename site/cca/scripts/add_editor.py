@@ -24,7 +24,7 @@ def add_single_editor(record_id: str, email: str, permission: str = "manage") ->
     # Get the user
     user = accounts.datastore.get_user(email)
     if not user:
-        click.echo(f"  ERROR: no user found with email {email}", err=True)
+        click.echo(f"ERROR: no user found with email {email}", err=True)
         return False
 
     # Get the record
@@ -32,7 +32,7 @@ def add_single_editor(record_id: str, email: str, permission: str = "manage") ->
         record_item = records.read(system_identity, id_=record_id)
         assert record_item is not None
     except Exception as e:
-        click.echo(f"  ERROR: could not find record {record_id}: {e}", err=True)
+        click.echo(f"ERROR: could not find record {record_id}: {e}", err=True)
         return False
 
     # Create the grant
@@ -53,7 +53,7 @@ def add_single_editor(record_id: str, email: str, permission: str = "manage") ->
         db.session.commit()
         return True
     except Exception as e:
-        click.echo(f"  ERROR: failed to add editor: {e}", err=True)
+        click.echo(f"ERROR: failed to add editor: {e}", err=True)
         return False
 
 
@@ -96,10 +96,7 @@ def add_editor(
     """
     # Batch mode: process map file
     if map_file and not record_id and not email:
-        from cca.scripts.id_map_utils import (
-            get_pending_collaborators,
-            record_collaborator_event,
-        )
+        from cca.scripts.id_map_utils import get_pending_collaborators
 
         pending = get_pending_collaborators(map_file)
 
@@ -118,7 +115,7 @@ def add_editor(
             title = item["title"]
 
             click.echo(f"Processing: {title} ({rec_id})")
-            click.echo(f"  Collaborators: {', '.join(collabs)}")
+            click.echo(f"Collaborators: {', '.join(collabs)}")
 
             for collab in collabs:
                 # Try to find user by username or email
@@ -130,21 +127,26 @@ def add_editor(
                     user = accounts.datastore.find_user(email=f"{collab}@cca.edu")
 
                 if not user:
-                    click.echo(f"  WARNING: user not found: {collab}", err=True)
+                    click.echo(f"WARNING: user not found: {collab}", err=True)
                     fail_count += 1
                     continue
 
                 # Add the editor
                 if add_single_editor(rec_id, user.email, permission):
-                    click.echo(f"  ✓ Added {user.email} as {permission} editor")
+                    click.echo(f"✓ Added {user.email} as {permission} editor")
                     # Record the event
                     try:
-                        record_collaborator_event(
-                            map_file, rec_id, user.email, permission
+                        from cca.scripts.id_map_utils import record_event
+
+                        record_event(
+                            map_file,
+                            rec_id,
+                            "add_collaborator",
+                            {"email": user.email},
                         )
                         success_count += 1
                     except Exception as e:
-                        click.echo(f"  WARNING: failed to record event: {e}", err=True)
+                        click.echo(f"WARNING: failed to record event: {e}", err=True)
                 else:
                     fail_count += 1
 
@@ -167,10 +169,15 @@ def add_editor(
     if add_single_editor(record_id, email, permission):
         # Update id-map if provided
         if map_file:
-            from cca.scripts.id_map_utils import record_collaborator_event
+            from cca.scripts.id_map_utils import record_event
 
             try:
-                record_collaborator_event(map_file, record_id, email, permission)
+                record_event(
+                    map_file,
+                    record_id,
+                    "add_collaborator",
+                    {"email": email, "permission": permission},
+                )
                 click.echo(f"Recorded event in {map_file}")
             except ValueError:
                 # Record not in map, that's ok

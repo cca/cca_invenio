@@ -367,7 +367,7 @@ def test_id_map_utils_record_collaborator_event():
     """Test recording collaborator events in id-map.json."""
     from cca.scripts.id_map_utils import (
         get_entry_by_record_id,
-        record_collaborator_event,
+        record_event,
     )
 
     with tempfile.NamedTemporaryFile(mode="w", suffix=".json", delete=False) as f:
@@ -383,8 +383,11 @@ def test_id_map_utils_record_collaborator_event():
 
     try:
         # Record a collaborator event
-        record_collaborator_event(
-            temp_file, "record-123", "user1@example.com", "manage"
+        record_event(
+            temp_file,
+            "record-123",
+            "add_collaborator",
+            {"email": "user1@example.com"},
         )
 
         # Verify event was added
@@ -589,6 +592,225 @@ def test_add_editor_batch_mode(
 
             # Verify no more pending collaborators
             pending_after = get_pending_collaborators(map_file)
+            assert len(pending_after) == 0
+
+            # Clean up
+            records_service.delete_record(identity, record1.id, data=tombstone)
+            records_service.delete_record(identity, record2.id, data=tombstone)
+        finally:
+            map_file.unlink(missing_ok=True)
+
+
+@pytest.mark.unit
+def test_id_map_utils_record_owner_event():
+    """Test recording owner events in id-map."""
+    from cca.scripts.id_map_utils import (
+        has_owner_event,
+        load_id_map,
+        record_event,
+    )
+
+    with tempfile.NamedTemporaryFile(mode="w", suffix=".json", delete=False) as f:
+        test_data = {
+            "https://vault.cca.edu/items/test1/1/": {
+                "id": "rec123",
+                "owner": "user1",
+                "events": [{"name": "import"}],
+            }
+        }
+        json.dump(test_data, f)
+        map_file = Path(f.name)
+
+    try:
+        # Record an owner event
+        record_event(map_file, "rec123", "set_owner", {"email": "user1@example.com"})
+
+        # Load and verify
+        data = load_id_map(map_file)
+        entry = data["https://vault.cca.edu/items/test1/1/"]
+
+        assert len(entry["events"]) == 2
+        assert entry["events"][1]["name"] == "set_owner"
+        assert entry["events"][1]["data"]["email"] == "user1@example.com"
+        assert has_owner_event(entry)
+
+    finally:
+        map_file.unlink(missing_ok=True)
+
+
+@pytest.mark.unit
+def test_id_map_utils_pending_owners():
+    """Test get_pending_owners function."""
+    from cca.scripts.id_map_utils import get_pending_owners
+
+    with tempfile.NamedTemporaryFile(mode="w", suffix=".json", delete=False) as f:
+        test_data = {
+            "https://vault.cca.edu/items/test1/1/": {
+                "id": "rec1",
+                "owner": "user1",
+                "title": "Record 1",
+                "events": [{"name": "import"}],
+            },
+            "https://vault.cca.edu/items/test2/1/": {
+                "id": "rec2",
+                "owner": "user2",
+                "title": "Record 2",
+                "events": [
+                    {"name": "import"},
+                    {"name": "set_owner", "data": {"email": "user2@example.com"}},
+                ],
+            },
+            "https://vault.cca.edu/items/test3/1/": {
+                "id": "rec3",
+                "title": "Record 3 - No owner",
+                "events": [{"name": "import"}],
+            },
+        }
+        json.dump(test_data, f)
+        map_file = Path(f.name)
+
+    try:
+        pending = get_pending_owners(map_file)
+
+        # Should only return rec1 (rec2 has event, rec3 has no owner)
+        assert len(pending) == 1
+        assert pending[0]["record_id"] == "rec1"
+        assert pending[0]["owner"] == "user1"
+        assert pending[0]["title"] == "Record 1"
+
+    finally:
+        map_file.unlink(missing_ok=True)
+
+
+@pytest.mark.integration
+def test_set_owner_with_map_file(
+    app, minimal_record, identity, records_service, tombstone
+):
+    """Test set_owner command with map file in single mode."""
+    from cca.scripts.id_map_utils import has_owner_event, load_id_map
+    from cca.scripts.set_owner import set_owner
+    from click.testing import CliRunner
+    from invenio_accounts import current_accounts as accounts
+
+    runner = CliRunner()
+
+    with app.app_context():
+        # Create test user
+        if not accounts.datastore.get_user("ownertest@cca.edu"):
+            accounts.datastore.create_user(
+                email="ownertest@cca.edu",
+                username="ownertest",
+                password="OwnerPass123!",
+                active=True,
+            )
+        accounts.datastore.commit()
+
+        # Create test record
+        draft = records_service.create(identity, minimal_record)
+        record = records_service.publish(identity, draft.id)
+
+        # Create map file
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".json", delete=False) as f:
+            test_data = {
+                "https://vault.cca.edu/items/test1/1/": {
+                    "id": record.id,
+                    "title": "Test Record",
+                    "owner": "ownertest",
+                    "events": [{"name": "import", "data": {"id": record.id}}],
+                }
+            }
+            json.dump(test_data, f)
+            map_file = Path(f.name)
+
+        try:
+            # Set owner with map file
+            result = runner.invoke(
+                set_owner, [record.id, "ownertest@cca.edu", "--map-file", str(map_file)]
+            )
+
+            assert result.exit_code == 0
+            assert "Set owner" in result.output
+
+            # Verify event was recorded
+            data = load_id_map(map_file)
+            entry = data["https://vault.cca.edu/items/test1/1/"]
+            assert has_owner_event(entry)
+
+            # Clean up
+            records_service.delete_record(identity, record.id, data=tombstone)
+        finally:
+            map_file.unlink(missing_ok=True)
+
+
+@pytest.mark.integration
+def test_set_owner_batch_mode(
+    app, minimal_record, identity, records_service, tombstone
+):
+    """Test set_owner command in batch mode with --map-file."""
+    from cca.scripts.id_map_utils import get_pending_owners
+    from cca.scripts.set_owner import set_owner
+    from click.testing import CliRunner
+    from invenio_accounts import current_accounts as accounts
+
+    runner = CliRunner()
+
+    with app.app_context():
+        # Create test users
+        for username in ["ownertest1", "ownertest2"]:
+            email = f"{username}@cca.edu"
+            if not accounts.datastore.get_user(email):
+                accounts.datastore.create_user(
+                    email=email,
+                    username=username,
+                    password="OwnerPass123!",
+                    active=True,
+                )
+        accounts.datastore.commit()
+
+        # Create two test records
+        draft1 = records_service.create(identity, minimal_record)
+        record1 = records_service.publish(identity, draft1.id)
+
+        minimal_record2 = minimal_record.copy()
+        minimal_record2["metadata"]["title"] = "Test Record 2"
+        draft2 = records_service.create(identity, minimal_record2)
+        record2 = records_service.publish(identity, draft2.id)
+
+        # Create map file with pending owners
+        with tempfile.NamedTemporaryFile(mode="w", suffix=".json", delete=False) as f:
+            test_data = {
+                "https://vault.cca.edu/items/test1/1/": {
+                    "id": record1.id,
+                    "title": "Test Record 1",
+                    "owner": "ownertest1",
+                    "events": [{"name": "import", "data": {"id": record1.id}}],
+                },
+                "https://vault.cca.edu/items/test2/1/": {
+                    "id": record2.id,
+                    "title": "Test Record 2",
+                    "owner": "ownertest2",
+                    "events": [{"name": "import", "data": {"id": record2.id}}],
+                },
+            }
+            json.dump(test_data, f)
+            map_file = Path(f.name)
+
+        try:
+            # Verify we have pending owners
+            pending = get_pending_owners(map_file)
+            assert len(pending) == 2
+
+            # Run batch mode
+            result = runner.invoke(set_owner, ["--map-file", str(map_file)])
+
+            assert result.exit_code == 0
+            assert "Found 2 records with pending owners" in result.output
+            assert "ownertest1@cca.edu" in result.output
+            assert "ownertest2@cca.edu" in result.output
+            assert "2 owners set" in result.output
+
+            # Verify no more pending owners
+            pending_after = get_pending_owners(map_file)
             assert len(pending_after) == 0
 
             # Clean up
