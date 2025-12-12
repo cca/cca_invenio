@@ -71,6 +71,62 @@ uv run pytest
 
 The tests mock command execution and validate that the correct `invenio` commands would be produced for sample input.
 
+## Add Editor
+
+Add user(s) as editor(s) to record(s). Supports two modes:
+
+1. **Single mode**: Add one user to one record
+2. **Batch mode**: Process all pending collaborators from a migration id-map file
+
+```sh
+Usage: invenio cca add-editor [OPTIONS] [RECORD_ID] [EMAIL]
+
+  Add user(s) as editor(s) to record(s).
+
+  Single record mode (record_id and email required):
+    Adds one user to one record, optionally recording in id-map.
+
+  Batch mode (--map-file required, no record_id/email):
+    Processes all records in the id-map that have collaborators listed but
+    no corresponding add_collaborator event. Looks up user emails by username.
+
+  Examples:
+    # Single mode
+    invenio cca add-editor abc12-xyz34 user@example.com
+    invenio cca add-editor abc12-xyz34 user@example.com --permission edit
+
+    # Batch mode - process all pending collaborators
+    invenio cca add-editor --map-file migration/id-map.json
+
+Options:
+  --permission [view|preview|edit|manage]
+                                  Permission level to grant (default: manage)
+  --map-file PATH                 Path to id-map.json file; processes all
+                                  pending collaborators if no record_id given
+  -h, --help                      Show this message and exit.
+```
+
+### Batch Mode and ID Maps
+
+During migration from VAULT, the `id-map.json` tracks which records have been imported and which collaborators need to be added. The file structure looks like:
+
+```json
+{
+  "https://vault.cca.edu/items/UUID/VERSION/": {
+    "id": "new-invenio-id",
+    "collaborators": ["username1", "username2"],
+    "events": [
+      {"name": "import", "data": {...}, "time": "..."},
+      {"name": "add_collaborator", "data": {"email": "user@..."}, "time": "..."}
+    ]
+  }
+}
+```
+
+Batch mode processes id map entries with `collaborators` that don't have a corresponding `add_collaborator` event. It attempts to find users by their username, trying both the exact value and `{username}@cca.edu`. When a collaborator is successfully added, an event is recorded in the map file.
+
+See [site/cca/scripts/id_map_utils.py](./cca/scripts/id_map_utils.py) for utility functions to work with the id map programmatically.
+
 ## Set Owner
 
 Change the owner of a record.

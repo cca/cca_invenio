@@ -45,6 +45,9 @@ cca_tasks = "cca.tasks"
 [project.entry-points."invenio_jobs.jobs"]
 test_job = "cca.jobs:TestJob"
 
+[project.entry-points."flask.commands"]
+cca = "cca.cli:cca"
+
 [build-system]
 build-backend = "setuptools.build_meta"
 requires = ["setuptools>=42", "wheel"]
