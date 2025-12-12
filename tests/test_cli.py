@@ -224,7 +224,7 @@ def test_add_editor_command(app, minimal_record, identity, records_service, tomb
 
         # Check command succeeded
         assert result.exit_code == 0
-        assert "Added" in result.output
+        assert "Gave" in result.output
         assert test_email in result.output
         assert "manage" in result.output
 
@@ -394,7 +394,6 @@ def test_id_map_utils_record_collaborator_event():
         assert len(events) == 2  # import + add_collaborator
         collab_event = next(e for e in events if e["name"] == "add_collaborator")
         assert collab_event["data"]["email"] == "user1@example.com"
-        assert collab_event["data"]["permission"] == "manage"
         assert "time" in collab_event
     finally:
         temp_file.unlink(missing_ok=True)

@@ -178,9 +178,9 @@ def add_editor(
             except Exception as e:
                 click.echo(f"WARNING: failed to update {map_file}: {e}", err=True)
 
-        host = env.get("INVENIO_HOST", "")
-        url = f"https://{host}/records/{record_id}" if host else record_id
-        click.echo(f"Added {email} as {permission} editor to {url}")
+        host: str = env.get("INVENIO_HOST", "")
+        url: str = f"https://{host}/records/{record_id}" if host else record_id
+        click.echo(f"Gave {email} permission {permission} on record {url}")
     else:
         exit(1)
 

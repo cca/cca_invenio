@@ -37,7 +37,7 @@ def load_id_map(map_file: str | Path) -> dict[str, Any]:
         FileNotFoundError: If the file doesn't exist
         json.JSONDecodeError: If the file is not valid JSON
     """
-    path = Path(map_file)
+    path: Path = Path(map_file)
     with path.open("r") as f:
         return json.load(f)
 
@@ -52,10 +52,9 @@ def save_id_map(map_file: str | Path, data: dict[str, Any]) -> None:
     Raises:
         OSError: If the file cannot be written
     """
-    path = Path(map_file)
+    path: Path = Path(map_file)
     with path.open("w") as f:
         json.dump(data, f, indent=2)
-        f.write("\n")  # Add trailing newline
 
 
 def get_entry_by_record_id(
@@ -70,7 +69,7 @@ def get_entry_by_record_id(
     Returns:
         The entry_dict or None if not found
     """
-    data = load_id_map(map_file)
+    data: dict[str, Any] = load_id_map(map_file)
     for url, entry in data.items():
         if entry.get("id") == record_id:
             return url, entry
@@ -101,16 +100,16 @@ def record_collaborator_event(
     if entry is None or vault_url is None:
         raise ValueError(f"Record {record_id} not found in id-map")
 
-    data = load_id_map(map_file)
+    data: dict[str, Any] = load_id_map(map_file)
 
     # Ensure events array exists
     if "events" not in entry:
         entry["events"] = []
 
     # Add the collaborator event
-    event = {
+    event: dict[str, Any] = {
         "name": "add_collaborator",
-        "data": {"email": email, "permission": permission},
+        "data": {"email": email},
         "time": datetime.now(timezone.utc).isoformat(),
     }
     entry["events"].append(event)
@@ -130,7 +129,7 @@ def has_collaborator_event(entry: dict[str, Any], collaborator: str) -> bool:
     Returns:
         True if an add_collaborator event exists for this collaborator
     """
-    events = entry.get("events", [])
+    events: list[dict[str, Any]] = entry.get("events", [])
     for event in events:
         if event.get("name") == "add_collaborator":
             event_email = event.get("data", {}).get("email", "")
@@ -156,18 +155,18 @@ def get_pending_collaborators(map_file: str | Path) -> list[dict[str, Any]]:
         FileNotFoundError: If the file doesn't exist
         json.JSONDecodeError: If the file is not valid JSON
     """
-    data = load_id_map(map_file)
-    pending = []
+    data: dict[str, Any] = load_id_map(map_file)
+    pending: list[dict[str, Any]] = []
 
-    for old_url, entry in data.items():
-        record_id = entry.get("id")
-        collaborators = entry.get("collaborators", [])
+    for entry in data.values():
+        record_id: str | None = entry.get("id")
+        collaborators: list[str] = entry.get("collaborators", [])
 
         if not record_id or not collaborators:
             continue
 
         # Find collaborators without events
-        pending_collabs = [
+        pending_collabs: list[str] = [
             collab
             for collab in collaborators
             if not has_collaborator_event(entry, collab)
