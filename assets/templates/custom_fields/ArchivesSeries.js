@@ -61,7 +61,12 @@ const archivesSeries = {
         "5. Issued an ISBN/ISSN",
         "6. Catalogs/ Schedule of classes"
     ],
-    // TODO XI. Undergraduate & Graduate Theses
+    "IX. Graduate and Undergraduate Theses": [
+        "Master of Fine Arts",
+        "MFA in Writing",
+        "MA in Visual and Critical Studies",
+        "Undergraduate Theses"
+    ],
     "X. Buildings and Grounds": [
         "1. Berkeley",
         "2. Oakland",
