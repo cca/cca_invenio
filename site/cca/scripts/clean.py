@@ -21,12 +21,12 @@ def print_verbose(verbose, *args) -> None:
 @click.option("-u", "--users", is_flag=True, help="Delete names.yaml and users.yaml.")
 @click.option("-v", "--verbose", is_flag=True, help="Print info about deleted files.")
 def clean(users: bool, verbose: bool) -> None:
-    """Delete data files including ones with personal information."""
+    """Delete data files including ones with personal information. Does not delete id-map.json files."""
     if users:
         for p in user_data_paths:
             try:
                 os.remove(p)
-                print_verbose(f"Deleted {p}")
+                print_verbose(verbose, f"Deleted {p}")
             except FileNotFoundError:
                 print_verbose(verbose, f"File not found: {p}")
     for dirpath, dirnames, filenames in os.walk("."):

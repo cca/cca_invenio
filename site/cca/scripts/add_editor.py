@@ -1,6 +1,7 @@
 """Add a user as an editor (manager) to a record."""
 
-from os import environ as env
+from os import environ
+from typing import Any
 
 import click
 from flask.cli import with_appcontext
@@ -36,7 +37,7 @@ def add_single_editor(record_id: str, email: str, permission: str = "manage") ->
         return False
 
     # Create the grant
-    grant_data = {
+    grant_data: dict[str, Any] = {
         "grants": [
             {
                 "subject": {"type": "user", "id": str(user.id)},
@@ -72,12 +73,19 @@ def add_single_editor(record_id: str, email: str, permission: str = "manage") ->
     type=click.Path(exists=True, readable=True, writable=True),
     help="Path to id-map.json file; processes all pending collaborators if no record_id given",
 )
+@click.option(
+    "--host",
+    default=lambda: environ.get("HOST") or environ.get("INVENIO_HOST", ""),
+    help="Invenio hostname for display purposes",
+    type=str,
+)
 @with_appcontext
 def add_editor(
     record_id: str | None,
     email: str | None,
     permission: str,
     map_file: str | None,
+    host: str,
 ) -> None:
     """Add user(s) as editor(s) to record(s). This has two modes of operation:
 
@@ -96,53 +104,62 @@ def add_editor(
     """
     # Batch mode: process map file
     if map_file and not record_id and not email:
-        from cca.scripts.id_map_utils import get_pending_collaborators
+        from cca.scripts.id_map_utils import (
+            get_pending_collaborators,
+            is_uuid,
+            record_event,
+        )
 
-        pending = get_pending_collaborators(map_file)
+        pending: list[dict[str, Any]] = get_pending_collaborators(map_file)
 
         if not pending:
             click.echo("No pending collaborators found in id-map")
             return
 
-        click.echo(f"Found {len(pending)} records with pending collaborators\n")
+        click.echo(f"Found {len(pending)} records with pending collaborators")
 
-        success_count = 0
         fail_count = 0
+        success_count = 0
 
         for item in pending:
-            rec_id = item["record_id"]
-            collabs = item["collaborators"]
-            title = item["title"]
+            rec_id: str = item["record_id"]
+            url: str = f"https://{host}/records/{rec_id}" if host else rec_id
+            collabs: list[str] = item["collaborators"]
+            title: str = item["title"]
 
-            click.echo(f"Processing: {title} ({rec_id})")
+            click.echo(f'Processing: {url} "{title}"')
             click.echo(f"Collaborators: {', '.join(collabs)}")
 
             for collab in collabs:
-                # Try to find user by username or email
-                # First try as-is (might be email)
-                user = accounts.datastore.find_user(email=collab)
+                if is_uuid(collab):
+                    click.echo(
+                        f"WARNING: skipping UUID collaborator {collab}",
+                        err=True,
+                    )
+                    fail_count += 1
+                    continue
 
-                # If not found, try appending @cca.edu
+                # Try to find user by username & {username}@cca.edu email
+                user = accounts.datastore.find_user(email=collab)
                 if not user and "@" not in collab:
                     user = accounts.datastore.find_user(email=f"{collab}@cca.edu")
 
                 if not user:
-                    click.echo(f"WARNING: user not found: {collab}", err=True)
+                    click.echo(f"WARNING: user not found {collab}", err=True)
                     fail_count += 1
                     continue
 
                 # Add the editor
                 if add_single_editor(rec_id, user.email, permission):
-                    click.echo(f"✓ Added {user.email} as {permission} editor")
-                    # Record the event
+                    click.echo(
+                        f"✓ Added {user.email} to {url} with {permission} permission"
+                    )
                     try:
-                        from cca.scripts.id_map_utils import record_event
-
                         record_event(
                             map_file,
                             rec_id,
                             "add_collaborator",
-                            {"email": user.email},
+                            {"email": user.email, "permission": permission},
                         )
                         success_count += 1
                     except Exception as e:
@@ -150,10 +167,8 @@ def add_editor(
                 else:
                     fail_count += 1
 
-            click.echo()  # Blank line between records
-
         click.echo(
-            f"Completed: {success_count} collaborators added, {fail_count} failed"
+            f"Completed: {success_count} collaborators added, {fail_count} failed/skipped."
         )
         return
 
@@ -165,29 +180,9 @@ def add_editor(
         )
         exit(1)
 
-    # Add single editor
+    url: str = f"https://{host}/records/{record_id}" if host else record_id
     if add_single_editor(record_id, email, permission):
-        # Update id-map if provided
-        if map_file:
-            from cca.scripts.id_map_utils import record_event
-
-            try:
-                record_event(
-                    map_file,
-                    record_id,
-                    "add_collaborator",
-                    {"email": email, "permission": permission},
-                )
-                click.echo(f"Recorded event in {map_file}")
-            except ValueError:
-                # Record not in map, that's ok
-                pass
-            except Exception as e:
-                click.echo(f"WARNING: failed to update {map_file}: {e}", err=True)
-
-        host: str = env.get("INVENIO_HOST", "")
-        url: str = f"https://{host}/records/{record_id}" if host else record_id
-        click.echo(f"Gave {email} permission {permission} on record {url}")
+        click.echo(f"✓ Added {email} to {url} with {permission} permission")
     else:
         exit(1)
 

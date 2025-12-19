@@ -1,4 +1,5 @@
-from os import environ as env
+from os import environ
+from typing import Any
 
 import click
 from flask.cli import with_appcontext
@@ -57,8 +58,16 @@ def set_single_owner(record_id: str, email: str) -> bool:
     type=click.Path(exists=True, readable=True, writable=True),
     help="Path to id-map.json file; processes all pending owners if no record_id given",
 )
+@click.option(
+    "--host",
+    default=lambda: environ.get("HOST") or environ.get("INVENIO_HOST", ""),
+    help="Invenio hostname for display purposes",
+    type=str,
+)
 @with_appcontext
-def set_owner(record_id: str | None, email: str | None, map_file: str | None) -> None:
+def set_owner(
+    record_id: str | None, email: str | None, map_file: str | None, host: str
+) -> None:
     """Set the owner of record(s).
 
     Two modes of operation:
@@ -83,49 +92,46 @@ def set_owner(record_id: str | None, email: str | None, map_file: str | None) ->
     """
     # Batch mode: process map file
     if map_file and not record_id:
-        from cca.scripts.id_map_utils import get_pending_owners
+        from cca.scripts.id_map_utils import get_pending_owners, is_uuid
 
-        pending = get_pending_owners(map_file)
+        pending: list[dict[str, Any]] = get_pending_owners(map_file)
 
         if not pending:
             click.echo("No pending owners found in id-map")
             return
 
-        click.echo(f"Found {len(pending)} records with pending owners\n")
+        click.echo(f"Found {len(pending)} records with pending owners")
 
-        success_count = 0
         fail_count = 0
+        success_count = 0
 
         for item in pending:
             rec_id = item["record_id"]
             owner = item["owner"]
             title = item["title"]
 
-            click.echo(f"Processing: {title} ({rec_id})")
+            url: str = f"https://{host}/records/{rec_id}" if host else rec_id
+            click.echo(f'Processing: {url} "{title}"')
             click.echo(f"Owner: {owner}")
 
-            # Try to find user by email or username
-            # First try as-is (might be email or UUID)
-            user = accounts.datastore.find_user(email=owner)
+            if is_uuid(owner):
+                click.echo(f"WARNING: skipping UUID owner {owner}", err=True)
+                fail_count += 1
+                continue
 
-            # If not found and looks like username, try appending @cca.edu
-            if (
-                not user
-                and "@" not in owner
-                and not owner.startswith(
-                    ("0", "1", "2", "3", "4", "5", "6", "7", "8", "9")
-                )
-            ):
-                user = accounts.datastore.find_user(email=f"{owner}@cca.edu")
+            # Try to find user by email & if no "@", username
+            user = accounts.datastore.find_user(email=owner)
+            if not user and "@" not in owner:
+                user = accounts.datastore.find_user(username=owner)
 
             if not user:
-                click.echo(f"WARNING: user not found: {owner}", err=True)
+                click.echo(f"WARNING: user not found {owner}", err=True)
                 fail_count += 1
                 continue
 
             # Set the owner
             if set_single_owner(rec_id, user.email):
-                click.echo(f"✓ Set owner to {user.email}")
+                click.echo(f"✓ Set {url} owner to {user.email}")
                 # Record the event
                 try:
                     from cca.scripts.id_map_utils import record_event
@@ -137,9 +143,9 @@ def set_owner(record_id: str | None, email: str | None, map_file: str | None) ->
             else:
                 fail_count += 1
 
-            click.echo()  # Blank line between records
-
-        click.echo(f"Completed: {success_count} owners set, {fail_count} failed")
+        click.echo(
+            f"Completed: {success_count} owners set, {fail_count} failed/skipped."
+        )
         return
 
     # Single record mode
@@ -169,22 +175,8 @@ def set_owner(record_id: str | None, email: str | None, map_file: str | None) ->
 
     # Set single owner
     if set_single_owner(record_id, email):
-        # Update id-map if provided
-        if map_file:
-            from cca.scripts.id_map_utils import record_event
-
-            try:
-                record_event(map_file, record_id, "set_owner", {"email": email})
-                click.echo(f"Recorded event in {map_file}")
-            except ValueError:
-                # Record not in map, that's ok
-                pass
-            except Exception as e:
-                click.echo(f"WARNING: failed to update {map_file}: {e}", err=True)
-
-        host: str = env.get("INVENIO_HOST", "")
         url: str = f"https://{host}/records/{record_id}" if host else record_id
-        click.echo(f"Set owner of record {url} to {email}")
+        click.echo(f"✓ Set {url} owner to {email}")
     else:
         exit(1)
 
