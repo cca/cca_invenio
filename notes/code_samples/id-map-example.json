@@ -1,0 +1,50 @@
+{
+  "https://vault.cca.edu/items/c18b94fd-adbb-4610-811e-0e8b007a23a4/1/": {
+    "collaborators": [
+      "julie"
+    ],
+    "events": [
+      {
+        "name": "import",
+        "data": {
+          "id": "3dz9x-c8e74"
+        },
+        "time": "2025-12-02T12:25:30.101519"
+      },
+      {
+        "name": "add_collaborator",
+        "data": {
+          "email": "julie@cca.edu"
+        },
+        "time": "2025-12-19T18:02:21.590819+00:00"
+      }
+    ],
+    "id": "3dz9x-c8e74",
+    "owner": "511799ce-38fc-4821-8f2e-e65bda3a66d3",
+    "title": "Spring 2025 | WRLIT-308 | Literary Journal",
+    "viewlevel": null
+  },
+  "https://vault.cca.edu/items/1a900433-2664-4f93-b847-16b00f445184/1/": {
+    "collaborators": [],
+    "events": [
+      {
+        "name": "import",
+        "data": {
+          "id": "ftrkm-xba04"
+        },
+        "time": "2025-12-02T12:26:39.162303"
+      },
+      {
+        "name": "set_owner",
+        "data": {
+          "email": "nchan@cca.edu"
+        },
+        "time": "2025-12-19T19:01:50.709314+00:00"
+      }
+    ],
+    "id": "ftrkm-xba04",
+    "owner": "nchan",
+    "title": "Peterbilt truck sculpture ",
+    "viewlevel": "public"
+  }
+}

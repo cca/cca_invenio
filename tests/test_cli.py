@@ -682,6 +682,18 @@ def test_id_map_utils_pending_owners():
         map_file.unlink(missing_ok=True)
 
 
+@pytest.mark.unit
+def test_id_map_utils_is_uuid():
+    """Test is_uuid utility function."""
+    from cca.scripts.id_map_utils import is_uuid
+
+    assert is_uuid("123e4567-e89b-12d3-a456-426614174000") is True
+    assert is_uuid("not-a-uuid") is False
+    assert is_uuid("12345678-1234-1234-1234-1234567890ab") is True
+    assert is_uuid("123456781234123412341234567890ab") is False
+    assert is_uuid("") is False
+
+
 @pytest.mark.integration
 def test_set_owner_with_map_file(
     app, minimal_record, identity, records_service, tombstone

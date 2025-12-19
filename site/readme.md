@@ -76,7 +76,7 @@ The tests mock command execution and validate that the correct `invenio` command
 Add user(s) as editor(s) to record(s). Supports two modes:
 
 1. **Single mode**: Add one user to one record
-2. **Batch mode**: Process all pending collaborators from a migration id-map file
+2. **Batch mode**: Process all pending collaborators from a migration id-map.json file
 
 ```sh
 Usage: invenio cca add-editor [OPTIONS] [RECORD_ID] [EMAIL]
@@ -103,6 +103,7 @@ Options:
                                   Permission level to grant (default: manage)
   --map-file PATH                 Path to id-map.json file; processes all
                                   pending collaborators if no record_id given
+  --host TEXT      Invenio hostname for display purposes
   -h, --help                      Show this message and exit.
 ```
 
@@ -132,20 +133,22 @@ See [site/cca/scripts/id_map_utils.py](./cca/scripts/id_map_utils.py) for utilit
 Set the owner of record(s). Supports two modes:
 
 1. **Single mode**: Set owner of one record
-2. **Batch mode**: Process all pending owners from a migration id-map file
+2. **Batch mode**: Process all pending owners from a migration id-map.json file
 
 ```sh
 Usage: invenio cca set-owner [OPTIONS] [RECORD_ID] [EMAIL]
 
   Set the owner of record(s).
 
-  Single record mode (record_id required):
-    Sets owner to the provided email or, if no email given, to the email
-    of the first creator in the metadata.
+  Two modes of operation:
 
-  Batch mode (--map-file required, no record_id):
-    Processes all records in the id-map that have an owner listed but
-    no corresponding set_owner event.
+  1. Single record mode (record_id required): Sets owner to the provided
+  email or, if no email given, to the email of the first creator in the
+  metadata.
+
+  2. Batch mode (--map-file required, no record_id): Processes all records
+  in the id-map that have an owner listed but no corresponding set_owner
+  event.
 
   Examples:
     # Set owner from creator metadata
@@ -154,13 +157,14 @@ Usage: invenio cca set-owner [OPTIONS] [RECORD_ID] [EMAIL]
     # Set owner to specific email
     invenio cca set-owner abc12-xyz34 user@example.com
 
-    # Batch mode - process all pending owners
+    # Batch process owners from migration map
     invenio cca set-owner --map-file migration/id-map.json
 
 Options:
+  -h, --help       Show this message and exit.
   --map-file PATH  Path to id-map.json file; processes all pending owners if
                    no record_id given
-  -h, --help       Show this message and exit.
+  --host TEXT      Invenio hostname for display purposes
 ```
 
 ### Batch Mode for Owners

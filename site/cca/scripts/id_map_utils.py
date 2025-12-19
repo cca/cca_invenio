@@ -19,6 +19,7 @@ Structure:
 """
 
 import json
+import re
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -240,3 +241,24 @@ def get_pending_owners(map_file: str | Path) -> list[dict[str, Any]]:
             )
 
     return pending
+
+
+def is_uuid(value: str) -> bool:
+    """Check if a string looks like a UUID.
+
+    I looked for a native Python/Invenio way to do this but didn't find one,
+    jsonschema._format.is_uuid throws an error rather than returning False.
+
+    Args:
+        value: The string to check
+    Returns:
+        True if the string looks like a UUID, False otherwise
+    """
+    uuid_regex: re.Pattern[str] = re.compile(
+        r"^[0-9a-fA-F]{8}-"
+        r"[0-9a-fA-F]{4}-"
+        r"[0-9a-fA-F]{4}-"
+        r"[0-9a-fA-F]{4}-"
+        r"[0-9a-fA-F]{12}$"
+    )
+    return bool(uuid_regex.match(value))
