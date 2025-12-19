@@ -4,9 +4,15 @@ Meaning both the docker build but also creating a local virtual environment with
 
 To build a staging image and push it to Artifact Registry [with Github Actions](../.github/workflows/stage.yml), tag any commit like `stg-build-*`.
 
-This document is mostly about errors you might encounter and resolving them.
+This document is mostly about build errors and resolving them.
 
 ## invenio-saml, python-xmlsec, uwsgi, & C libraries
+
+### Debian
+
+When running the app's Linux image we saw a [XML library mismatch error](https://github.com/cca/cca_invenio/issues/39) during `import xmlsec`. However, running `python -c "import xmlsec"` works. The problem only occurs when running the app under the `uwsgi` server. I tried many fixes, noted in the issue, but eventually deduced that `uwsgi` builds with incompatible libraries which somehow filter down to `xmlsec`. The installed versions of the two python packages (whether installed with binary or without) and system libraries do not matter. The `uwsgi` server must be built with the `xml=no` profile override (see [this comment](https://github.com/xmlsec/python-xmlsec/issues/320#issuecomment-2451246797)).
+
+### Version compatibility
 
 The python XML ecosystem is a compatibility mess. We need it to use SSO authentication with `invenio-saml`, which depends on `python-xmlsec` (the source of most problems), which depends on `lxml`, and those both rely on the `libxml2` C library. Python's xmlsec also depends on `libxmlsec1`. lxml 5 [requires](https://lxml.de/installation.html#requirements) libxml2 >= 2.9.2 and xmlsec 1.3 [requires](https://github.com/xmlsec/python-xmlsec?tab=readme-ov-file#requirements) libxml2 >= 2.9.1 & libxmlsec1 >= 1.2.33. If their libxml2 versions do not match, `import xmlsec` throws an exception. They both come with their own internally packaged versions of these libraries, which can be overridden by telling `uv` to skip binary installs like `uv sync --no-binary-package lxml --no-binary-package xmlsec lxml==5.2.1 xmlsec==1.3.14`. Sometimes the binaries are incompatible with system libraries so this helps, though it was not the solution for us.
 
@@ -14,14 +20,14 @@ The python XML ecosystem is a compatibility mess. We need it to use SSO authenti
 
 **Note**: [python-xmlsec==1.3.16](https://github.com/xmlsec/python-xmlsec/releases/tag/1.3.16) claims to work with lxml 6 so that might allow us to unpin and simplify our dependencies. This hasn't been tested.
 
-| Works? | OS     | libxml2   | libxmlsec1   | lxml   | python-xmlsec |
-|--------|--------|-----------|--------------|--------|---------------|
-| ✅     | MacOS  | system 2.9? | brew 1.2.37 | 5.3.0  | 1.3.14        |
-| ✅     | MacOS  | brew 2.13.8 | brew 1.3.7  | 5.4    | 1.3.15        |
-| ✅     | Debian | 2.9.14    | 1.2.37-2     | 5.2.1  | 1.3.14        |
-| ✅     | Debian | 2.9.14    | 1.2.37-2     | 5.3    | 1.3.14        |
-| ❌     | Debian | 2.9.14    | 1.2.37-2     | 5.4    | 1.3.14        |
-| ❓     | Debian | 2.9.14    | 1.2.37-2     | 5.4    | 1.3.15        |
+| Works? | OS     | libxml2     | libxmlsec1   | lxml   | python-xmlsec |
+|--------|--------|-------------|--------------|--------|---------------|
+| ✅     | MacOS  | system 2.9? | brew 1.2.37  | 5.3.0  | 1.3.14        |
+| ✅     | MacOS  | brew 2.13.8 | brew 1.3.7   | 5.4    | 1.3.15        |
+| ✅     | Debian | 2.9.14      | 1.2.37-2     | 5.2.1  | 1.3.14        |
+| ✅     | Debian | 2.9.14      | 1.2.37-2     | 5.3    | 1.3.14        |
+| ❌     | Debian | 2.9.14      | 1.2.37-2     | 5.4    | 1.3.14        |
+| ❓     | Debian | 2.9.14      | 1.2.37-2     | 5.4    | 1.3.15        |
 
 We could probably upgrade to 5.4/1.3.15 but so much time has been spent on this issue already. View underlying libraries like so:
 
@@ -37,10 +43,6 @@ print(
     "libxmlsec version", xmlsec.get_libxmlsec_version(),
 )
 ```
-
-### Debian
-
-When running the app's Linux image we saw a [XML library mismatch error](https://github.com/cca/cca_invenio/issues/39) during `import xmlsec`. However, running `python -c "import xmlsec"` works. The problem only occurs when running the app under the `uwsgi` server. I tried many fixes, noted in the issue, but eventually deduced that `uwsgi` builds with incompatible libraries which somehow filter down to `xmlsec`. The installed versions of the two python packages (whether installed with binary or without) and system libraries do not matter. The `uwsgi` server must be built with the `xml=no` profile override (see [this comment](https://github.com/xmlsec/python-xmlsec/issues/320#issuecomment-2451246797)).
 
 ## macOS
 
@@ -87,7 +89,7 @@ uv run python -c "import xmlsec; print(xmlsec.__version__, xmlsec.get_libxml_ver
 
 If we run Invenio locally with the `invenio-cli run` command, which uses flask's debugging web server, we should not need `uwsgi`. For this reason, `uwsgi` is in a separate dependency group in our [pyproject.toml](../pyproject.toml) and must be synced with `uv sync --group uwsgi`.
 
-Anytime you install or rebuild `uwsgi` on macOS, it tends to fail because uwsgi needs to know the path to the current python environment and not the system one. Errors might say something like `ld: warning: search path '/install/lib' not found`, `ld: library 'python3.12' not found`, `clang: error: linker command failed with exit code 1 (use -v to see invocation)`, etc.
+Anytime we install or rebuild `uwsgi` on macOS, it tends to fail because uwsgi needs to know the path to the current python environment and not the system one. Errors might say something like `ld: warning: search path '/install/lib' not found`, `ld: library 'python3.12' not found`, `clang: error: linker command failed with exit code 1 (use -v to see invocation)`, etc.
 
 See [this comment](https://github.com/astral-sh/uv/issues/6488#issuecomment-2345417341) for instance. The solution is to set a `LIBRARY_PATH` env var that points to the "lib" directory of our local python. With `mise` and fish shell, this looks like `set -x LIBRARY_PATH (mise where python)/lib`.
 
