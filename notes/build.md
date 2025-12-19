@@ -14,6 +14,8 @@ When running the app's Linux image we saw a [XML library mismatch error](https:/
 
 ### Version compatibility
 
+**TODO** - we can delete this section if `v0.3.2` without lxml and xmlsec pins works fine.
+
 The python XML ecosystem is a compatibility mess. We need it to use SSO authentication with `invenio-saml`, which depends on `python-xmlsec` (the source of most problems), which depends on `lxml`, and those both rely on the `libxml2` C library. Python's xmlsec also depends on `libxmlsec1`. lxml 5 [requires](https://lxml.de/installation.html#requirements) libxml2 >= 2.9.2 and xmlsec 1.3 [requires](https://github.com/xmlsec/python-xmlsec?tab=readme-ov-file#requirements) libxml2 >= 2.9.1 & libxmlsec1 >= 1.2.33. If their libxml2 versions do not match, `import xmlsec` throws an exception. They both come with their own internally packaged versions of these libraries, which can be overridden by telling `uv` to skip binary installs like `uv sync --no-binary-package lxml --no-binary-package xmlsec lxml==5.2.1 xmlsec==1.3.14`. Sometimes the binaries are incompatible with system libraries so this helps, though it was not the solution for us.
 
 `invenio-saml` has no upper cap on its dependency constraints, which means it installs lxml 6 out of the box, which doesn't work at all. So we have to pin `lxml` and `xmlsec` in such a way that their underlying libraries match. The included libxml2 is 2.12.6 for `lxml==5.2.1` and `xmlsec==1.3.14`, while `lxml==5.3.0` uses `libxml2` 2.12.9 which works but after all these problems we are being conversative.
