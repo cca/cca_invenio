@@ -9,7 +9,7 @@ requires-python = ">=3.12,<3.13"
 license = "ECL-2.0"
 dependencies = [
     "email-validator==2.3",
-    "google-cloud-secret-manager==2.25.0",
+    "google-cloud-secret-manager==2.26.0",
     "google-cloud-storage==3.7.0",
     "invenio-app-rdm[opensearch2,s3]==13.0.6",
     "invenio-saml==1.2.1",
