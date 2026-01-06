@@ -18,6 +18,7 @@ Structure:
 }
 """
 
+import csv
 import json
 import re
 from datetime import datetime, timezone
@@ -262,3 +263,95 @@ def is_uuid(value: str) -> bool:
         r"[0-9a-fA-F]{12}$"
     )
     return bool(uuid_regex.match(value))
+
+
+def format_event(event: dict[str, Any]) -> str:
+    """Format an event into a human-readable string.
+
+    Args:
+        event: Event dictionary with name, data, and time keys
+
+    Returns:
+        Formatted string like "import (Dec 2 2025, 12:25pm)"
+    """
+    name: str = event.get("name", "unknown")
+    time_str: str = event.get("time", "")
+
+    # Parse ISO format timestamp and format as "Mon DD YYYY, HH:MMam/pm"
+    try:
+        dt: datetime = datetime.fromisoformat(time_str)
+        formatted_time: str = dt.strftime("%b %-d %Y %-I:%M%p")
+    except (ValueError, AttributeError):
+        formatted_time = time_str
+
+    # Include relevant data from the event
+    data: dict[str, Any] = event.get("data", {})
+    data_str: str = ""
+    if "email" in data:
+        data_str = f" - {data['email']}"
+    elif "id" in data and name == "import":
+        # Skip ID for import events as it's redundant
+        pass
+
+    return f"{formatted_time}: {name}{data_str}"
+
+
+def id_map_to_csv(map_file: str | Path, output_file: str | Path) -> None:
+    """Convert an ID map JSON file to CSV format.
+
+    The CSV will have columns:
+    - vault_url: Original VAULT URL
+    - record_id: New Invenio record ID
+    - title: Record title
+    - owner: Owner username or UUID
+    - viewlevel: View level (public, restricted, etc.)
+    - collaborators: Comma-separated list of collaborators
+    - events: Newline-separated list of formatted events
+
+    Args:
+        map_file: Path to the id-map.json file
+        output_file: Path to write the CSV file
+
+    Raises:
+        FileNotFoundError: If the map file doesn't exist
+        json.JSONDecodeError: If the map file is not valid JSON
+        OSError: If the output file cannot be written
+    """
+    data: dict[str, Any] = load_id_map(map_file)
+    output_path: Path = Path(output_file)
+
+    with output_path.open("w", newline="") as f:
+        writer = csv.DictWriter(
+            f,
+            fieldnames=[
+                "vault_url",
+                "record_id",
+                "title",
+                "owner",
+                "viewlevel",
+                "collaborators",
+                "events",
+            ],
+        )
+        writer.writeheader()
+
+        for vault_url, entry in data.items():
+            # Format collaborators as comma-separated
+            collaborators: list[str] = entry.get("collaborators", [])
+            collaborators_str: str = ", ".join(collaborators)
+
+            # Format events as newline-separated
+            events: list[dict[str, Any]] = entry.get("events", [])
+            events_str: str = "\n".join(format_event(event) for event in events)
+
+            writer.writerow(
+                {
+                    "vault_url": vault_url,
+                    "record_id": entry.get("id", ""),
+                    "title": entry.get("title", ""),
+                    "owner": entry.get("owner", ""),
+                    "viewlevel": entry.get("viewlevel", ""),
+                    "collaborators": collaborators_str,
+                    "events": events_str,
+                }
+            )
