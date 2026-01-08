@@ -365,7 +365,7 @@ requires-dist = [
     { name = "email-validator", specifier = "==2.3" },
     { name = "google-cloud-secret-manager", specifier = "==2.26.0" },
     { name = "google-cloud-storage", specifier = "==3.7.0" },
-    { name = "invenio-app-rdm", extras = ["opensearch2", "s3"], specifier = "==13.0.6" },
+    { name = "invenio-app-rdm", extras = ["opensearch2", "s3"], specifier = "==13.0.7" },
     { name = "invenio-saml", specifier = "==1.2.1" },
     { name = "pydantic", specifier = "==2.12.5" },
     { name = "python-dotenv", specifier = "==1.2.1" },
@@ -1646,7 +1646,7 @@ wheels = [
 
 [[package]]
 name = "invenio-app-rdm"
-version = "13.0.6"
+version = "13.0.7"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "cairosvg" },
@@ -1687,9 +1687,9 @@ dependencies = [
     { name = "invenio-theme" },
     { name = "invenio-userprofiles" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/cd/db/b49f2b164b92e23237d980d1a70c6e8c936513e410b1b68aa2cb8f0d3975/invenio_app_rdm-13.0.6.tar.gz", hash = "sha256:1c7e89a35efb0e97fec02f24336ffa20291723f7b282491445c0ef4b9fb586f3", size = 758394, upload-time = "2025-12-08T13:04:23Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/7c/96/b59bfa752d71fc647ebc514c44ce27413398d048719ddd18d584787f0917/invenio_app_rdm-13.0.7.tar.gz", hash = "sha256:e4d435e707cee97057208921f72aaaf6f5d69f5726ce9c2813cae5e74e2979de", size = 758785, upload-time = "2025-12-19T13:53:43.04Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/f3/65/ba46f28c252307bb434affef3731a9d0b9ff03118670cff6ce32d66df2bf/invenio_app_rdm-13.0.6-py2.py3-none-any.whl", hash = "sha256:f0657b6d484694f28be9d0f3b089dc9b2aeab10054d7887d55a5982102d1e5be", size = 1186605, upload-time = "2025-12-08T13:04:20.983Z" },
+    { url = "https://files.pythonhosted.org/packages/66/dd/196df0c66192c885459eb86527b95e594eede3d9533d5fd420999695918e/invenio_app_rdm-13.0.7-py2.py3-none-any.whl", hash = "sha256:cba6544960c564b148fb5557a37e5e51f2450ee6168c620d9f91e84ecad65659", size = 1186629, upload-time = "2025-12-19T13:53:41.099Z" },
 ]
 
 [package.optional-dependencies]
