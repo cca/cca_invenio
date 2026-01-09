@@ -20,7 +20,12 @@ const severityChecks = {
     }
 }
 
-function IsLibrariesCommunity(community){
+/**
+ * Whether the given community is one of the "Libraries" communities
+ * @param {string} community - community slug
+ * @returns {boolean}
+ */
+function IsLibrariesCommunity(community) {
     return [
         'artists-books',
         'art-collection',
