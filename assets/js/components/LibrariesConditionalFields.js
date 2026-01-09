@@ -25,7 +25,7 @@ const severityChecks = {
  * @param {string} community - community slug
  * @returns {boolean}
  */
-function IsLibrariesCommunity(community) {
+function isLibrariesCommunity(community) {
     return [
         'artists-books',
         'art-collection',
@@ -44,18 +44,8 @@ export const RelatedWorksIfLibraries = (props) => {
     // we override the accordion field so we have to re-implement it here
     // props.vocabularies contains the vocabularies from RDMDepositForm
     const vocabularies = props.vocabularies || {}
-    const {setFieldValue} = useFormikContext()
     const community = useSelector(state => state.deposit.editorState.selectedCommunity?.slug)
-    const [active, setActive] = useState(IsLibrariesCommunity(community))
-
-    useEffect(() => {
-        const isActive = IsLibrariesCommunity(community)
-        if (active !== isActive) {
-            setActive(isActive)
-            // clear the field value when it becomes inactive
-            if (!isActive) setFieldValue(fieldPath, [])
-        }
-    }, [community, active, fieldPath, setFieldValue])
+    const active = isLibrariesCommunity(community)
 
     if (!active) return null
 
