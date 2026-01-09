@@ -11,7 +11,7 @@ FLASK_DEBUG = "1"
 PYTHONWARNINGS = "ignore:pkg_resources is deprecated:UserWarning"
 UV_PYTHON = "3.12"
 # Experimental, build JS assets with rspack
-WEBPACKEXT_PROJECT= "invenio_assets.webpack:rspack_project"
+INVENIO_WEBPACKEXT_PROJECT= "invenio_assets.webpack:rspack_project"
 [tools]
 node = "22.18.0"
 # matches pyproject.toml
