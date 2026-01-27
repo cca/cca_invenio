@@ -1,5 +1,8 @@
 # CCA InvenioRDM
 
+> [!WARNING]
+> This project is on hold and will likely never be completed due to the impending closure of CCA.
+
 CCA InvenioRDM instance. This is mostly a cookiecutter Invenio project with some custom settings and vocabularies. See our "notes" folder for further documentation.
 
 ## Setup
